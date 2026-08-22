@@ -1,0 +1,118 @@
+@import 'tailwindcss';
+
+@layer base {
+  :root {
+    /* PRIMARY COLOR PALETTE — MIDNIGHT NAVY & DEEP AZURE ENGINE */
+    --brand-primary: #0B4778;       /* Deep Azure Blue */
+    --brand-secondary: #041E34;     /* Dark Midnight Blue (Navbar Surface) */
+    --brand-accent: #4A9AD4;        /* Bright Sky Blue */
+    --brand-sky: #63B5E8;           /* Soft Sky Accent */
+    --brand-light: #8FC7E8;         /* Light Sky Tint */
+
+    /* NEUTRAL & BACKGROUND TOKENS */
+    --bg-main: #F7FAFC;             /* Clean Canvas Background */
+    --bg-secondary: #FFFFFF;        /* Pure White Card Surface */
+    --bg-accent-light: #F4FAFE;     /* Soft Blue Tint Card Surface */
+    --border-light: #E6EEF3;        /* Subtle Blue-Gray Divider */
+    --border-brand: #4A9AD4;        /* Active Border Highlight */
+
+    /* TYPOGRAPHY COLOR TOKENS */
+    --text-primary: #102A3D;        /* High-Contrast Deep Navy Body Text */
+    --text-muted: #466071;          /* Medium Slate Secondary Text */
+    --text-light: #718797;          /* Subdued Meta Text */
+
+    /* SUCCESS & ACCENT STATUS TOKENS */
+    --status-success: #249A68;      /* Verified Green Badge */
+    --status-warning: #D99A22;      /* Alert Gold */
+    --status-error: #D95353;        /* Error Red */
+
+    /* ELEVATION & SHADOWS */
+    --shadow-sm: 0 1px 3px rgba(16, 42, 61, 0.05), 0 1px 2px rgba(16, 42, 61, 0.1);
+    --shadow-md: 0 4px 12px rgba(16, 42, 61, 0.08), 0 2px 4px rgba(16, 42, 61, 0.04);
+    --shadow-lg: 0 12px 28px rgba(16, 42, 61, 0.12), 0 4px 8px rgba(16, 42, 61, 0.06);
+  }
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', 'Inter', sans-serif;
+}
+
+/* CUSTOM GRADIENT & NAV UTILITIES */
+.bg-dark-blue-nav {
+  background-color: #041E34;
+  background-image: linear-gradient(135deg, #031729 0%, #062F52 50%, #0B4778 100%);
+}
+
+.bg-gradient-header {
+  background: linear-gradient(135deg, #031729 0%, #062F52 55%, #0B4778 100%);
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, #0B4778 0%, #287FBA 55%, #4A9AD4 100%);
+}
+
+.bg-gradient-hero {
+  background: linear-gradient(135deg, #041E34 0%, #062F52 55%, #0B4778 100%);
+}
+
+.bg-gradient-light {
+  background: linear-gradient(135deg, #F4FAFE 0%, #EAF5FC 100%);
+}
+
+.text-gradient-brand {
+  background: linear-gradient(135deg, #0B4778 0%, #287FBA 50%, #4A9AD4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-sky {
+  background: linear-gradient(135deg, #4A9AD4 0%, #63B5E8 50%, #8FC7E8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Glassmorphism & Surface Cards */
+.bizz-card {
+  background-color: #FFFFFF;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bizz-card:hover {
+  border-color: var(--border-brand);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.glass-header {
+  background: rgba(4, 30, 52, 0.96);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* CONTINUOUS SLOW-MOVING MARQUEE ANIMATION WITH HARDWARE ACCELERATION */
+@keyframes marquee-slow {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee-slow {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-slow 320s linear infinite;
+  backface-visibility: hidden;
+}
