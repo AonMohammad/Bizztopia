@@ -132,7 +132,7 @@ export default function Index({
 
     return (
         <AppLayout>
-            <Head title="Ideas — Kingsley Partners KPNews Intelligence & Editorial Newspaper" />
+            <Head title="Ideas & Market Intelligence — Bizztopia Business News" />
 
             <div className="bg-white text-slate-900 font-sans min-h-screen">
                 

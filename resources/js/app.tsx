@@ -7,7 +7,11 @@ import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 const appName = import.meta.env.VITE_APP_NAME || 'Bizztopia';
 
 createInertiaApp({
-    title: (title) => `${title} - ${appName}`,
+        title: (title) => {
+        if (!title) return 'Bizztopia — Verified Business Directory & Marketplace';
+        if (title.includes('Bizztopia')) return title;
+        return `${title} | Bizztopia`;
+    },
     resolve: (name) => resolvePageComponent(`./pages/${name}.tsx`, import.meta.glob('./pages/**/*.tsx')),
     setup({ el, App, props }) {
         const root = createRoot(el);

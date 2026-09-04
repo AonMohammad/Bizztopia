@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title inertia>{{ config('app.name', 'Bizztopia') }} — Verified Business Directory & Marketplace</title>
+    <title inertia>Bizztopia — Verified Business Directory & Marketplace</title>
     <meta name="description" content="Bizztopia connects business owners with 300,000+ vetted vendors, verified service contractors, and B2B growth partners across North America.">
     <meta name="keywords" content="b2b marketplace, business directory, verified vendors, service contractors, b2b growth, small business tools, commercial services, Bizztopia">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
