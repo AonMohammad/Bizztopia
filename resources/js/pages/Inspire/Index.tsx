@@ -61,7 +61,7 @@ export default function Index({ galleries, collections, filters }: InspireIndexP
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-4">
                     <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#4A9AD4]/20 border border-[#8FC7E8]/40 text-[#63B5E8] text-xs font-semibold uppercase tracking-wider">
                         <Compass className="w-3.5 h-3.5 text-[#63B5E8]" />
-                        <span>Module 05 — Inspire • Visual Discovery Layer</span>
+                        <span>Inspire • Visual Discovery Layer</span>
                     </div>
 
                     <h1 className="text-4xl sm:text-5xl font-extrabold font-outfit text-white tracking-tight">

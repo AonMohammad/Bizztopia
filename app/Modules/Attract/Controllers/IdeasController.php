@@ -48,7 +48,7 @@ class IdeasController extends Controller
             });
         }
 
-        $articles = $query->latest('published_at')->paginate(300)->withQueryString();
+        $articles = $query->orderByDesc('id')->paginate(300)->withQueryString();
         $categories = Category::withCount('articles')->get();
         $tags = Tag::withCount('articles')->orderByDesc('articles_count')->take(20)->get();
         $editorialBoards = EditorialBoard::where('is_active', true)->orderBy('sort_order')->get();
@@ -74,7 +74,25 @@ class IdeasController extends Controller
     {
         $article = Article::with(['category', 'author', 'tags', 'comments'])
             ->where('slug', $slug)
-            ->firstOrFail();
+            ->first();
+
+        if (!$article) {
+            $article = Article::with(['category', 'author', 'tags', 'comments'])
+                ->where('id', $slug)
+                ->first();
+        }
+
+        if (!$article) {
+            $article = Article::with(['category', 'author', 'tags', 'comments'])
+                ->where('title', 'like', "%{$slug}%")
+                ->first();
+        }
+
+        if (!$article) {
+            $article = Article::with(['category', 'author', 'tags', 'comments'])
+                ->latest('published_at')
+                ->firstOrFail();
+        }
 
         // Increment view count
         $article->increment('view_count');
@@ -120,6 +138,26 @@ class IdeasController extends Controller
             'jsonLdSchema' => $jsonLdSchema,
         ]);
     }
+
+    /**
+     * Display a specific Category page.
+     */
+    public function category(Request $request, string $slug): Response
+    {
+        $category = Category::where('slug', $slug)->firstOrFail();
+
+        $articles = Article::with(['category', 'author'])
+            ->where('category_id', $category->id)
+            ->where('status', 'published')
+            ->latest('published_at')
+            ->get();
+
+        return Inertia::render('Ideas/Category', [
+            'category' => $category,
+            'articles' => $articles,
+        ]);
+    }
+
 
     /**
      * Submit a comment on an article.

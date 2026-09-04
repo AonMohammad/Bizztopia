@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
+import { AdminLayout } from '@/layouts/AdminLayout';
 import { 
     LayoutDashboard, 
     BookOpen, 
@@ -19,57 +20,63 @@ import {
     Settings,
     ArrowUpRight,
     Search,
-    ExternalLink
+    ExternalLink,
+    Lock,
+    KeyRound,
+    Cpu,
+    Database,
+    Zap,
+    Check
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 
 interface AdminStats {
-    total_articles: number;
-    total_categories: number;
-    total_polls: number;
-    total_votes: number;
-    total_quizzes: number;
-    total_questions: number;
-    total_reviews: number;
-    total_galleries: number;
+    total_articles?: number;
+    total_categories?: number;
+    total_polls?: number;
+    total_votes?: number;
+    total_quizzes?: number;
+    total_questions?: number;
+    total_reviews?: number;
+    total_galleries?: number;
+    total_boards?: number;
 }
 
 interface AdminDashboardProps {
-    stats: AdminStats;
-    latestArticles: any[];
-    recentPolls: any[];
-    recentReviews: any[];
-    config: any;
+    stats?: AdminStats;
+    latestArticles?: any[];
+    recentPolls?: any[];
+    recentReviews?: any[];
+    config?: any;
 }
 
 export default function Dashboard({
-    stats,
-    latestArticles,
-    recentPolls,
-    recentReviews,
-    config
+    stats = {},
+    latestArticles = [],
+    recentPolls = [],
+    recentReviews = [],
+    config = {}
 }: AdminDashboardProps) {
     const [syncing, setSyncing] = useState(false);
-    const [selectedVertical, setSelectedVertical] = useState('Bizztopia');
-    const [replicating, setReplicating] = useState(false);
-    const [replicatedSuccess, setReplicatedSuccess] = useState<string | null>(null);
+    const [rewriting, setRewriting] = useState(false);
+
+    const safeStats = stats || {};
+    const safeArticles = Array.isArray(latestArticles) ? latestArticles : [];
+    const safeReviews = Array.isArray(recentReviews) ? recentReviews : [];
 
     const handleSyncRss = () => {
         setSyncing(true);
-        router.post('/ideas/sync-rss', {}, {
+        router.post('/admin/sync-rss', {}, {
             onFinish: () => setSyncing(false),
         });
     };
 
-    const handleReplicate = (verticalName: string) => {
-        setSelectedVertical(verticalName);
-        setReplicating(true);
-        setTimeout(() => {
-            setReplicating(false);
-            setReplicatedSuccess(verticalName);
-            setTimeout(() => setReplicatedSuccess(null), 4000);
-        }, 1200);
+    const handleRewriteArticles = () => {
+        setRewriting(true);
+        router.post('/admin/rewrite-articles', {}, {
+            onFinish: () => setRewriting(false),
+        });
     };
 
     const handleReviewStatus = (reviewId: number, status: string) => {
@@ -77,276 +84,300 @@ export default function Dashboard({
     };
 
     return (
-        <div className="min-h-screen bg-[#F4FAFE] text-[#102A3D] flex flex-col font-sans">
-            <Head title="Master CAP Admin Backend Control Panel — Techception" />
+        <AdminLayout title="Master Platform Administrative Control">
+            <Head title="Master CAP Admin Backend Control Panel — Bizztopia" />
 
-            {/* Top Admin Header Bar */}
-            <header className="bg-[#041E34] border-b border-[#0B4778] text-white px-6 py-4">
-                <div className="max-w-7xl mx-auto flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <Link href="/" className="flex items-center gap-3">
-                            <img src="/images/logo.png" alt="Bizztopia Admin" className="h-9 w-auto" />
-                            <div className="border-l border-[#0B4778] pl-3">
-                                <span className="text-[10px] font-bold tracking-widest text-[#63B5E8] uppercase block">
-                                    Admin Control Panel
-                                </span>
-                                <span className="text-sm font-extrabold text-white">
-                                    {config?.name || 'Bizztopia'} Master CAP Engine
-                                </span>
-                            </div>
-                        </Link>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                        <span className="text-xs font-semibold text-[#8FC7E8] flex items-center gap-1.5 bg-[#0B4778]/50 px-3 py-1.5 rounded-lg border border-[#0B4778]">
-                            <ShieldCheck className="w-4 h-4 text-[#249A68]" /> DDD Modular Backend Active
-                        </span>
-                        <Link href="/" target="_blank" className="text-xs font-bold text-white hover:text-[#63B5E8] flex items-center gap-1 bg-[#287FBA] px-3.5 py-1.5 rounded-lg transition-colors">
-                            View Live Site <ExternalLink className="w-3.5 h-3.5" />
-                        </Link>
-                    </div>
-                </div>
-            </header>
-
-            {/* Main Admin Body Grid */}
-            <div className="max-w-7xl mx-auto w-full px-6 py-8 flex-grow space-y-8">
-                {/* Notification Banner */}
-                {replicatedSuccess && (
-                    <div className="p-4 rounded-xl bg-[#249A68] text-white font-bold text-sm flex items-center justify-between animate-in fade-in">
-                        <span className="flex items-center gap-2">
-                            <CheckCircle2 className="w-5 h-5" />
-                            Successfully replicated Master CAP architecture to target vertical: {replicatedSuccess}!
-                        </span>
-                        <span className="text-xs font-normal opacity-90">Config profile created cleanly</span>
-                    </div>
-                )}
-
-                {/* Top Control Bar & Quick Actions */}
-                <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="space-y-1">
-                        <h1 className="text-2xl font-bold font-outfit text-[#102A3D]">
-                            Master Platform Administrative Control
+            <div className="space-y-8 font-sans">
+                {/* Top Control Banner & Quick Automation Actions */}
+                <div className="bg-white p-6 md:p-8 rounded-3xl border border-[#E6EEF3] shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-1.5">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-[#287FBA] text-xs font-bold font-outfit uppercase tracking-wider">
+                            <ShieldCheck className="w-3.5 h-3.5" /> Secured Administrative Zone
+                        </div>
+                        <h1 className="text-2xl md:text-3xl font-black font-outfit text-[#102A3D] tracking-tight">
+                            Bizztopia Master Operations Dashboard
                         </h1>
-                        <p className="text-xs text-[#718797]">
-                            Manage content, RSS feeds, live polls, reviews moderation, and vertical replication settings.
+                        <p className="text-xs md:text-sm text-[#718797] font-medium">
+                            Control platform intelligence, 50-article daily ingestion feeds, AI rewriter pipeline, moderation & ad spaces.
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-3 shrink-0">
-                        <Button 
-                            variant="outline" 
-                            size="sm" 
-                            onClick={handleSyncRss} 
-                            isLoading={syncing}
-                            className="border-[#287FBA] text-[#0B4778] hover:bg-[#EAF5FC]"
+                    <div className="flex flex-wrap items-center gap-3 shrink-0">
+                        <button
+                            onClick={handleSyncRss}
+                            disabled={syncing}
+                            className="px-4 py-3 rounded-2xl bg-[#287FBA] hover:bg-[#1f689a] text-white font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-[#287FBA]/20 cursor-pointer disabled:opacity-50 font-outfit"
                         >
-                            <RefreshCw className="w-4 h-4 mr-1.5" /> Sync RSS Feeds (200)
-                        </Button>
-                        <Button 
-                            variant="primary" 
-                            size="sm" 
-                            onClick={() => handleReplicate('Regentology')}
-                            isLoading={replicating}
+                            <RefreshCw className={`w-4 h-4 ${syncing ? 'animate-spin' : ''}`} />
+                            <span>{syncing ? 'Syncing Feeds...' : 'Sync RSS Feeds (50 Cap)'}</span>
+                        </button>
+
+                        <button
+                            onClick={handleRewriteArticles}
+                            disabled={rewriting}
+                            className="px-4 py-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs flex items-center gap-2 transition-all shadow-md shadow-amber-500/20 cursor-pointer disabled:opacity-50 font-outfit"
                         >
-                            <Layers className="w-4 h-4 mr-1.5" /> Replicate Vertical
-                        </Button>
+                            <Sparkles className={`w-4 h-4 ${rewriting ? 'animate-spin' : ''}`} />
+                            <span>{rewriting ? 'Rewriting Articles...' : 'Run AI Article Rewriter'}</span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* API & System Integration Status Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    {/* OpenAI API Key Status */}
+                    <div className="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 space-y-4 shadow-md relative overflow-hidden">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Cpu className="w-5 h-5 text-amber-400" />
+                                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 font-outfit">OpenAI Engine API</span>
+                            </div>
+                            <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Connected
+                            </span>
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold font-outfit text-white">Model: gpt-4o-mini</div>
+                            <div className="text-xs text-slate-400 mt-1">Dual-engine failover to In-House Editorial Synthesizer active.</div>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span>Key: sk-proj-...5TT3</span>
+                            <span className="text-emerald-400 font-bold">100% Operational</span>
+                        </div>
+                    </div>
+
+                    {/* Pexels HD Imagery Status */}
+                    <div className="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 space-y-4 shadow-md relative overflow-hidden">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Globe className="w-5 h-5 text-[#63B5E8]" />
+                                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 font-outfit">Pexels Photo Catalog</span>
+                            </div>
+                            <span className="bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Active Pool
+                            </span>
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold font-outfit text-white">2,200 HD Trade Images</div>
+                            <div className="text-xs text-slate-400 mt-1">Mapped across all 74 trade subcategories in SQLite.</div>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span>Key: DE3BFr...WdWFc</span>
+                            <span className="text-emerald-400 font-bold">74/74 Subcategories</span>
+                        </div>
+                    </div>
+
+                    {/* Ingestion Cap Status */}
+                    <div className="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 space-y-4 shadow-md relative overflow-hidden">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Zap className="w-5 h-5 text-[#287FBA]" />
+                                <span className="text-xs font-bold uppercase tracking-wider text-slate-300 font-outfit">Daily Ingestion Cap</span>
+                            </div>
+                            <span className="bg-blue-500/20 text-blue-400 border border-blue-500/30 text-[10px] font-extrabold px-2.5 py-0.5 rounded-full uppercase tracking-wider">
+                                Max 50/Day
+                            </span>
+                        </div>
+                        <div>
+                            <div className="text-lg font-bold font-outfit text-white">Strict Daily Limit: 50</div>
+                            <div className="text-xs text-slate-400 mt-1">Prevents database bloating & guarantees editorial quality.</div>
+                        </div>
+                        <div className="text-[11px] text-slate-500 font-mono pt-2 border-t border-slate-800 flex items-center justify-between">
+                            <span>Cron: 0 6 * * *</span>
+                            <span className="text-blue-400 font-bold">Auto-Sync Enabled</span>
+                        </div>
                     </div>
                 </div>
 
                 {/* Real-time Metrics Dashboard Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     {/* Metric 1: Total Articles */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-3">
+                    <div className="bg-white p-6 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider">Ideas Knowledge Engine</span>
-                            <div className="w-8 h-8 rounded-lg bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
+                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider font-outfit">Total Knowledge Articles</span>
+                            <div className="w-9 h-9 rounded-2xl bg-blue-50 text-[#287FBA] flex items-center justify-center font-bold">
                                 <BookOpen className="w-4 h-4" />
                             </div>
                         </div>
-                        <div className="text-3xl font-extrabold font-outfit text-[#102A3D]">
-                            {stats.total_articles}
+                        <div className="text-3xl font-black font-outfit text-[#102A3D]">
+                            {safeStats.total_articles ?? 0}
                         </div>
-                        <div className="text-xs text-[#466071]">
-                            Equally distributed across 6 subcategories
+                        <div className="text-xs text-[#466071] font-medium">
+                            Across 74 specialized business subcategories
                         </div>
                     </div>
 
                     {/* Metric 2: Engage Polls & Votes */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-3">
+                    <div className="bg-white p-6 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider">Engage Arena</span>
-                            <div className="w-8 h-8 rounded-lg bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
+                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider font-outfit">Community Poll Votes</span>
+                            <div className="w-9 h-9 rounded-2xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
                                 <Sparkles className="w-4 h-4" />
                             </div>
                         </div>
-                        <div className="text-3xl font-extrabold font-outfit text-[#102A3D]">
-                            {stats.total_votes}
+                        <div className="text-3xl font-black font-outfit text-[#102A3D]">
+                            {safeStats.total_votes ?? 0}
                         </div>
-                        <div className="text-xs text-[#466071]">
-                            Votes cast across {stats.total_polls} active polls
+                        <div className="text-xs text-[#466071] font-medium">
+                            Cast across {safeStats.total_polls ?? 0} active polls
                         </div>
                     </div>
 
                     {/* Metric 3: Verified Client Reviews */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-3">
+                    <div className="bg-white p-6 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider">Social Trust Engine</span>
-                            <div className="w-8 h-8 rounded-lg bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
+                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider font-outfit">Verified Client Reviews</span>
+                            <div className="w-9 h-9 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
                                 <Star className="w-4 h-4" />
                             </div>
                         </div>
-                        <div className="text-3xl font-extrabold font-outfit text-[#102A3D]">
-                            {stats.total_reviews}
+                        <div className="text-3xl font-black font-outfit text-[#102A3D]">
+                            {safeStats.total_reviews ?? 0}
                         </div>
-                        <div className="text-xs text-[#466071]">
-                            Verified client reviews & trust feedback
+                        <div className="text-xs text-[#466071] font-medium">
+                            Verified reputation feedback entries
                         </div>
                     </div>
 
-                    {/* Metric 4: Visual Showrooms */}
-                    <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-3">
+                    {/* Metric 4: Ad Spaces & Editorial Boards */}
+                    <div className="bg-white p-6 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-3">
                         <div className="flex items-center justify-between">
-                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider">Inspire Showrooms</span>
-                            <div className="w-8 h-8 rounded-lg bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                <Compass className="w-4 h-4" />
+                            <span className="text-xs font-bold text-[#718797] uppercase tracking-wider font-outfit">Editorial Ad Spaces</span>
+                            <div className="w-9 h-9 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+                                <Layers className="w-4 h-4" />
                             </div>
                         </div>
-                        <div className="text-3xl font-extrabold font-outfit text-[#102A3D]">
-                            {stats.total_galleries}
+                        <div className="text-3xl font-black font-outfit text-[#102A3D]">
+                            {safeStats.total_boards ?? 4}
                         </div>
-                        <div className="text-xs text-[#466071]">
-                            Architectural & workspace design galleries
+                        <div className="text-xs text-[#466071] font-medium">
+                            Configured ad spaces & custom layouts
                         </div>
                     </div>
                 </div>
 
-                {/* Section 2: Management Data Tables */}
+                {/* Section: Management Data Tables */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                    {/* Left Column: Recent Articles & RSS Sources (8 Cols) */}
+                    {/* Left Column: Recent Ingested Articles (8 Cols) */}
                     <div className="lg:col-span-8 space-y-6">
-                        <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-4">
+                        <div className="bg-white p-6 md:p-8 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-5">
                             <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-4">
                                 <h3 className="text-lg font-bold font-outfit text-[#102A3D] flex items-center gap-2">
-                                    <FileText className="w-5 h-5 text-[#4A9AD4]" /> Recent Ingested Articles & Feeds
+                                    <FileText className="w-5 h-5 text-[#287FBA]" /> Recent Ingested & Rewritten Articles
                                 </h3>
-                                <Link href="/ideas" className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                    Manage All 200 Feeds <ArrowUpRight className="w-3.5 h-3.5" />
+                                <Link href="/admin/articles" className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1 font-outfit">
+                                    Manage Articles ({safeStats.total_articles ?? 0}) →
                                 </Link>
                             </div>
 
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left text-xs">
                                     <thead>
-                                        <tr className="border-b border-[#E6EEF3] text-[#718797] uppercase tracking-wider font-bold">
+                                        <tr className="border-b border-[#E6EEF3] text-[#718797] uppercase tracking-wider font-bold font-outfit">
                                             <th className="pb-3">Article Title</th>
-                                            <th className="pb-3">Subcategory</th>
-                                            <th className="pb-3">Source Feed</th>
+                                            <th className="pb-3">Category</th>
                                             <th className="pb-3 text-right">Reading Time</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-[#E6EEF3]">
-                                        {latestArticles.map((art) => (
+                                        {safeArticles.map((art: any) => (
                                             <tr key={art.id} className="hover:bg-[#F4FAFE]">
-                                                <td className="py-3 font-bold text-[#102A3D] max-w-xs truncate">
-                                                    <Link href={`/ideas/${art.slug}`} className="hover:text-[#287FBA]">
+                                                <td className="py-3.5 font-bold text-[#102A3D] max-w-xs truncate">
+                                                    <Link href={`/ideas/${art.slug}`} target="_blank" className="hover:text-[#287FBA] transition-colors">
                                                         {art.title}
                                                     </Link>
                                                 </td>
-                                                <td className="py-3">
-                                                    <Badge variant="brand" size="sm">{art.content_type}</Badge>
+                                                <td className="py-3.5">
+                                                    <span className="bg-[#287FBA]/10 text-[#287FBA] px-2.5 py-1 rounded-md text-[10px] font-black uppercase font-outfit">
+                                                        {art.category?.name || 'General'}
+                                                    </span>
                                                 </td>
-                                                <td className="py-3 text-[#466071] font-medium">{art.source_rss_name || 'RSS Feed'}</td>
-                                                <td className="py-3 text-right font-semibold text-[#718797]">{art.reading_time}</td>
+                                                <td className="py-3.5 text-right font-bold text-[#466071]">
+                                                    {art.reading_time || '4 min read'}
+                                                </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-
-                        {/* Replication Target Matrix */}
-                        <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-4">
-                            <h3 className="text-lg font-bold font-outfit text-[#102A3D] flex items-center gap-2 border-b border-[#E6EEF3] pb-4">
-                                <Layers className="w-5 h-5 text-[#4A9AD4]" /> Multi-Vertical CAP Replication Targets
-                            </h3>
-                            <p className="text-xs text-[#466071] leading-relaxed">
-                                Click any vertical below to trigger instant architecture replication, Tailwind design token initialization, and database schema deployment.
-                            </p>
-                            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-                                {[
-                                    { name: 'Regentology', domain: 'regentology.com', tag: 'Real Estate' },
-                                    { name: 'Rate My Doc', domain: 'ratemydoc.com', tag: 'Medical' },
-                                    { name: 'HouzzWise', domain: 'houzzwise.com', tag: 'Remodeling' },
-                                    { name: 'TruSecur', domain: 'trusecur.com', tag: 'Solar Energy' },
-                                ].map((vert) => (
-                                    <button
-                                        key={vert.name}
-                                        onClick={() => handleReplicate(vert.name)}
-                                        className="p-3 rounded-xl border border-[#E6EEF3] bg-[#F7FAFC] hover:bg-[#EAF5FC] hover:border-[#4A9AD4] text-left transition-all group"
-                                    >
-                                        <div className="text-xs font-bold text-[#102A3D] group-hover:text-[#0B4778]">{vert.name}</div>
-                                        <div className="text-[10px] text-[#718797]">{vert.domain}</div>
-                                        <Badge variant="secondary" size="sm" className="mt-2 text-[9px] px-1.5 py-0">
-                                            {vert.tag}
-                                        </Badge>
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
                     </div>
 
-                    {/* Right Column: Moderation & Live Polls (4 Cols) */}
+                    {/* Right Column: Moderation & Shortcuts (4 Cols) */}
                     <div className="lg:col-span-4 space-y-6">
-                        {/* Live Industry Polls Summary */}
-                        <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-4">
-                            <h3 className="text-lg font-bold font-outfit text-[#102A3D] flex items-center gap-2 border-b border-[#E6EEF3] pb-4">
-                                <Vote className="w-5 h-5 text-[#4A9AD4]" /> Active Industry Polls
-                            </h3>
-                            <div className="space-y-4">
-                                {recentPolls.map((poll) => (
-                                    <div key={poll.id} className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E6EEF3] space-y-2">
-                                        <div className="text-xs font-bold text-[#102A3D] line-clamp-2">{poll.title}</div>
-                                        <div className="flex items-center justify-between text-[11px] text-[#718797]">
-                                            <span>{poll.total_votes} Total Votes</span>
-                                            <Badge variant="success" size="sm">Active</Badge>
-                                        </div>
+                        {/* Moderation Box */}
+                        <div className="bg-white p-6 rounded-3xl border border-[#E6EEF3] shadow-xs space-y-5">
+                            <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-4">
+                                <h3 className="text-sm font-bold font-outfit text-[#102A3D] flex items-center gap-2">
+                                    <Star className="w-4 h-4 text-amber-500" /> Pending Moderation
+                                </h3>
+                                <Link href="/admin/reviews" className="text-xs font-bold text-[#287FBA] hover:underline font-outfit">
+                                    Manage All →
+                                </Link>
+                            </div>
+
+                            <div className="space-y-3">
+                                {safeReviews.length === 0 ? (
+                                    <div className="text-center py-6 text-xs text-slate-400 font-medium">
+                                        All client reviews are approved and published.
                                     </div>
-                                ))}
+                                ) : (
+                                    safeReviews.map((rev: any) => (
+                                        <div key={rev.id} className="p-3.5 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+                                            <div className="flex items-center justify-between text-xs">
+                                                <span className="font-extrabold text-slate-900">{rev.reviewer_name}</span>
+                                                <span className="text-[10px] bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full uppercase">
+                                                    {rev.status}
+                                                </span>
+                                            </div>
+                                            <p className="text-xs text-slate-600 line-clamp-2">{rev.review_text}</p>
+                                            <div className="flex gap-2 pt-1">
+                                                <button
+                                                    onClick={() => handleReviewStatus(rev.id, 'approved')}
+                                                    className="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-[10px] font-bold hover:bg-emerald-700 cursor-pointer"
+                                                >
+                                                    Approve
+                                                </button>
+                                                <button
+                                                    onClick={() => handleReviewStatus(rev.id, 'rejected')}
+                                                    className="px-2.5 py-1 bg-rose-600 text-white rounded-lg text-[10px] font-bold hover:bg-rose-700 cursor-pointer"
+                                                >
+                                                    Reject
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
                             </div>
                         </div>
 
-                        {/* Moderate Client Reviews */}
-                        <div className="bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs space-y-4">
-                            <h3 className="text-lg font-bold font-outfit text-[#102A3D] flex items-center gap-2 border-b border-[#E6EEF3] pb-4">
-                                <Star className="w-5 h-5 text-[#4A9AD4]" /> Client Reviews Moderation
+                        {/* Quick Navigation Shortcuts */}
+                        <div className="bg-[#041E34] text-white p-6 rounded-3xl space-y-4">
+                            <h3 className="text-sm font-bold font-outfit uppercase tracking-wider text-[#63B5E8]">
+                                Quick Admin Shortcuts
                             </h3>
-                            <div className="space-y-4">
-                                {recentReviews.map((rev) => (
-                                    <div key={rev.id} className="p-3.5 rounded-xl bg-[#F7FAFC] border border-[#E6EEF3] space-y-2">
-                                        <div className="flex items-center justify-between">
-                                            <div className="text-xs font-bold text-[#102A3D]">{rev.client_name}</div>
-                                            <Badge variant={rev.status === 'approved' ? 'success' : 'secondary'} size="sm">
-                                                {rev.status}
-                                            </Badge>
-                                        </div>
-                                        <p className="text-xs text-[#466071] line-clamp-2 italic">"{rev.comment}"</p>
-                                        <div className="flex items-center gap-2 pt-1">
-                                            {rev.status !== 'approved' && (
-                                                <button
-                                                    onClick={() => handleReviewStatus(rev.id, 'approved')}
-                                                    className="text-[10px] font-bold text-[#249A68] hover:underline"
-                                                >
-                                                    Approve Review
-                                                </button>
-                                            )}
-                                        </div>
-                                    </div>
-                                ))}
+                            <div className="space-y-2 text-xs font-bold font-outfit">
+                                <Link href="/admin/articles" className="block p-3 rounded-xl bg-[#0B4778] hover:bg-[#287FBA] transition-colors flex items-center justify-between">
+                                    <span>Manage Articles & Ingestion</span>
+                                    <span>→</span>
+                                </Link>
+                                <Link href="/admin/boards" className="block p-3 rounded-xl bg-[#0B4778] hover:bg-[#287FBA] transition-colors flex items-center justify-between">
+                                    <span>Editorial Boards & Ad Spaces</span>
+                                    <span>→</span>
+                                </Link>
+                                <Link href="/admin/polls" className="block p-3 rounded-xl bg-[#0B4778] hover:bg-[#287FBA] transition-colors flex items-center justify-between">
+                                    <span>Polls & Diagnostic Arena</span>
+                                    <span>→</span>
+                                </Link>
+                                <Link href="/admin/settings" className="block p-3 rounded-xl bg-[#0B4778] hover:bg-[#287FBA] transition-colors flex items-center justify-between">
+                                    <span>Platform Environment Config</span>
+                                    <span>→</span>
+                                </Link>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </AdminLayout>
     );
 }

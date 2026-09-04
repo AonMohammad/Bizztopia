@@ -84,7 +84,7 @@ export default function Index({ questions, reviews, filters }: SocialIndexProps)
                     <div className="flex items-center justify-between">
                         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#4A9AD4]/20 border border-[#8FC7E8]/40 text-[#63B5E8] text-xs font-semibold uppercase tracking-wider">
                             <MessageSquare className="w-3.5 h-3.5 text-[#63B5E8]" />
-                            <span>Module 04 — Social • Community & Trust Hub</span>
+                            <span>Social • Community & Trust Hub</span>
                         </div>
                         <Button 
                             variant="secondary" 

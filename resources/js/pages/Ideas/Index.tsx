@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import { AppLayout } from '@/layouts/AppLayout';
-import { ArticleCard } from '@/components/ui/ArticleCard';
-import { CategoryCard } from '@/components/ui/CategoryCard';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Input } from '@/components/ui/Input';
-import { EngagePromoUnit } from '@/components/ui/EngagePromoUnit';
-import { MovingChainRow } from '@/components/ui/MovingChainRow';
 import { 
     BookOpen, 
     Search, 
@@ -15,451 +8,457 @@ import {
     Globe, 
     Rss,
     FileText,
-    CheckSquare,
-    HelpCircle,
-    Lightbulb,
     Sparkles,
     ArrowRight,
     Compass,
-    CheckCircle2
+    TrendingUp,
+    Clock,
+    User,
+    ChevronRight
 } from 'lucide-react';
+import { Badge } from '@/components/ui/Badge';
+import { AdSpaceBanner } from '@/components/ui/AdSpaceBanner';
 
-interface ArticleItem {
+interface Article {
     id: number;
     title: string;
     slug: string;
-    subtitle: string;
-    content_type: string;
-    reading_time: string;
-    region: string;
-    source_rss_name: string;
-    published_at: string;
+    excerpt?: string;
+    content?: string;
+    hero_image?: string;
+    reading_time?: string;
+    published_at?: string;
+    view_count?: number;
+    source_rss_name?: string;
     category?: {
+        id: number;
         name: string;
         slug: string;
-        color: string;
     };
     author?: {
         name: string;
-        role_title: string;
-        avatarUrl?: string;
+        role_title?: string;
     };
-}
-
-interface CategoryItem {
-    id: number;
-    name: string;
-    slug: string;
-    description?: string;
-    articles_count: number;
 }
 
 interface IdeasIndexProps {
     articles: {
-        data: ArticleItem[];
-        links: any[];
+        data: Article[];
+        links?: any[];
+        meta?: any;
     };
-    categories: CategoryItem[];
+    categories: any[];
+    editorialBoards?: any[];
     filters: {
+        search?: string;
         category?: string;
         type?: string;
-        search?: string;
     };
-    region: string;
+    region?: string;
 }
 
-export default function Index({ articles, categories, filters, region }: IdeasIndexProps) {
+const cleanExcerpt = (art?: Article, length: number = 140) => {
+    if (!art) return '';
+    if (art.excerpt && art.excerpt.trim().length > 0) {
+        return art.excerpt.replace(/<[^>]*>?/gm, '').trim();
+    }
+    if (!art.content) return '';
+    const plainText = art.content
+        .replace(/<[^>]*>?/gm, ' ')
+        .replace(/&[a-z0-9#]+;/gi, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    return plainText.length > length ? plainText.substring(0, length) + '...' : plainText;
+};
+
+export default function Index({ 
+    articles, 
+    categories = [], 
+    editorialBoards = [], 
+    filters, 
+    region 
+}: IdeasIndexProps) {
     const [search, setSearch] = useState(filters.search || '');
     const [syncing, setSyncing] = useState(false);
 
-    const subTabs = [
-        { label: 'All Ideas Sections', value: '' },
-        { label: 'Blogs', value: 'Blog' },
-        { label: 'Industry Guides', value: 'Industry Guide' },
-        { label: 'Tips & Tricks', value: 'Tips & Tricks' },
-        { label: 'How-To Articles', value: 'How-To' },
-        { label: 'Checklists', value: 'Checklist' },
-        { label: 'Guides', value: 'Guide' },
-    ];
-
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
-        router.get('/ideas', { ...filters, search }, { preserveState: true });
+        router.get('/ideas', { ...filters, search, page: 1 }, { preserveState: true });
     };
 
-    const handleTypeFilter = (type?: string) => {
-        router.get('/ideas', { ...filters, type: type || '' }, { preserveState: true });
+    const handleTypeFilter = (type: string) => {
+        router.get('/ideas', { ...filters, type: type || undefined, page: 1 }, { preserveState: true });
     };
 
     const handleSyncRss = () => {
         setSyncing(true);
-        router.post('/ideas/sync-rss', {}, {
+        router.post('/admin/sync-rss', {}, {
             onFinish: () => setSyncing(false),
         });
     };
 
-    // Group articles by content type for row-form sections
-    const getArticlesByType = (type: string) => {
-        return articles.data.filter(a => a.content_type === type);
-    };
+    const allArticles = articles.data || [];
+    const isFiltered = Boolean(filters.search || filters.category || filters.type);
 
-    const blogs = getArticlesByType('Blog');
-    const industryGuides = getArticlesByType('Industry Guide');
-    const tipsAndTricks = getArticlesByType('Tips & Tricks');
-    const howTos = getArticlesByType('How-To');
-    const checklists = getArticlesByType('Checklist');
-    const guides = getArticlesByType('Guide');
+    // KPNews Article Segmentations
+    const heroArticle = allArticles[0];
+    const latestSidebar4 = allArticles.slice(1, 5);
+    const trending6 = allArticles.slice(5, 11);
+    const wideFeature = allArticles[11] || allArticles[0];
+    const inBrief5 = allArticles.slice(12, 17);
+    const gridRow1 = allArticles.slice(17, 20);
+    const gridRow2 = allArticles.slice(20, 23);
+    const categoryGroup1 = allArticles.slice(23, 27);
+    const categoryGroup2 = allArticles.slice(27, 31);
 
-    // Filtered mode check
-    const isFiltered = Boolean(filters.type || filters.search || filters.category);
+    const tickers = [
+        { name: 'S&P 500', val: '6,101.24', change: '+0.43%', up: true },
+        { name: 'NASDAQ', val: '19,868.38', change: '+0.02%', up: true },
+        { name: 'DOW JONES', val: '44,860.31', change: '+0.43%', up: true },
+        { name: 'FTSE 100', val: '8,615.93', change: '-0.04%', up: false },
+        { name: 'DAX', val: '23,380.75', change: '+1.27%', up: true },
+        { name: 'BRENT', val: '$76.41', change: '+2.05%', up: true },
+        { name: 'GOLD', val: '$3,203.20', change: '-0.22%', up: false },
+    ];
+
+    const subTabs = [
+        { label: 'All Ideas Boards', value: '' },
+        { label: 'Market News', value: 'News' },
+        { label: 'Blogs', value: 'Blog' },
+        { label: 'Industry Guides', value: 'Guide' },
+        { label: 'Tips & Tricks', value: 'Checklist' },
+        { label: 'How-To Manuals', value: 'HowTo' },
+    ];
 
     return (
         <AppLayout>
-            <Head title="Ideas — North American RSS Business Knowledge Network" />
+            <Head title="Ideas — Kingsley Partners KPNews Intelligence & Editorial Newspaper" />
 
-            {/* Ideas Portal Hero Header */}
-            <section className="relative overflow-hidden pt-12 pb-16 bg-gradient-hero text-white border-b border-[#0B4778]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
-                        <div className="max-w-2xl space-y-4">
-                            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#4A9AD4]/20 border border-[#8FC7E8]/40 text-[#63B5E8] text-xs font-semibold uppercase tracking-wider">
-                                <Globe className="w-3.5 h-3.5 text-[#63B5E8]" />
-                                <span>Ideas Website • {region} RSS Intelligence</span>
+            <div className="bg-white text-slate-900 font-sans min-h-screen">
+                
+                {/* ══════════════════════ KPNews Header & Filter Bar ══════════════════════ */}
+                <header className="border-b border-slate-200 bg-white">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 border-b border-slate-900 pb-4">
+                            <div>
+                                <span className="text-[10px] font-black tracking-widest text-[#287FBA] uppercase block">
+                                    KPNews Intelligence Bureau
+                                </span>
+                                <h1 className="text-3xl md:text-4xl font-black font-outfit text-slate-950 tracking-tight">
+                                    Ideas & Business Market Newspaper
+                                </h1>
                             </div>
-                            <h1 className="text-4xl sm:text-5xl font-extrabold font-outfit text-white tracking-tight">
-                                Business Ideas, Guides & RSS Playbooks<span className="text-[#4A9AD4]">.</span>
-                            </h1>
-                            <p className="text-[#D5EBF8] text-base leading-relaxed">
-                                Continuous RSS ingestion from verified US & Canadian business feeds: Entrepreneur, SBA, and SmallBizTrends.
-                            </p>
 
-                            {/* Search Form */}
-                            <form onSubmit={handleSearch} className="flex items-center gap-2 pt-2">
-                                <div className="flex-1 max-w-lg">
-                                    <Input
-                                        placeholder="Search RSS blogs, guides, checklists, how-to..."
+                            {/* Search Box */}
+                            <form onSubmit={handleSearch} className="flex items-center gap-2 max-w-md w-full">
+                                <div className="relative flex-1">
+                                    <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type="text"
+                                        placeholder="Search KPNews stories, market trends..."
                                         value={search}
                                         onChange={(e) => setSearch(e.target.value)}
-                                        icon={<Search className="w-4 h-4 text-[#718797]" />}
+                                        className="w-full bg-slate-50 border border-slate-300 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#287FBA]"
                                     />
                                 </div>
-                                <Button type="submit" variant="primary">
-                                    Search Ideas
-                                </Button>
+                                <button 
+                                    type="submit" 
+                                    className="px-4 py-2 bg-[#287FBA] text-white text-xs font-bold rounded-xl hover:bg-[#1f689a] transition-all cursor-pointer font-outfit"
+                                >
+                                    Search
+                                </button>
                             </form>
                         </div>
 
-                        {/* Verified RSS Sync Card */}
-                        <div className="bg-white/10 backdrop-blur-md p-6 rounded-2xl border border-white/15 max-w-md w-full space-y-4">
-                            <div className="flex items-center justify-between">
-                                <span className="text-xs font-bold text-[#63B5E8] uppercase tracking-wider flex items-center gap-1.5">
-                                    <Rss className="w-4 h-4 text-[#63B5E8]" /> Verified RSS Feed Ingestion
-                                </span>
-                                <Badge variant="success" size="sm">Live Feeds</Badge>
-                            </div>
-                            <p className="text-xs text-[#D5EBF8]">
-                                Categorized into row sections: Blogs, Industry Guides, Tips & Tricks, How-To Articles, Checklists, and Guides.
-                            </p>
-                            <Button 
-                                variant="outline" 
-                                size="sm" 
-                                fullWidth 
-                                onClick={handleSyncRss}
-                                isLoading={syncing}
-                                className="bg-white/5 border-white/30 text-white hover:bg-white/20 hover:text-white"
-                            >
-                                <RefreshCw className="w-3.5 h-3.5 mr-1" />
-                                Ingest Latest RSS Feeds
-                            </Button>
+                        {/* Category Navigation Bar */}
+                        <div className="flex items-center gap-2 pt-4 overflow-x-auto no-scrollbar">
+                            {subTabs.map((tab) => {
+                                const isActive = (filters.type === tab.value) || (!filters.type && tab.value === '');
+                                return (
+                                    <button
+                                        key={tab.value}
+                                        onClick={() => handleTypeFilter(tab.value)}
+                                        className={`
+                                            px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all uppercase tracking-wider font-outfit cursor-pointer
+                                            ${isActive 
+                                                ? 'bg-slate-950 text-white shadow-xs' 
+                                                : 'bg-slate-100 text-slate-600 hover:bg-slate-200 hover:text-slate-900'}
+                                        `}
+                                    >
+                                        {tab.label}
+                                    </button>
+                                );
+                            })}
                         </div>
                     </div>
+                </header>
 
-                    {/* Sub-Tab Navigation Bar */}
-                    <div className="flex items-center gap-2 pt-8 overflow-x-auto">
-                        <span className="text-xs text-[#8FC7E8] font-bold uppercase tracking-wider mr-2 shrink-0">Subcategory Rows:</span>
-                        {subTabs.map((tab) => (
-                            <button
-                                key={tab.value}
-                                onClick={() => handleTypeFilter(tab.value)}
-                                className={`px-4 py-2 rounded-xl text-xs font-bold transition-all shrink-0 border ${
-                                    (filters.type === tab.value || (!filters.type && !tab.value))
-                                        ? 'bg-white text-[#0B4778] border-white shadow-md' 
-                                        : 'bg-[#0B4778]/70 text-[#8FC7E8] border-[#287FBA]/30 hover:bg-[#0B4778] hover:text-white'
-                                }`}
-                            >
-                                {tab.label}
-                            </button>
+                {/* ══════════════════════ MARKETS TICKER BAR ══════════════════════ */}
+                <div className="bg-slate-950 text-white py-2.5 overflow-hidden border-t border-b border-slate-800">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center gap-6 overflow-x-auto no-scrollbar text-xs font-mono">
+                        <span className="text-[10px] font-black tracking-widest text-slate-500 uppercase shrink-0 font-outfit">
+                            MARKETS
+                        </span>
+                        {tickers.map((t) => (
+                            <div key={t.name} className="flex items-center gap-2 shrink-0">
+                                <span className="text-slate-400 font-medium">{t.name}</span>
+                                <span className="font-bold text-white">{t.val}</span>
+                                <span className={t.up ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}>
+                                    {t.change}
+                                </span>
+                            </div>
                         ))}
                     </div>
                 </div>
-            </section>
 
-            {/* Subcategories Displayed in Stacked Ultra-Slow Moving Chain Rows */}
-            <section className="py-12 bg-[#F7FAFC]">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+                <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
                     
-                    {/* IF FILTERED MODE: Show Filtered Grid Results */}
-                    {isFiltered ? (
-                        <div className="space-y-6">
-                            <div className="flex items-center justify-between">
-                                <h2 className="text-2xl font-bold font-outfit text-[#102A3D]">
-                                    {filters.type ? `${filters.type} Section` : 'Filtered Search Results'}
-                                </h2>
-                                <button 
-                                    onClick={() => router.get('/ideas')}
-                                    className="text-xs font-bold text-[#287FBA] hover:underline"
-                                >
-                                    Show All Subcategory Moving Rows →
-                                </button>
+                    {/* ══════════════════════ HERO + LATEST SIDEBAR (KPNews Split) ══════════════════════ */}
+                    {heroArticle && (
+                        <section className="border-b border-slate-200 pb-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                                
+                                {/* Hero Main Feature (Left 8 Cols) */}
+                                <div className="lg:col-span-8 lg:border-r lg:border-slate-200 lg:pr-8 space-y-4">
+                                    <Link href={`/ideas/${heroArticle.slug}`} className="group block space-y-4">
+                                        <div className="aspect-[16/9] w-full overflow-hidden rounded-2xl bg-slate-100 relative">
+                                            <img 
+                                                src={heroArticle.hero_image || 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80'} 
+                                                alt={heroArticle.title}
+                                                className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                                                onError={(e) => {
+                                                    const target = e.target as HTMLImageElement;
+                                                    target.onerror = null;
+                                                    target.src = 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=1200&q=80';
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <span className="text-[10px] font-black tracking-widest text-[#287FBA] uppercase font-outfit">
+                                                {heroArticle.category?.name || 'FEATURED STORY'}
+                                            </span>
+                                            <h2 className="text-2xl sm:text-3xl font-black font-outfit text-slate-950 group-hover:text-[#287FBA] transition-colors leading-tight">
+                                                {heroArticle.title}
+                                            </h2>
+                                            <p className="text-sm text-slate-600 line-clamp-3 leading-relaxed font-sans">
+                                                {cleanExcerpt(heroArticle, 220)}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center gap-3 text-xs text-slate-500 pt-2 font-medium">
+                                            <span>{heroArticle.author?.name || 'KPNews Intelligence'}</span>
+                                            <span>•</span>
+                                            <span>{heroArticle.reading_time || '6 min read'}</span>
+                                        </div>
+                                    </Link>
+                                </div>
+
+                                {/* Latest Sidebar (Right 4 Cols) */}
+                                <div className="lg:col-span-4 space-y-4">
+                                    <div className="flex items-center justify-between border-b-2 border-slate-950 pb-1.5">
+                                        <span className="text-xs font-black tracking-widest text-slate-950 uppercase font-outfit">
+                                            LATEST STORIES
+                                        </span>
+                                        <Link href="/ideas" className="text-[11px] font-bold text-slate-500 hover:text-slate-900 uppercase tracking-wider font-outfit">
+                                            More →
+                                        </Link>
+                                    </div>
+
+                                    <div className="divide-y divide-slate-100">
+                                        {latestSidebar4.map((art) => (
+                                            <Link 
+                                                key={art.id} 
+                                                href={`/ideas/${art.slug}`} 
+                                                className="group flex gap-3 py-3.5 items-start"
+                                            >
+                                                <div className="w-20 h-14 rounded-xl overflow-hidden bg-slate-100 shrink-0">
+                                                    <img 
+                                                        src={art.hero_image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80'} 
+                                                        alt={art.title} 
+                                                        className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                                        onError={(e) => {
+                                                            const target = e.target as HTMLImageElement;
+                                                            target.onerror = null;
+                                                            target.src = 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=400&q=80';
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className="flex-1 min-w-0 space-y-1">
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider block font-outfit">
+                                                        {art.category?.name || 'Insight'}
+                                                    </span>
+                                                    <h3 className="text-xs font-bold text-slate-900 group-hover:text-[#287FBA] transition-colors line-clamp-2 leading-snug font-outfit">
+                                                        {art.title}
+                                                    </h3>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ══════════════════════ TRENDING NOW (3-Column Grid) ══════════════════════ */}
+                    {trending6.length > 0 && (
+                        <section className="border-b border-slate-200 pb-10 space-y-6">
+                            <div className="flex items-center justify-between border-b-2 border-slate-950 pb-1.5">
+                                <span className="text-xs font-black tracking-widest text-slate-950 uppercase font-outfit">
+                                    TRENDING NOW
+                                </span>
+                                <span className="text-xs font-semibold text-slate-400 font-outfit">
+                                    Verified Market Intelligence
+                                </span>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                                {articles.data.map((art) => (
-                                    <ArticleCard
-                                        key={art.id}
-                                        id={art.id}
-                                        title={art.title}
-                                        slug={art.slug}
-                                        subtitle={art.subtitle}
-                                        category={art.category}
-                                        author={art.author ? { name: art.author.name, role: art.author.role_title, avatarUrl: art.author.avatarUrl } : undefined}
-                                        readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                        publishedAt={art.published_at ? new Date(art.published_at).toLocaleDateString() : undefined}
-                                    />
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {trending6.map((art) => (
+                                    <Link 
+                                        key={art.id} 
+                                        href={`/ideas/${art.slug}`} 
+                                        className="group block space-y-3"
+                                    >
+                                        <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-100">
+                                            <img 
+                                                src={art.hero_image || 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80'} 
+                                                alt={art.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                                onError={(e) => {
+                                                    const target = e.target as HTMLImageElement;
+                                                    target.onerror = null;
+                                                    target.src = 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80';
+                                                }}
+                                            />
+                                        </div>
+                                        <div className="space-y-1.5">
+                                            <span className="text-[9px] font-black text-[#287FBA] uppercase tracking-wider block font-outfit">
+                                                {art.category?.name || 'TRENDING'}
+                                            </span>
+                                            <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#287FBA] transition-colors line-clamp-2 leading-snug font-outfit">
+                                                {art.title}
+                                            </h3>
+                                            <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-sans">
+                                                {cleanExcerpt(art, 110)}
+                                            </p>
+                                        </div>
+                                    </Link>
                                 ))}
                             </div>
-                        </div>
-                    ) : (
-                        /* UNFILTERED IDEAS HOMEPAGE: ULTRA-SLOW COMFORTABLE READING SPEED (300s-340s) */
-                        <>
-                            {/* ROW 1: BLOGS MOVING CHAIN (Comfortable Reading Speed: 320s) */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <FileText className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">Blogs & Editorial Insights</h2>
-                                            <p className="text-[11px] text-[#718797]">RSS blogs and market opinion pieces • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('Blog')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All Blogs <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {blogs.length > 0 ? (
-                                    <MovingChainRow speedSeconds={320}>
-                                        {blogs.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No blog entries ingested yet.</div>
-                                )}
-                            </div>
-
-                            {/* ROW 2: INDUSTRY GUIDES MOVING CHAIN */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <BookOpen className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">Industry Guides & Reports</h2>
-                                            <p className="text-[11px] text-[#718797]">Comprehensive industry benchmarks and reports • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('Industry Guide')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All Industry Guides <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {industryGuides.length > 0 ? (
-                                    <MovingChainRow speedSeconds={310}>
-                                        {industryGuides.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No industry guides ingested yet.</div>
-                                )}
-                            </div>
-
-                            {/* Embedded Engage Unit */}
-                            <EngagePromoUnit variant="banner" />
-
-                            {/* ROW 3: TIPS & TRICKS MOVING CHAIN */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <Sparkles className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">Tips & Tricks</h2>
-                                            <p className="text-[11px] text-[#718797]">Actionable tactics for customer acquisition & ROI • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('Tips & Tricks')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All Tips <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {tipsAndTricks.length > 0 ? (
-                                    <MovingChainRow speedSeconds={300}>
-                                        {tipsAndTricks.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No tips entries ingested yet.</div>
-                                )}
-                            </div>
-
-                            {/* ROW 4: HOW-TO ARTICLES MOVING CHAIN */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <HelpCircle className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">How-To Articles</h2>
-                                            <p className="text-[11px] text-[#718797]">Step-by-step technical tutorials and walkthroughs • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('How-To')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All How-To Articles <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {howTos.length > 0 ? (
-                                    <MovingChainRow speedSeconds={330}>
-                                        {howTos.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No how-to articles ingested yet.</div>
-                                )}
-                            </div>
-
-                            {/* ROW 5: CHECKLISTS MOVING CHAIN */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <CheckSquare className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">Checklists & Frameworks</h2>
-                                            <p className="text-[11px] text-[#718797]">Legal formation, state compliance & infrastructure checklists • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('Checklist')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All Checklists <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {checklists.length > 0 ? (
-                                    <MovingChainRow speedSeconds={340}>
-                                        {checklists.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No checklists ingested yet.</div>
-                                )}
-                            </div>
-
-                            {/* ROW 6: GUIDES MOVING CHAIN */}
-                            <div className="space-y-3">
-                                <div className="flex items-center justify-between border-b border-[#E6EEF3] pb-3">
-                                    <div className="flex items-center gap-3">
-                                        <div className="w-9 h-9 rounded-xl bg-[#EAF5FC] text-[#287FBA] flex items-center justify-center font-bold">
-                                            <Compass className="w-4 h-4 text-[#4A9AD4]" />
-                                        </div>
-                                        <div>
-                                            <h2 className="text-xl font-bold font-outfit text-[#102A3D]">Strategic Playbook Guides</h2>
-                                            <p className="text-[11px] text-[#718797]">In-depth strategic playbooks and frameworks • Ultra-slow comfortable glide</p>
-                                        </div>
-                                    </div>
-                                    <button onClick={() => handleTypeFilter('Guide')} className="text-xs font-bold text-[#287FBA] hover:underline flex items-center gap-1">
-                                        View All Guides <ArrowRight className="w-3.5 h-3.5" />
-                                    </button>
-                                </div>
-
-                                {guides.length > 0 ? (
-                                    <MovingChainRow speedSeconds={315}>
-                                        {guides.map((art) => (
-                                            <ArticleCard
-                                                key={art.id}
-                                                id={art.id}
-                                                title={art.title}
-                                                slug={art.slug}
-                                                subtitle={art.subtitle}
-                                                category={art.category}
-                                                author={art.author ? { name: art.author.name, role: art.author.role_title } : undefined}
-                                                readingTimeMinutes={parseInt(art.reading_time) || 5}
-                                            />
-                                        ))}
-                                    </MovingChainRow>
-                                ) : (
-                                    <div className="text-xs text-[#718797] italic p-4 bg-white rounded-xl border border-[#E6EEF3]">No guides ingested yet.</div>
-                                )}
-                            </div>
-                        </>
+                        </section>
                     )}
-                </div>
-            </section>
+
+                    {/* SPONSOR AD BANNER */}
+                    <AdSpaceBanner adType="google_ads" />
+
+                    {/* ══════════════════════ WIDE FEATURE + IN BRIEF (KPNews Numbered List) ══════════════════════ */}
+                    {wideFeature && (
+                        <section className="border-b border-slate-200 pb-10">
+                            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                                
+                                {/* Wide Feature Left (7 Cols) */}
+                                <div className="lg:col-span-7 lg:border-r lg:border-slate-200 lg:pr-8 space-y-4">
+                                    <div className="flex items-center justify-between border-b-2 border-slate-950 pb-1.5 mb-4">
+                                        <span className="text-xs font-black tracking-widest text-slate-950 uppercase font-outfit">
+                                            IN-DEPTH ANALYSIS
+                                        </span>
+                                    </div>
+                                    <Link href={`/ideas/${wideFeature.slug}`} className="group block space-y-3">
+                                        <div className="aspect-[16/10] w-full overflow-hidden rounded-2xl bg-slate-100">
+                                            <img 
+                                                src={wideFeature.hero_image || 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80'} 
+                                                alt={wideFeature.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                                onError={(e) => {
+                                                    const target = e.target as HTMLImageElement;
+                                                    target.onerror = null;
+                                                    target.src = 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=800&q=80';
+                                                }}
+                                            />
+                                        </div>
+                                        <span className="text-[10px] font-black text-[#287FBA] uppercase tracking-wider block font-outfit">
+                                            {wideFeature.category?.name || 'SPECIAL REPORT'}
+                                        </span>
+                                        <h2 className="text-xl font-bold font-outfit text-slate-950 group-hover:text-[#287FBA] transition-colors leading-tight">
+                                            {wideFeature.title}
+                                        </h2>
+                                        <p className="text-xs text-slate-600 line-clamp-3 leading-relaxed font-sans">
+                                            {cleanExcerpt(wideFeature, 160)}
+                                        </p>
+                                    </Link>
+                                </div>
+
+                                {/* In Brief Numbered List Right (5 Cols) */}
+                                <div className="lg:col-span-5 space-y-4">
+                                    <div className="flex items-center justify-between border-b-2 border-slate-950 pb-1.5">
+                                        <span className="text-xs font-black tracking-widest text-slate-950 uppercase font-outfit">
+                                            IN BRIEF
+                                        </span>
+                                    </div>
+
+                                    <div className="space-y-3 divide-y divide-slate-100">
+                                        {inBrief5.map((art, idx) => (
+                                            <Link 
+                                                key={art.id} 
+                                                href={`/ideas/${art.slug}`} 
+                                                className="group flex gap-4 pt-3 items-start"
+                                            >
+                                                <span className="text-2xl font-black text-slate-300 group-hover:text-[#287FBA] transition-colors font-outfit w-8 text-right shrink-0">
+                                                    {String(idx + 1).padStart(2, '0')}
+                                                </span>
+                                                <div className="flex-1 min-w-0 space-y-1">
+                                                    <span className="text-[9px] font-black text-slate-400 uppercase tracking-wider block font-outfit">
+                                                        {art.category?.name || 'Brief'}
+                                                    </span>
+                                                    <h3 className="text-xs font-bold text-slate-900 group-hover:text-[#287FBA] transition-colors line-clamp-2 leading-snug font-outfit">
+                                                        {art.title}
+                                                    </h3>
+                                                </div>
+                                            </Link>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+
+                    {/* ══════════════════════ EDITORIAL GRID ROW (3 Columns) ══════════════════════ */}
+                    {gridRow1.length > 0 && (
+                        <section className="space-y-6">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                                {gridRow1.map((art) => (
+                                    <Link 
+                                        key={art.id} 
+                                        href={`/ideas/${art.slug}`} 
+                                        className="group block space-y-3 bg-slate-50 p-5 rounded-2xl border border-slate-200 hover:border-[#287FBA]/40 transition-all"
+                                    >
+                                        <div className="aspect-[16/9] w-full overflow-hidden rounded-xl bg-slate-100">
+                                            <img 
+                                                src={art.hero_image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80'} 
+                                                alt={art.title}
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                                                onError={(e) => {
+                                                    const target = e.target as HTMLImageElement;
+                                                    target.onerror = null;
+                                                    target.src = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80';
+                                                }}
+                                            />
+                                        </div>
+                                        <span className="text-[9px] font-black text-[#287FBA] uppercase tracking-wider block font-outfit">
+                                            {art.category?.name || 'EDITORIAL'}
+                                        </span>
+                                        <h3 className="text-sm font-bold text-slate-900 group-hover:text-[#287FBA] transition-colors line-clamp-2 leading-snug font-outfit">
+                                            {art.title}
+                                        </h3>
+                                        <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed font-sans">
+                                            {cleanExcerpt(art, 90)}
+                                        </p>
+                                    </Link>
+                                ))}
+                            </div>
+                        </section>
+                    )}
+
+                </main>
+            </div>
         </AppLayout>
     );
 }

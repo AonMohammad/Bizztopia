@@ -1,48 +1,102 @@
 @import 'tailwindcss';
 
+@theme {
+  --font-outfit: 'Galey Rounded', sans-serif;
+  /* Override Tailwind's default --font-sans so every element uses Galey Rounded */
+  --font-sans: 'Galey Rounded', system-ui, sans-serif;
+}
+
+/* ── Galey Rounded Font Definitions (All Weights 100-900) ── */
+@font-face {
+  font-family: 'Galey Rounded';
+  src: url('/fonts/GaleyRounded-ExtraLight.ttf') format('truetype');
+  font-weight: 100 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Galey Rounded';
+  src: url('/fonts/GaleyRounded-SemiBold.ttf') format('truetype');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
     /* PRIMARY COLOR PALETTE — MIDNIGHT NAVY & DEEP AZURE ENGINE */
-    --brand-primary: #0B4778;       /* Deep Azure Blue */
-    --brand-secondary: #041E34;     /* Dark Midnight Blue (Navbar Surface) */
-    --brand-accent: #4A9AD4;        /* Bright Sky Blue */
-    --brand-sky: #63B5E8;           /* Soft Sky Accent */
-    --brand-light: #8FC7E8;         /* Light Sky Tint */
+    --brand-primary: #0B4778;
+    --brand-secondary: #041E34;
+    --brand-accent: #4A9AD4;
+    --brand-sky: #63B5E8;
+    --brand-light: #8FC7E8;
 
     /* NEUTRAL & BACKGROUND TOKENS */
-    --bg-main: #F7FAFC;             /* Clean Canvas Background */
-    --bg-secondary: #FFFFFF;        /* Pure White Card Surface */
-    --bg-accent-light: #F4FAFE;     /* Soft Blue Tint Card Surface */
-    --border-light: #E6EEF3;        /* Subtle Blue-Gray Divider */
-    --border-brand: #4A9AD4;        /* Active Border Highlight */
+    --bg-main: #F7FAFC;
+    --bg-secondary: #FFFFFF;
+    --bg-accent-light: #F4FAFE;
+    --border-light: #E6EEF3;
+    --border-brand: #4A9AD4;
 
     /* TYPOGRAPHY COLOR TOKENS */
-    --text-primary: #102A3D;        /* High-Contrast Deep Navy Body Text */
-    --text-muted: #466071;          /* Medium Slate Secondary Text */
-    --text-light: #718797;          /* Subdued Meta Text */
+    --text-primary: #102A3D;
+    --text-muted: #466071;
+    --text-light: #718797;
 
     /* SUCCESS & ACCENT STATUS TOKENS */
-    --status-success: #249A68;      /* Verified Green Badge */
-    --status-warning: #D99A22;      /* Alert Gold */
-    --status-error: #D95353;        /* Error Red */
+    --status-success: #249A68;
+    --status-warning: #D99A22;
+    --status-error: #D95353;
 
     /* ELEVATION & SHADOWS */
     --shadow-sm: 0 1px 3px rgba(16, 42, 61, 0.05), 0 1px 2px rgba(16, 42, 61, 0.1);
     --shadow-md: 0 4px 12px rgba(16, 42, 61, 0.08), 0 2px 4px rgba(16, 42, 61, 0.04);
     --shadow-lg: 0 12px 28px rgba(16, 42, 61, 0.12), 0 4px 8px rgba(16, 42, 61, 0.06);
   }
+
+  /* Global font: Galey Rounded everywhere without exception */
+  *, *::before, *::after, html, body, p, span, div, a, button, select, input, textarea, h1, h2, h3, h4, h5, h6, label, table, tr, td, th {
+    font-family: 'Galey Rounded', sans-serif !important;
+  }
+
+  body {
+    font-family: 'Galey Rounded', sans-serif !important;
+    font-weight: 600;
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    overflow-x: hidden;
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global premium transitions for interactive elements */
+  a, button, select, input, textarea {
+    font-family: 'Galey Rounded', sans-serif !important;
+    font-weight: 600;
+    transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                border-color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                color 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Headings — SemiBold (600) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Galey Rounded', sans-serif;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+  }
+
+  h1 { font-size: clamp(24px, 4vw, 32px); }
+  h2 { font-size: clamp(22px, 3.5vw, 28px); }
+  h3 { font-size: clamp(20px, 3vw, 24px); }
+  h4, h5, h6 { font-size: clamp(19px, 2.5vw, 22px); }
 }
 
-body {
-  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  overflow-x: hidden;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Outfit', 'Inter', sans-serif;
-}
 
 /* CUSTOM GRADIENT & NAV UTILITIES */
 .bg-dark-blue-nav {
@@ -83,13 +137,13 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #FFFFFF;
   border: 1px solid var(--border-light);
   box-shadow: var(--shadow-sm);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .bizz-card:hover {
   border-color: var(--border-brand);
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px) scale(1.01);
 }
 
 .glass-header {
@@ -99,7 +153,63 @@ h1, h2, h3, h4, h5, h6 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* CONTINUOUS SLOW-MOVING MARQUEE ANIMATION WITH HARDWARE ACCELERATION */
+/* Page entrance animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scroll-driven reveal animations (Cross-browser compatible with JS IntersectionObserver) */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger cards — each animates independently into view */
+.stagger-card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.stagger-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay when parent triggers (legacy fallback) */
+.reveal-on-scroll.is-visible .stagger-card:nth-child(1) { transition-delay: 0.08s; }
+.reveal-on-scroll.is-visible .stagger-card:nth-child(2) { transition-delay: 0.18s; }
+.reveal-on-scroll.is-visible .stagger-card:nth-child(3) { transition-delay: 0.28s; }
+.reveal-on-scroll.is-visible .stagger-card:nth-child(4) { transition-delay: 0.38s; }
+.reveal-on-scroll.is-visible .stagger-card:nth-child(5) { transition-delay: 0.48s; }
+.reveal-on-scroll.is-visible .stagger-card:nth-child(6) { transition-delay: 0.58s; }
+
+/* Data-delay attribute support for fine-grained staggering */
+.reveal-on-scroll[data-delay="1"] { transition-delay: 0.1s; }
+.reveal-on-scroll[data-delay="2"] { transition-delay: 0.2s; }
+.reveal-on-scroll[data-delay="3"] { transition-delay: 0.3s; }
+.reveal-on-scroll[data-delay="4"] { transition-delay: 0.4s; }
+.reveal-on-scroll[data-delay="5"] { transition-delay: 0.5s; }
+
 @keyframes marquee-slow {
   0% {
     transform: translate3d(0%, 0, 0);
@@ -109,10 +219,54 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+@keyframes marquee-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
 .animate-marquee-slow {
   display: flex;
   width: max-content;
   will-change: transform;
-  animation: marquee-slow 320s linear infinite;
+  animation: marquee-slow 40s linear infinite;
   backface-visibility: hidden;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-reverse 40s linear infinite;
+  backface-visibility: hidden;
+}
+
+/* ════════════ GLOBAL ACCESSIBILITY TYPOGRAPHY CONSTRAINTS ════════════ */
+@layer base {
+  /* 1. Body Text & Reading copy minimum size: 18px (1.125rem) */
+  body, p, li, blockquote, td, th {
+    font-size: 1.125rem;
+  }
+
+  /* Force paragraph and list items with text-xs/text-sm to be 18px */
+  p.text-xs, p.text-sm,
+  li.text-xs, li.text-sm,
+  article .text-xs, article .text-sm,
+  .prose .text-xs, .prose .text-sm {
+    font-size: 1.125rem !important;
+  }
+
+  /* 2. Heading Minimum size: 20px (1.25rem) */
+  h1, h2, h3, h4, h5, h6 {
+    font-size: max(1.25rem, 1em);
+  }
+
+  /* Force heading elements with text-xs/text-sm to be 20px */
+  h1.text-xs, h2.text-xs, h3.text-xs, h4.text-xs, h5.text-xs, h6.text-xs,
+  h1.text-sm, h2.text-sm, h3.text-sm, h4.text-sm, h5.text-sm, h6.text-sm {
+    font-size: 1.25rem !important;
+  }
 }

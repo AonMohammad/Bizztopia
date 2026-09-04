@@ -45,10 +45,10 @@ export const RoiCalculatorWidget: React.FC<RoiCalculatorWidgetProps> = ({
 
     useEffect(() => {
         // Real-time calculation client computation
-        const safeBudget = max(10, budget);
-        const safeCpl = max(1, cpl);
-        const safeConv = max(0.1, min(100, convRate)) / 100;
-        const safeDeal = max(1, dealValue);
+        const safeBudget = Math.max(10, budget);
+        const safeCpl = Math.max(1, cpl);
+        const safeConv = Math.max(0.1, Math.min(100, convRate)) / 100;
+        const safeDeal = Math.max(1, dealValue);
 
         const leads = Math.floor(safeBudget / safeCpl);
         const customers = Math.round(leads * safeConv);
@@ -95,7 +95,7 @@ export const RoiCalculatorWidget: React.FC<RoiCalculatorWidgetProps> = ({
                         <h3 className="text-xl font-bold font-outfit text-[#102A3D]">Marketing ROI Estimator</h3>
                     </div>
                 </div>
-                <Badge variant={results.roi_percent > 0 ? 'success' : 'warning'} size="md">
+                <Badge variant={results.roi_percent > 0 ? 'success' : 'error'} size="md">
                     {results.assessment}
                 </Badge>
             </div>

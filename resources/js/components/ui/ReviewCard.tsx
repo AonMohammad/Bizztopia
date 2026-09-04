@@ -39,7 +39,7 @@ export const ReviewCard: React.FC<ReviewCardProps> = ({
                     {[1, 2, 3, 4, 5].map((star) => (
                         <Star 
                             key={star} 
-                            className={`w-4 h-4 ${star <= rating ? 'text-[#F59E0B] fill-[#F59E0B]' : 'text-[#D4E0E7]'}`} 
+                            className={`w-4 h-4 ${star <= rating ? 'text-[#287FBA] fill-[#287FBA]' : 'text-[#D4E0E7]'}`} 
                         />
                     ))}
                 </div>

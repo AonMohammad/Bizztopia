@@ -60,8 +60,8 @@ export const QuestionCard: React.FC<QuestionCardProps> = ({
     return (
         <div 
             className={`
-                bg-white p-6 rounded-2xl border border-[#E6EEF3] shadow-xs 
-                hover:shadow-md hover:border-[#4A9AD4]/40 transition-all duration-300 space-y-4
+                bg-white p-6 rounded-3xl border-2 border-slate-200/85 shadow-md 
+                hover:shadow-xl hover:border-[#287FBA] hover:-translate-y-1 transition-all duration-300 space-y-4
                 ${className}
             `}
         >

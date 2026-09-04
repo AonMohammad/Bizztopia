@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import React, { useState, useEffect } from 'react';
+import { Link, usePage, router } from '@inertiajs/react';
 import { 
     LayoutDashboard, 
     BookOpen, 
@@ -15,6 +15,8 @@ import {
     Users,
     Compass,
     LogOut,
+    Lock,
+    Sparkles,
     ChevronRight,
     Menu,
     X
@@ -26,18 +28,43 @@ interface AdminLayoutProps {
 }
 
 export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Master CAP Admin' }) => {
-    const { url } = usePage();
+    const page = usePage<any>();
+    const url = page?.url || (typeof window !== 'undefined' ? window.location.pathname : '/admin');
+    const flash = page?.props?.flash || {};
+
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    const isDashboard = url === '/admin' || url === '/admin/dashboard';
-    const isArticles = url.startsWith('/admin/articles');
-    const isPolls = url.startsWith('/admin/polls');
-    const isReviews = url.startsWith('/admin/reviews');
-    const isSettings = url.startsWith('/admin/settings');
+    // Auto-lock portal on 30 minutes of client-side inactivity
+    useEffect(() => {
+        let timer: any;
+        const resetTimer = () => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                router.post('/admin/logout');
+            }, 30 * 60 * 1000); // 30 minutes
+        };
+
+        window.addEventListener('mousemove', resetTimer);
+        window.addEventListener('keydown', resetTimer);
+        resetTimer();
+
+        return () => {
+            clearTimeout(timer);
+            window.removeEventListener('mousemove', resetTimer);
+            window.removeEventListener('keydown', resetTimer);
+        };
+    }, []);
+
+    const safeUrl = url || '/admin';
+    const isDashboard = safeUrl === '/admin' || safeUrl === '/admin/dashboard';
+    const isArticles = safeUrl.startsWith('/admin/articles');
+    const isPolls = safeUrl.startsWith('/admin/polls');
+    const isReviews = safeUrl.startsWith('/admin/reviews');
+    const isSettings = safeUrl.startsWith('/admin/settings');
 
     const navItems = [
         { label: 'Overview Dashboard', href: '/admin', icon: LayoutDashboard, active: isDashboard },
-        { label: 'Articles & RSS Feeds', href: '/admin/articles', icon: BookOpen, active: isArticles, badge: '200' },
+        { label: 'Articles & RSS Feeds', href: '/admin/articles', icon: BookOpen, active: isArticles },
         { label: 'Polls & Diagnostics', href: '/admin/polls', icon: Vote, active: isPolls },
         { label: 'Reviews & Community', href: '/admin/reviews', icon: Star, active: isReviews },
         { label: 'CAP Platform Settings', href: '/admin/settings', icon: Settings, active: isSettings },
@@ -49,12 +76,14 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
             <aside className="hidden lg:flex flex-col w-64 bg-[#041E34] border-r border-[#0B4778] text-white shrink-0">
                 {/* Brand Logo */}
                 <div className="p-6 border-b border-[#0B4778] flex items-center gap-3">
-                    <img src="/images/logo.png" alt="Bizztopia Admin" className="h-9 w-auto" />
+                    <div className="w-8 h-8 rounded-xl bg-[#287FBA] flex items-center justify-center font-black text-white text-sm shadow-md">
+                        B
+                    </div>
                     <div>
-                        <span className="text-[10px] font-bold tracking-widest text-[#63B5E8] uppercase block">
-                            Admin Control Panel
+                        <span className="text-[10px] font-bold tracking-widest text-[#63B5E8] uppercase block font-outfit">
+                            Secured Admin Hub
                         </span>
-                        <span className="text-sm font-extrabold text-white">
+                        <span className="text-sm font-extrabold text-white font-outfit">
                             Bizztopia CAP
                         </span>
                     </div>
@@ -62,8 +91,8 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
 
                 {/* Sidebar Navigation Links */}
                 <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
-                    <div className="text-[10px] font-bold text-[#8FC7E8] uppercase tracking-wider px-3 mb-2">
-                        Core Management
+                    <div className="text-[10px] font-bold text-[#8FC7E8] uppercase tracking-wider px-3 mb-2 font-outfit">
+                        Core Control
                     </div>
                     {navItems.map((item) => {
                         const Icon = item.icon;
@@ -72,7 +101,7 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
                                 key={item.label}
                                 href={item.href}
                                 className={`
-                                    flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all
+                                    flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold transition-all font-outfit
                                     ${item.active 
                                         ? 'bg-[#287FBA] text-white shadow-xs' 
                                         : 'text-[#8FC7E8] hover:bg-[#0B4778]/60 hover:text-white'}
@@ -82,33 +111,39 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
                                     <Icon className="w-4 h-4 text-[#63B5E8]" />
                                     <span>{item.label}</span>
                                 </div>
-                                {item.badge && (
-                                    <span className="bg-[#0B4778] text-white text-[10px] px-2 py-0.5 rounded-full border border-[#287FBA]/40 font-semibold">
-                                        {item.badge}
-                                    </span>
-                                )}
                             </Link>
                         );
                     })}
                 </nav>
 
-                {/* Footer Status */}
-                <div className="p-4 border-t border-[#0B4778] bg-[#062F52] space-y-3 text-xs text-[#8FC7E8]">
-                    <div className="flex items-center justify-between">
-                        <span className="flex items-center gap-1.5 text-[11px]">
-                            <ShieldCheck className="w-3.5 h-3.5 text-[#249A68]" /> Engine v0.2
-                        </span>
-                        <span className="text-[10px] bg-[#249A68]/20 text-[#249A68] px-2 py-0.5 rounded-full font-bold">
-                            Live
-                        </span>
+                {/* Quick Automation Actions */}
+                <div className="p-4 border-t border-[#0B4778] bg-[#062F52] space-y-2 text-xs">
+                    <div className="text-[10px] font-bold text-[#8FC7E8] uppercase tracking-wider mb-2 font-outfit">
+                        Automation Triggers
                     </div>
-                    <Link 
-                        href="/" 
-                        target="_blank" 
-                        className="w-full flex items-center justify-center gap-1.5 bg-[#0B4778] hover:bg-[#287FBA] text-white py-2 rounded-xl font-bold transition-colors text-xs"
+                    <Link
+                        href="/admin/sync-rss"
+                        method="post"
+                        as="button"
+                        className="w-full flex items-center justify-center gap-2 bg-[#287FBA] hover:bg-[#1f689a] text-white py-2 px-3 rounded-xl font-bold transition-all text-xs cursor-pointer shadow-xs font-outfit"
                     >
-                        View Frontend Site <ExternalLink className="w-3.5 h-3.5" />
+                        <RefreshCw className="w-3.5 h-3.5" /> Sync RSS (50 Cap)
                     </Link>
+                    <Link
+                        href="/admin/rewrite-articles"
+                        method="post"
+                        as="button"
+                        className="w-full flex items-center justify-center gap-2 bg-[#0B4778] hover:bg-[#287FBA] text-[#8FC7E8] hover:text-white py-2 px-3 rounded-xl font-bold transition-all text-xs cursor-pointer font-outfit"
+                    >
+                        <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Run AI Rewriter
+                    </Link>
+                </div>
+
+                {/* Footer Lock Status */}
+                <div className="p-4 border-t border-[#0B4778] bg-[#041E34] flex items-center justify-between text-xs text-[#8FC7E8]">
+                    <span className="flex items-center gap-1.5 text-[11px] font-bold font-outfit">
+                        <ShieldCheck className="w-3.5 h-3.5 text-[#249A68]" /> Master Access Active
+                    </span>
                 </div>
             </aside>
 
@@ -129,14 +164,31 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
                     </div>
 
                     <div className="flex items-center gap-3">
-                        <span className="hidden sm:inline-flex text-xs font-semibold text-[#466071] bg-[#F7FAFC] px-3 py-1.5 rounded-lg border border-[#E6EEF3]">
-                            Logged in as Administrator
-                        </span>
+                        <div className="hidden md:flex items-center gap-2">
+                            <Link
+                                href="/admin/sync-rss"
+                                method="post"
+                                as="button"
+                                className="px-3 py-1.5 rounded-xl bg-blue-50 text-[#287FBA] border border-blue-200 text-xs font-bold flex items-center gap-1.5 hover:bg-blue-100 transition-all cursor-pointer font-outfit"
+                            >
+                                <RefreshCw className="w-3.5 h-3.5" /> Sync Feeds (50/Day Cap)
+                            </Link>
+                            <Link
+                                href="/admin/rewrite-articles"
+                                method="post"
+                                as="button"
+                                className="px-3 py-1.5 rounded-xl bg-amber-50 text-amber-700 border border-amber-200 text-xs font-bold flex items-center gap-1.5 hover:bg-amber-100 transition-all cursor-pointer font-outfit"
+                            >
+                                <Sparkles className="w-3.5 h-3.5" /> Run Rewriter Pipeline
+                            </Link>
+                        </div>
+
                         <Link 
-                            href="/ideas" 
-                            className="text-xs font-bold text-[#287FBA] hover:underline"
+                            href="/" 
+                            target="_blank"
+                            className="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold flex items-center gap-1.5 transition-colors font-outfit"
                         >
-                            Open Ideas Portal →
+                            Frontend Site <ExternalLink className="w-3.5 h-3.5" />
                         </Link>
                     </div>
                 </header>
@@ -159,6 +211,16 @@ export const AdminLayout: React.FC<AdminLayoutProps> = ({ children, title = 'Mas
 
                 {/* Content Container */}
                 <main className="flex-1 p-6 md:p-8 space-y-8 overflow-y-auto">
+                    {flash?.success && (
+                        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-800 font-bold text-xs">
+                            ✅ {flash.success}
+                        </div>
+                    )}
+                    {flash?.info && (
+                        <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/30 text-blue-800 font-bold text-xs">
+                            ℹ️ {flash.info}
+                        </div>
+                    )}
                     {children}
                 </main>
             </div>

@@ -1,17 +1,24 @@
 import React, { useRef, useState, useCallback } from 'react';
 
 interface MovingChainRowProps {
-    children: React.ReactNode[];
+    children: React.ReactNode;
     speedSeconds?: number;
+    speed?: number;
+    direction?: 'left' | 'right';
     className?: string;
+    itemClassName?: string;
 }
 
 export const MovingChainRow: React.FC<MovingChainRowProps> = ({
     children,
-    speedSeconds = 320,
-    className = ''
+    speedSeconds = 120,
+    speed,
+    direction = 'left',
+    className = '',
+    itemClassName
 }) => {
-    if (!children || children.length === 0) return null;
+    const childrenArray = React.Children.toArray(children);
+    if (childrenArray.length === 0) return null;
 
     const scrollRef = useRef<HTMLDivElement>(null);
     const [isHovered, setIsHovered] = useState(false);
@@ -58,7 +65,7 @@ export const MovingChainRow: React.FC<MovingChainRowProps> = ({
     }, []);
 
     // Quadruple children for seamless infinite loop
-    const quadChildren = [...children, ...children, ...children, ...children];
+    const quadChildren = [...childrenArray, ...childrenArray, ...childrenArray, ...childrenArray];
 
     return (
         <div
@@ -87,13 +94,15 @@ export const MovingChainRow: React.FC<MovingChainRowProps> = ({
                 onClickCapture={onClickCapture}
             >
                 <div
-                    className="flex items-stretch gap-5 w-max animate-marquee-slow transform-gpu group-hover/row:[animation-play-state:paused]"
-                    style={{ animationDuration: `${speedSeconds}s` }}
+                    className={`flex items-stretch gap-6 w-max transform-gpu group-hover/row:[animation-play-state:paused] ${
+                        direction === 'right' ? 'animate-marquee-reverse' : 'animate-marquee-slow'
+                    }`}
+                    style={{ animationDuration: `${speed ? Math.max(120, Math.round(5000 / speed)) : speedSeconds}s` }}
                 >
                     {quadChildren.map((child, index) => (
                         <div
                             key={index}
-                            className="w-[270px] sm:w-[300px] shrink-0 transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg"
+                            className={itemClassName || "w-[270px] sm:w-[300px] shrink-0 transition-transform duration-300 transform-gpu hover:-translate-y-1 hover:scale-[1.02] hover:shadow-lg"}
                         >
                             {child}
                         </div>

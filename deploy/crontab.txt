@@ -1,0 +1,13 @@
+# ==============================================================================
+# Bizztopia Production Crontab Schedule
+# Install with: crontab -u www-data deploy/crontab.txt
+# ==============================================================================
+
+# Laravel Scheduler (Runs every minute)
+* * * * * cd /var/www/bizztopia && php artisan schedule:run >> /dev/null 2>&1
+
+# Daily RSS Ingestion & Article Rewriter (Runs at 06:00 AM UTC, capped at 50/day)
+0 6 * * * cd /var/www/bizztopia && php artisan cap:sync-rss >> /var/log/bizztopia_rss.log 2>&1
+
+# Weekly Database Vacuum & SQLite Maintenance (Runs Sunday at 02:00 AM UTC)
+0 2 * * 0 cd /var/www/bizztopia && sqlite3 database/database.sqlite "VACUUM;" >> /dev/null 2>&1

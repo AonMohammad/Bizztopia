@@ -2,18 +2,28 @@ import React from 'react';
 import { EngagePromoUnit } from './EngagePromoUnit';
 import { Megaphone, ExternalLink, Sparkles } from 'lucide-react';
 
-export const AdSpaceBanner = ({ adType = 'google_ads', adCode, boardName = '' }) => {
+interface AdSpaceBannerProps {
+    adType?: string;
+    adCode?: string;
+    boardName?: string;
+}
+
+export const AdSpaceBanner: React.FC<AdSpaceBannerProps> = ({ 
+    adType = 'google_ads', 
+    adCode, 
+    boardName = '' 
+}) => {
     if (adType === 'engage_poll' || adType === 'engage_quiz') {
         return <EngagePromoUnit variant="banner" />;
     }
 
     return (
-        <div className="w-full my-8 bg-slate-900 rounded-2xl border border-slate-800 p-6 overflow-hidden shadow-xs relative">
+        <div className="w-full my-8 bg-slate-900 rounded-2xl border border-slate-800 p-6 overflow-hidden shadow-xs relative font-sans">
             <div className="flex items-center justify-between text-[10px] uppercase font-bold tracking-widest text-slate-500 mb-3 border-b border-slate-800 pb-2">
                 <span className="flex items-center gap-1 text-amber-400">
                     <Sparkles className="w-3 h-3" /> Sponsor Advertisement Space
                 </span>
-                <span>{boardName ? `${boardName} Ad Slot` : 'Google AdSense (728x90)'}</span>
+                <span>Google AdSense (728x90)</span>
             </div>
 
             {/* Render actual custom ad HTML code or standard AdSense Banner placeholder */}
@@ -33,9 +43,6 @@ export const AdSpaceBanner = ({ adType = 'google_ads', adCode, boardName = '' })
                             <div className="text-xs text-slate-400">AdSense Unit ID: ca-pub-bizztopia-7890 • Managed from Backend Admin</div>
                         </div>
                     </div>
-                    <span className="text-xs font-bold text-amber-400 hover:underline flex items-center gap-1 shrink-0">
-                        Ad Settings <ExternalLink className="w-3.5 h-3.5" />
-                    </span>
                 </div>
             )}
         </div>

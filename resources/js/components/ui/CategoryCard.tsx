@@ -22,7 +22,7 @@ export const CategoryCard: React.FC<CategoryCardProps> = ({
 }) => {
     return (
         <Link 
-            href={`/ideas?category=${slug}`}
+            href={`/ideas/category/${slug}`}
             className={`
                 group p-6 rounded-2xl bg-white border border-[#E6EEF3] shadow-xs 
                 hover:shadow-md hover:border-[#4A9AD4]/40 transition-all duration-300 flex flex-col justify-between
