@@ -613,7 +613,7 @@ export default function Welcome({
                 <div 
                     className="absolute inset-0 bg-cover bg-center z-0 scale-105 transition-transform duration-1000"
                     style={{ 
-                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80')` 
+                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70')` 
                     }}
                 />
                 {/* Ambient Brand Overlay that lets the background image shine through cleanly */}
@@ -1035,6 +1035,7 @@ export default function Welcome({
                                                 </p>
                                                 <Link 
                                                     href={`/subcategory/${rev.subSlug}`} 
+                                                    aria-label={`Read full review for ${rev.business_name}`} 
                                                     className="text-xs font-bold text-[#287FBA] hover:text-[#0B4778] inline-block"
                                                 >
                                                     Read more
@@ -1075,6 +1076,8 @@ export default function Welcome({
                                                         <img 
                                                             src={rev.photos[0]} 
                                                             alt="Photo 1" 
+                                                            width="400" 
+                                                            height="300" 
                                                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" 
                                                         />
                                                     </div>
@@ -1082,6 +1085,8 @@ export default function Welcome({
                                                         <img 
                                                             src={rev.photos[1]} 
                                                             alt="Photo 2" 
+                                                            width="400" 
+                                                            height="300" 
                                                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" 
                                                         />
                                                     </div>
@@ -1092,6 +1097,7 @@ export default function Welcome({
                                                 </p>
                                                 <Link 
                                                     href={`/subcategory/${rev.subSlug}`} 
+                                                    aria-label={`Read full review for ${rev.business_name}`} 
                                                     className="text-xs font-bold text-[#287FBA] hover:text-[#0B4778] inline-block"
                                                 >
                                                     Read more

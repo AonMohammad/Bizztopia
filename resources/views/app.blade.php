@@ -25,6 +25,15 @@
     <meta name="twitter:description" content="Bizztopia connects business owners with 300,000+ vetted vendors, verified service contractors, and B2B growth partners.">
     <meta name="twitter:image" content="https://bizztopia.net/Bizztopia_logo.jpg">
 
+        <!-- Resource Preconnects for Image CDNs -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+    <link rel="preconnect" href="https://images.pexels.com" crossorigin>
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://images.pexels.com">
+
+    <!-- Preload LCP Hero Background Image -->
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70" fetchpriority="high">
+
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bizztopia.net">
 

@@ -240,7 +240,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     {/* Left: Logo */}
                     <div className="flex items-center gap-6 shrink-0">
                         <Link href="/">
-                            <img src="/images/logo.png" alt="Bizztopia" className="h-9 w-auto" />
+                            <img src="/images/logo.png" alt="Bizztopia" width="180" height="63" className="h-9 w-auto" />
                         </Link>
                     </div>
                     
@@ -266,7 +266,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                                 onChange={(e) => setLocationQuery(e.target.value)}
                             />
                         </div>
-                        <button type="submit" className="bg-[#287FBA] hover:bg-[#0B4778] text-white p-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center">
+                        <button type="submit" aria-label="Search" className="bg-[#287FBA] hover:bg-[#0B4778] text-white p-2.5 rounded-lg transition-colors cursor-pointer flex items-center justify-center">
                             <Search className="w-4 h-4" />
                         </button>
                     </form>
@@ -282,6 +282,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         {/* Mobile Menu Button */}
                         <button 
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                            aria-label="Toggle Navigation Menu"
                             className="md:hidden p-2 rounded-lg hover:bg-white/10 text-white"
                         >
                             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
