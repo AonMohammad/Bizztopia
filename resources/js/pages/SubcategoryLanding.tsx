@@ -18,16 +18,6 @@ interface SubcategoryLandingProps {
 export default function SubcategoryLanding({ slug, name, categoryName, articles }: SubcategoryLandingProps) {
     const subcatImages: any[] = (subcategoryImagesData as any)[slug] || [];
 
-    const displayNews = (articles && articles.length > 0)
-        ? articles.map((a, idx) => ({
-            title: a.title,
-            excerpt: a.subtitle || a.excerpt,
-            readTime: a.reading_time || '4 min read',
-            date: new Date(a.published_at || a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-            img: a.hero_image || subcatImages[idx + 5]?.url || 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=600&q=80',
-            slug: a.slug
-          }))
-        : content.news;
     const [leadSubmitted, setLeadSubmitted] = useState(false);
     const [serviceNeed, setServiceNeed] = useState('');
     const [location, setLocation] = useState('San Francisco, CA');
@@ -405,6 +395,17 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
     };
 
     const content = getTailoredContent();
+
+    const displayNews = (articles && articles.length > 0)
+        ? articles.map((a, idx) => ({
+            title: a.title,
+            excerpt: a.subtitle || a.excerpt,
+            readTime: a.reading_time || '4 min read',
+            date: new Date(a.published_at || a.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+            img: a.hero_image || subcatImages[idx + 5]?.url || 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=600&q=80',
+            slug: a.slug
+          }))
+        : (content.news || []);
 
     return (
         <AppLayout>

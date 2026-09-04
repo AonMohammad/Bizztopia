@@ -376,15 +376,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 )}
             </header>
             
-            {/* Main Page Viewport — with smooth page transition */}
-            <main
-                className="flex-grow"
-                style={{
-                    opacity: pageVisible ? 1 : 0,
-                    transform: pageVisible ? 'translateY(0)' : 'translateY(18px)',
-                    transition: 'opacity 0.45s cubic-bezier(0.16,1,0.3,1), transform 0.45s cubic-bezier(0.16,1,0.3,1)',
-                }}
-            >
+            {/* Main Page Viewport */}
+            <main className="flex-grow">
                 {children}
             </main>
 
