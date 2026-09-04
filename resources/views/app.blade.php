@@ -30,7 +30,7 @@
     <link rel="dns-prefetch" href="https://images.unsplash.com">
 
     <!-- Preload LCP Hero Background Image -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=55" fetchpriority="high">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=50" fetchpriority="high">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bizztopia.net">

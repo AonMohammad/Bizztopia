@@ -613,7 +613,7 @@ export default function Welcome({
                 <div 
                     className="absolute inset-0 bg-cover bg-center z-0 scale-105 transition-transform duration-1000"
                     style={{ 
-                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=55')` 
+                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=50')` 
                     }}
                 />
                 {/* Ambient Brand Overlay that lets the background image shine through cleanly */}
