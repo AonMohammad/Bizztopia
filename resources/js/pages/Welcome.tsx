@@ -291,7 +291,7 @@ export default function Welcome({
             rating: 4.9,
             reviews: 128,
             location: 'San Francisco, CA',
-            img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80',
+            img: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=350&q=60',
             badge: 'Top Performer'
         },
         {
@@ -300,7 +300,7 @@ export default function Welcome({
             rating: 4.9,
             reviews: 94,
             location: 'Austin, TX',
-            img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80',
+            img: 'https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=350&q=60',
             badge: 'Verified Leader'
         },
         {
@@ -309,7 +309,7 @@ export default function Welcome({
             rating: 4.8,
             reviews: 62,
             location: 'New York, NY',
-            img: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=600&q=80',
+            img: 'https://images.unsplash.com/photo-1450133064473-71024230f91b?auto=format&fit=crop&w=350&q=60',
             badge: 'Featured Vendor'
         },
         {
@@ -318,44 +318,44 @@ export default function Welcome({
             rating: 5.0,
             reviews: 45,
             location: 'Chicago, IL',
-            img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80',
+            img: 'https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=350&q=60',
             badge: 'Top Rated'
         }
     ];
 
     // Real Case Studies
     const caseStudies = [
-        { title: 'How TechCorp Scaled ARR from $1M to $10M in 18 Months', category: 'Growth Strategy', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=600&q=80' },
-        { title: 'Reducing Customer Acquisition Cost by 42% via Vetted Partners', category: 'Marketing', img: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=600&q=80' },
-        { title: 'Modernizing SMB Infrastructure with CloudScale Stack', category: 'SaaS Integration', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80' },
-        { title: 'Navigating Cross-Border Legal & Regulatory Frameworks', category: 'Compliance', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=600&q=80' }
+        { title: 'How TechCorp Scaled ARR from $1M to $10M in 18 Months', category: 'Growth Strategy', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=350&q=60' },
+        { title: 'Reducing Customer Acquisition Cost by 42% via Vetted Partners', category: 'Marketing', img: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=350&q=60' },
+        { title: 'Modernizing SMB Infrastructure with CloudScale Stack', category: 'SaaS Integration', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=350&q=60' },
+        { title: 'Navigating Cross-Border Legal & Regulatory Frameworks', category: 'Compliance', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=350&q=60' }
     ];
 
     // Regions / Cities
     const regions = [
-        { name: 'San Francisco', count: '450+ Partners', img: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=400&q=80' },
-        { name: 'New York', count: '620+ Partners', img: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=400&q=80' },
-        { name: 'Austin', count: '310+ Partners', img: 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=400&q=80' },
-        { name: 'London', count: '280+ Partners', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=400&q=80' },
-        { name: 'Chicago', count: '477959858617-67f30ac4ce78?auto=format&fit=crop&w=400&q=80' },
-        { name: 'Toronto', count: '190+ Partners', img: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=400&q=80' },
+        { name: 'San Francisco', count: '450+ Partners', img: 'https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=220&q=60' },
+        { name: 'New York', count: '620+ Partners', img: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=220&q=60' },
+        { name: 'Austin', count: '310+ Partners', img: 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=220&q=60' },
+        { name: 'London', count: '280+ Partners', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=220&q=60' },
+        { name: 'Chicago', count: '477959858617-67f30ac4ce78?auto=format&fit=crop&w=220&q=60' },
+        { name: 'Toronto', count: '190+ Partners', img: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=220&q=60' },
     ];
 
     // Topic avatars for Ideas
     const topicAvatars = [
-        { label: 'Marketing', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80' },
-        { label: 'SaaS Tools', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80' },
-        { label: 'Consulting', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80' },
-        { label: 'Legal Tech', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80' },
-        { label: 'Finance', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80' },
-        { label: 'Growth', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80' },
+        { label: 'Marketing', avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&q=60' },
+        { label: 'SaaS Tools', avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&q=60' },
+        { label: 'Consulting', avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=64&q=60' },
+        { label: 'Legal Tech', avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&q=60' },
+        { label: 'Finance', avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=64&q=60' },
+        { label: 'Growth', avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=64&q=60' },
     ];
 
         const yelpRecentActivity = [
         {
             id: 1,
             reviewer_name: 'Jessica T.',
-            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: '2 hours ago',
             business_name: "Brenda's French Soul Food",
@@ -364,13 +364,13 @@ export default function Welcome({
             price_category: '$$ • Southern, Breakfast & Brunch',
             review_body: 'Stopped in for Saturday brunch and the fried chicken benedict on house biscuits was otherworldly. The beignets were warm, doughy, and covered in powdered sugar. Friendly and efficient staff despite the weekend rush!',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1551218808-94e220e084d2?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 4, funny: 1, cool: 3 }
         },
         {
             id: 2,
             reviewer_name: 'Roy T.',
-            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: '3 hours ago',
             business_name: 'King Taco & Street Grill',
@@ -380,15 +380,15 @@ export default function Welcome({
             review_body: 'Unbeatable street tacos. The al pastor pork has that perfect charred pineapple crisp and the red salsa has genuine kick. Cash or card accepted, super fast turnaround.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 7, funny: 2, cool: 5 }
         },
         {
             id: 3,
             reviewer_name: 'Brandon H.',
-            avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: '4 hours ago',
             business_name: 'Blue Water Seafood & Oyster Bar',
@@ -397,13 +397,13 @@ export default function Welcome({
             price_category: '$$$ • Seafood, Raw Bar, Wine',
             review_body: 'The New England clam chowder in a fresh sourdough bowl hit the spot on a foggy afternoon. Oysters were shucked fresh to order, ice cold with mignonette.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 5, funny: 0, cool: 4 }
         },
         {
             id: 4,
             reviewer_name: 'Peggy S.',
-            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=64&q=60',
             action: 'added a photo',
             time: '5 hours ago',
             business_name: 'Hotbird Nashville Hot Chicken',
@@ -412,13 +412,13 @@ export default function Welcome({
             price_category: '$$ • Chicken Shop, Fast Casual',
             review_body: 'Crispy, juicy, and spicy! The medium spice level has great heat without overpowering the seasoning. Loaded crinkle fries and house slaw were the perfect pairing.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 3, funny: 1, cool: 2 }
         },
         {
             id: 5,
             reviewer_name: 'Danielle K.',
-            avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: '6 hours ago',
             business_name: 'Rose Bakery & Specialty Coffee',
@@ -428,15 +428,15 @@ export default function Welcome({
             review_body: 'Charming corner cafe with artisan flat whites and sourdough toast flights. Excellent natural light, great Wi-Fi, and courteous baristas.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 8, funny: 0, cool: 6 }
         },
         {
             id: 6,
             reviewer_name: 'Marcus V.',
-            avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: '7 hours ago',
             business_name: 'Apex Commercial HVAC & Contracting',
@@ -445,13 +445,13 @@ export default function Welcome({
             price_category: '$$$ • HVAC, General Contractors',
             review_body: 'Our central server room AC compressor went down on a 90-degree day. Apex had a technician at our office within 40 minutes and completed warranty repairs on the spot.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 12, funny: 0, cool: 3 }
         },
         {
             id: 7,
             reviewer_name: 'Elizabeth R.',
-            avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: '9 hours ago',
             business_name: 'Golden Gate Pastry & Sweets',
@@ -461,15 +461,15 @@ export default function Welcome({
             review_body: 'The strawberry shaved ice and milk toast buns are to die for. Fluffy, cloud-like texture and not overly sweet. A must-visit after dinner!',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1555507036-ab1f4038808a?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 6, funny: 1, cool: 4 }
         },
         {
             id: 8,
             reviewer_name: 'Carlos M.',
-            avatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&w=64&q=60',
             action: 'added a photo',
             time: '11 hours ago',
             business_name: 'District Cocktail Bar & Lounge',
@@ -478,13 +478,13 @@ export default function Welcome({
             price_category: '$$ • Cocktail Bars, Lounges',
             review_body: 'Artisanal mezcal cocktails with smoked rosemary and fresh passionfruit puree. Ambient speakeasy lighting and playlist make it ideal for date night.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 5, funny: 2, cool: 9 }
         },
         {
             id: 9,
             reviewer_name: 'Sara P.',
-            avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: '12 hours ago',
             business_name: 'Summit Smokehouse & BBQ',
@@ -493,13 +493,13 @@ export default function Welcome({
             price_category: '$$ • Barbeque, Ribs, Comfort Food',
             review_body: 'Texas-style brisket with deep smoke rings and caramelized bark. The ribs pull right off the bone without sauce needed. Mac & cheese and cornbread are delicious.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 9, funny: 1, cool: 6 }
         },
         {
             id: 10,
             reviewer_name: 'David C.',
-            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: 'Yesterday',
             business_name: 'Elite Fleet Detailing & Auto Repair',
@@ -509,15 +509,15 @@ export default function Welcome({
             review_body: 'Brought in our company delivery van for complete interior detailing and ceramic coat. Look at these before and after shots! Outstanding craftsmanship and clear invoicing.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 11, funny: 0, cool: 8 }
         },
         {
             id: 11,
             reviewer_name: 'Elena R.',
-            avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: 'Yesterday',
             business_name: 'Ramen Ichiraku Noodle Bar',
@@ -526,13 +526,13 @@ export default function Welcome({
             price_category: '$$ • Japanese, Ramen, Noodles',
             review_body: 'Rich, 18-hour simmered tonkotsu broth that is silky and deeply savory. Chewy noodles cooked firm and the ajitsuke tamago egg had a gooey custard center.',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 7, funny: 1, cool: 5 }
         },
         {
             id: 12,
             reviewer_name: 'Claire M.',
-            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: '2 days ago',
             business_name: 'Sarah Jenkins Gourmet Catering',
@@ -542,15 +542,15 @@ export default function Welcome({
             review_body: 'Ordered boxed executive lunches for our board meeting of 28 people. Beautiful individual packaging, fresh seasonal salads, and delicious grain bowls.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 14, funny: 1, cool: 7 }
         },
         {
             id: 13,
             reviewer_name: 'Michael B.',
-            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=64&q=60',
             action: 'wrote a review',
             time: '2 days ago',
             business_name: 'Tokyo Sushi Omakase Lounge',
@@ -560,15 +560,15 @@ export default function Welcome({
             review_body: 'Spectacular omakase experience. The bluefin otoro and Santa Barbara sea urchin melted in our mouths. Chef Kenji explains the provenance of every single piece.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1611143669185-af224c5e3252?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 16, funny: 2, cool: 12 }
         },
         {
             id: 14,
             reviewer_name: 'Anthony D.',
-            avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=64&q=60',
             action: 'added a photo',
             time: '3 days ago',
             business_name: 'Zenith Chiropractic & Spine Care',
@@ -577,13 +577,13 @@ export default function Welcome({
             price_category: '$$ • Chiropractors, Physical Therapy',
             review_body: 'Suffered from chronic lower back tension from desk work. Dr. Amanda did a thorough spinal assessment and gentle decompression. Walked out feeling 2 inches taller!',
             layout_type: 'single_photo',
-            photos: ['https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=600&q=80'],
+            photos: ['https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=350&q=60'],
             reactions: { useful: 8, funny: 0, cool: 4 }
         },
         {
             id: 15,
             reviewer_name: 'Rachel W.',
-            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=120&q=80',
+            avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=64&q=60',
             action: 'added 2 photos',
             time: '3 days ago',
             business_name: 'Delta Moving & Storage Solutions',
@@ -593,8 +593,8 @@ export default function Welcome({
             review_body: 'Our 4-bedroom home move was executed seamlessly. The crew arrived right at 8 AM with heavy-duty padding, disassembling and reassembling furniture with extreme care.',
             layout_type: 'double_photo',
             photos: [
-                'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80',
-                'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=400&q=80'
+                'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=220&q=60',
+                'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?auto=format&fit=crop&w=220&q=60'
             ],
             reactions: { useful: 10, funny: 0, cool: 6 }
         }
@@ -613,7 +613,7 @@ export default function Welcome({
                 <div 
                     className="absolute inset-0 bg-cover bg-center z-0 scale-105 transition-transform duration-1000"
                     style={{ 
-                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70')` 
+                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=700&q=55')` 
                     }}
                 />
                 {/* Ambient Brand Overlay that lets the background image shine through cleanly */}

@@ -240,7 +240,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     {/* Left: Logo */}
                     <div className="flex items-center gap-6 shrink-0">
                         <Link href="/">
-                            <img src="/images/logo.png" alt="Bizztopia" width="180" height="63" className="h-9 w-auto" />
+                            <img src="/images/logo.webp" alt="Bizztopia" width="180" height="63" className="h-9 w-auto" />
                         </Link>
                     </div>
                     
