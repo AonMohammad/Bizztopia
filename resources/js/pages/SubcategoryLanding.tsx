@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { AppLayout } from '@/layouts/AppLayout';
 import { Head, Link, router } from '@inertiajs/react';
+import subcategoryImagesData from '@/data/subcategory_images.json';
 import { 
     Star, MapPin, ShieldCheck, CheckCircle2, ChevronRight, 
     BookOpen, Sparkles, UserCheck, ShieldAlert, Award, FileText,
@@ -15,15 +16,7 @@ interface SubcategoryLandingProps {
 }
 
 export default function SubcategoryLanding({ slug, name, categoryName, articles }: SubcategoryLandingProps) {
-    const [subcatImages, setSubcatImages] = useState<any[]>([]);
-
-    useEffect(() => {
-        import('@/data/subcategory_images.json').then((mod) => {
-            if (mod && mod.default) {
-                setSubcatImages((mod.default as any)[slug] || []);
-            }
-        }).catch(() => {});
-    }, [slug]);
+    const subcatImages: any[] = (subcategoryImagesData as any)[slug] || [];
 
     const [leadSubmitted, setLeadSubmitted] = useState(false);
     const [serviceNeed, setServiceNeed] = useState('');
