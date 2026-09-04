@@ -169,7 +169,10 @@ Route::post('/engage/polls/{poll}/vote', [EngageController::class, 'vote'])->nam
 Route::post('/engage/quizzes/{quiz}/submit', [EngageController::class, 'submitQuiz'])->name('engage.quizzes.submit');
 
 // Module 03 — Value (Decision Tools & Calculators) Routes
-Route::get('/value', [ValueController::class, 'index'])->name('value.index');
+Route::get('/for-business', [ValueController::class, 'index'])->name('business.index');
+Route::get('/value', function () {
+    return redirect('/for-business');
+});
 Route::post('/value/calculate-roi', [ValueController::class, 'calculateRoi'])->name('value.calculate-roi');
 Route::post('/value/calculate-startup-cost', [ValueController::class, 'calculateStartupCost'])->name('value.calculate-startup-cost');
 

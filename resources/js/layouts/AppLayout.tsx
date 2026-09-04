@@ -155,7 +155,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     const isHome = url === '/' || url.startsWith('/?') || url === '';
     const isIdeas = url.startsWith('/ideas');
     const isEngage = url.startsWith('/engage');
-    const isValue = url.startsWith('/value');
+    const isValue = url.startsWith('/value') || url.startsWith('/for-business');
     const isSocial = url.startsWith('/social');
     const isInspire = url.startsWith('/inspire');
 
@@ -275,7 +275,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     <div className="flex items-center gap-4 text-sm font-bold text-white shrink-0">
                         <Link href="/write-a-review" className="hover:text-[#287FBA] transition-colors hidden lg:inline">Write a Review</Link>
                         <Link href="/for-consumers" className="hover:text-[#287FBA] transition-colors hidden lg:inline mr-2">Bizztopia for Consumers</Link>
-                        <Link href="/value" className="hover:text-[#287FBA] transition-colors hidden lg:inline">For Businesses</Link>
+                        <Link href="/for-business" className="hover:text-[#287FBA] transition-colors hidden lg:inline">Bizztopia for Business</Link>
                         <Link href="/login" className="px-3 py-1.5 rounded-lg border border-white hover:bg-white/10 transition-colors">Log In</Link>
                         <Link href="/register" className="px-3 py-1.5 rounded-lg bg-[#287FBA] hover:bg-[#0B4778] text-white transition-colors">Sign Up</Link>
                         
@@ -368,7 +368,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         <div className="flex flex-col gap-2.5">
                             <Link href="/write-a-review" className="block text-sm font-bold text-slate-200 hover:text-white">Write a Review</Link>
                             <Link href="/for-consumers" className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Consumers</Link>
-                            <Link href="/value" className="block text-sm font-bold text-slate-200 hover:text-white">For Businesses</Link>
+                            <Link href="/for-business" className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Business</Link>
                             <Link href="/login" className="block text-sm font-bold text-slate-200 hover:text-white">Log In</Link>
                             <Link href="/register" className="block text-sm font-bold text-slate-200 hover:text-white">Sign Up</Link>
                         </div>
@@ -447,11 +447,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                                     Stay organized and project your conversion lift and budget payback from start to finish.
                                 </p>
                                 <div className="flex flex-wrap gap-x-3 gap-y-1.5 text-xs font-bold text-slate-700">
-                                    <Link href="/value" className="hover:text-[#287FBA] hover:underline">ROI & Payback Estimator</Link>
+                                    <Link href="/for-business" className="hover:text-[#287FBA] hover:underline">ROI & Payback Estimator</Link>
                                     <span>·</span>
-                                    <Link href="/value" className="hover:text-[#287FBA] hover:underline">Startup Cost Calculator</Link>
+                                    <Link href="/for-business" className="hover:text-[#287FBA] hover:underline">Startup Cost Calculator</Link>
                                     <span>·</span>
-                                    <Link href="/value" className="hover:text-[#287FBA] hover:underline">Vetting Checklist</Link>
+                                    <Link href="/for-business" className="hover:text-[#287FBA] hover:underline">Vetting Checklist</Link>
                                 </div>
                             </div>
 
@@ -560,7 +560,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         <div className="space-y-3">
                             <h4 className="text-[15px] font-bold text-slate-900 font-outfit">Discover</h4>
                             <div className="flex flex-col space-y-2">
-                                <Link href="/value" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Bizztopia Project Cost Guides</Link>
+                                <Link href="/for-business" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Bizztopia Project Cost Guides</Link>
                                 <Link href="/inspire" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Collections</Link>
                                 <Link href="/social" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Talk</Link>
                                 <Link href="/subcategory/venues-events" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Events</Link>
@@ -574,9 +574,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
                         {/* Col 3: For Businesses */}
                         <div className="space-y-3">
-                            <h4 className="text-[15px] font-bold text-slate-900 font-outfit">For Businesses</h4>
+                            <h4 className="text-[15px] font-bold text-slate-900 font-outfit">Bizztopia for Business</h4>
                             <div className="flex flex-col space-y-2">
-                                <Link href="/value" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">For Businesses</Link>
+                                <Link href="/for-business" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Bizztopia for Business</Link>
                                 <Link href="/login" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Business Owner Login</Link>
                                 <Link href="/value#claim" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Claim your Business Page</Link>
                                 <Link href="/value#pricing" className="text-slate-600 hover:text-[#287FBA] hover:underline font-normal">Advertise on Bizztopia</Link>
