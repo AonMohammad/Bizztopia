@@ -105,14 +105,19 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
 
             {/* 1. HERO SECTION with VISIBLE BACKGROUND IMAGE */}
             <section className="text-white py-20 px-6 relative overflow-hidden">
-                {/* Visible Background Image Layer */}
-                <div 
-                    className="absolute inset-0 bg-cover bg-center z-0 scale-105"
-                    style={{ 
-                        backgroundImage: `url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80')` 
-                    }}
-                />
-                {/* Ambient Brand Overlay that lets the background image stay clearly visible */}
+                {/* Fast-Loading Background Video Layer with Poster Fallback */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
+                    className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
+                >
+                    <source src="https://videos.pexels.com/video-files/3209828/3209828-hd_1280_720_25fps.mp4" type="video/mp4" />
+                </video>
+                {/* Ambient Brand Overlay that lets the background video stay clearly visible */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#031729]/85 via-[#0B4778]/75 to-[#287FBA]/65 z-0" />
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] z-0" />
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">

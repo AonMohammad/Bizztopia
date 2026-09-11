@@ -608,14 +608,19 @@ export default function Welcome({
 
             {/* SECTION 1: Bizztopia-Style Hero with VISIBLE Background Image */}
             <section className="text-white relative overflow-hidden min-h-[540px] flex flex-col justify-center py-20">
-                {/* Visible Background Image Layer */}
-                <div 
-                    className="absolute inset-0 bg-cover bg-center z-0 scale-105 transition-transform duration-1000"
-                    style={{ 
-                        backgroundImage: `url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=50')` 
-                    }}
-                />
-                {/* Ambient Brand Overlay that lets the background image shine through cleanly */}
+                {/* Fast-Loading Background Video Layer with Poster Fallback */}
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70"
+                    className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
+                >
+                    <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1280_720_30fps.mp4" type="video/mp4" />
+                </video>
+                {/* Ambient Brand Overlay that lets the background video shine through cleanly */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#031729]/85 via-[#0B4778]/75 to-[#287FBA]/65 z-0" />
                 <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] opacity-10 z-0" />
 
