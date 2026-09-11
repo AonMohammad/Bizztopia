@@ -44,7 +44,7 @@ export default function Login() {
                                 Welcome Back to Bizztopia
                             </h1>
                             <p className="text-slate-500 text-xs font-medium">
-                                Sign in to manage your claimed business page, reply to reviews, or track project quotes.
+                                Sign in to manage your business listing, respond to customer reviews, and track incoming service inquiries.
                             </p>
                         </div>
 

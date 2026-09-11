@@ -40,7 +40,7 @@ export default function Privacy() {
                     <div className="space-y-2">
                         <h2 className="text-lg font-black font-outfit text-slate-950">1. Information We Collect</h2>
                         <p>
-                            Bizztopia collects personal and business information you provide when searching for services, claiming directory listings, submitting customer reviews, or requesting matched quote estimates. This includes business names, phone numbers, verified license files, and project requirements.
+                            Bizztopia collects personal and business information you provide when searching for services, claiming directory listings, submitting customer reviews, or requesting matched quote estimates. This includes business names, phone numbers, verified license files, and service requirements.
                         </p>
                     </div>
 
@@ -54,7 +54,7 @@ export default function Privacy() {
                     <div className="space-y-2">
                         <h2 className="text-lg font-black font-outfit text-slate-950">3. Information Sharing & Third Parties</h2>
                         <p>
-                            Bizztopia never sells your personal phone number or email to third-party telemarketers. When you submit a quote match request, your contact information is shared only with up to 3 matched, verified Vetted Pro businesses so they can provide you with direct estimates.
+                            Bizztopia never sells your personal information to third parties. When you submit a quote match request, your contact details are shared only with up to 3 matched, Bizztopia Verified Pro businesses so they can provide you with direct estimates.
                         </p>
                     </div>
 
@@ -68,7 +68,7 @@ export default function Privacy() {
                     <div className="space-y-2">
                         <h2 className="text-lg font-black font-outfit text-slate-950">5. Security & Data Retention</h2>
                         <p>
-                            All financial transactions for Vetted Pro memberships are encrypted using 256-bit SSL technology processed through Stripe. We maintain industry-standard security safeguards to protect your personal files against unauthorized access.
+                            All financial transactions for Verified Pro memberships are encrypted using 256-bit SSL technology processed through Stripe. We maintain industry-standard security safeguards to protect your personal files against unauthorized access.
                         </p>
                     </div>
                 </div>

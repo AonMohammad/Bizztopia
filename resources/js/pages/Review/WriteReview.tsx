@@ -224,7 +224,7 @@ export default function WriteReview() {
                                 <CheckCircle2 className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
                                 <div>
                                     <h5 className="text-xs font-bold text-slate-900">Be Helpful & Objective</h5>
-                                    <p className="text-[11px] text-slate-500 font-medium">Outline what went well, what could improve, and key project details.</p>
+                                    <p className="text-[11px] text-slate-500 font-medium">Share what went well, what could be better, and what the service involved.</p>
                                 </div>
                             </li>
                             <li className="flex gap-3">

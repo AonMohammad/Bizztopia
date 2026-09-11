@@ -45,9 +45,9 @@ export default function Terms() {
                     </div>
 
                     <div className="space-y-2">
-                        <h2 className="text-lg font-black font-outfit text-slate-950">2. Directory Profiles & Vetted Certification</h2>
+                        <h2 className="text-lg font-black font-outfit text-slate-950">2. Directory Profiles & Verified Certification</h2>
                         <p>
-                            Business profiles on Bizztopia must represent legally incorporated or licensed entities. Businesses applying for the "Vetted Pro" badge warrant that all submitted trade license numbers and liability insurance policy documents are valid, current, and unencumbered. Misrepresentation constitutes an immediate breach and will result in permanent listing revocation.
+                            Business profiles on Bizztopia must represent legally incorporated or licensed entities. Businesses applying for the "Verified Pro" badge warrant that all submitted trade license numbers and liability insurance policy documents are valid, current, and unencumbered. Misrepresentation constitutes an immediate breach and will result in permanent listing revocation.
                         </p>
                     </div>
 
@@ -61,7 +61,7 @@ export default function Terms() {
                     <div className="space-y-2">
                         <h2 className="text-lg font-black font-outfit text-slate-950">4. The $2,500 Consumer Protection Guarantee</h2>
                         <p>
-                            Bizztopia’s Resolution Desk provides mediation and up to $2,500 direct reimbursement for eligible contracts executed with verified Vetted Pro partners, subject to written quote documentation and resolution guidelines.
+                            Bizztopia’s Resolution Desk provides mediation and up to $2,500 direct reimbursement for eligible contracts executed with Bizztopia Verified Pro partners, subject to written quote documentation and resolution guidelines.
                         </p>
                     </div>
 

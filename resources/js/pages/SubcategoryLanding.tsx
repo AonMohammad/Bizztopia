@@ -23,6 +23,7 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
     const [location, setLocation] = useState('San Francisco, CA');
     const [email, setEmail] = useState('');
     const [nameField, setNameField] = useState('');
+    const [phone, setPhone] = useState('');
     const [showNeedsDropdown, setShowNeedsDropdown] = useState(false);
     const [showLocsDropdown, setShowLocsDropdown] = useState(false);
     // Autocomplete location search options
@@ -77,48 +78,48 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         if (cat.includes('restaurant')) {
             return {
-                tagline: `Instantly match with top-rated local dining, takeout, and catering teams. Satisfy your team or event with vetted culinary pros.`,
+                tagline: `Find the best local restaurants, cafes, food trucks, and catering services near you — based on real reviews, ratings, and cuisine type.`,
                 pillars: {
-                    c: { title: 'Connect', desc: 'Vetted hygiene scores, active health permits, and verified customer ratings.' },
-                    i: { title: 'Identify', desc: 'Full menus, catering capacity guides, and honest peer feedback.' },
-                    s: { title: 'Serve', desc: 'Get catering bids or group bookings confirmed in under 2 hours.' }
+                    c: { title: 'Real Reviews', desc: 'Honest ratings from actual diners, office catering managers, and event coordinators.' },
+                    i: { title: 'Compare Easily', desc: 'Full menus, pricing tiers, catering capacity, and delivery areas at a glance.' },
+                    s: { title: 'Book Fast', desc: 'Confirm catering orders or group reservations directly with the restaurant.' }
                 },
                 benefits: [
-                    { title: 'Corporate Catering SLA', desc: 'Guaranteed on-time setup for office meetings or business events.' },
-                    { title: 'Food Quality Promise', desc: 'We verify ingredient sourcing and safety compliance files.' },
-                    { title: 'Customized Menu Planning', desc: 'Support for vegan, gluten-free, and corporate dietary needs.' },
-                    { title: 'No Booking Fees', desc: 'Connect directly with local restaurants and food trucks.' }
+                    { title: 'Catering on Your Schedule', desc: 'Same-day and advance catering options for team lunches, client dinners, and corporate events.' },
+                    { title: 'Dietary Requirements Met', desc: 'Request vegan, halal, gluten-free, or nut-free menus with ease.' },
+                    { title: 'No Hidden Booking Fees', desc: 'Connect directly with local restaurants and caterers at their real rates.' },
+                    { title: 'Verified Food Safety', desc: 'We surface active health inspection scores and food handling certifications.' }
                 ],
                 reviews: [
                     {
-                        user: 'Claire Thompson', role: 'Event Manager, CloudScale', rating: 5, date: 'Yesterday', helpfulCount: 12,
-                        comment: `Bizztopia matched us with a fantastic provider for our corporate gala. The food was incredible, dietary needs were met perfectly, and setup was seamless.`
+                        user: 'Claire Thompson', role: 'Office Manager, CloudScale', rating: 5, date: 'Yesterday', helpfulCount: 12,
+                        comment: `Ordered catering for our all-hands meeting — 50 people, multiple dietary needs. The restaurant coordinated everything perfectly and arrived 20 minutes early to set up. Zero stress on our end.`
                     },
                     {
-                        user: 'Dave Patterson', role: 'COO, Pioneer Growth', rating: 5, date: '3 days ago', helpfulCount: 8,
-                        comment: `Excellent service. We routinely order client lunches through these vetted local dining partners. The delivery is punctual and quality is always top-notch.`
+                        user: 'Dave Patterson', role: 'Operations Lead, Pioneer Group', rating: 5, date: '3 days ago', helpfulCount: 8,
+                        comment: `We do weekly client lunches through Bizztopia now. The selection is great, delivery is always on time, and the food quality has never once disappointed us.`
                     },
                     {
-                        user: 'Renata Rossi', role: 'Founder, Rossi Group', rating: 4, date: '1 week ago', helpfulCount: 4,
-                        comment: `Very easy to match and coordinate group lunch boxes for our quarterly sprint. Saved us hours of calling around.`
+                        user: 'Renata Rossi', role: 'Founder, Rossi Consulting', rating: 4, date: '1 week ago', helpfulCount: 4,
+                        comment: `Much easier than coordinating by phone. Found a great lunch spot within two minutes, placed a group order, and got a confirmation straight away.`
                     }
                 ],
                 news: [
                     {
-                        title: 'Corporate Catering Guide: Feeding High-Performance Teams',
-                        excerpt: 'Best practices for ordering office lunches, configuring dietary choices, and calculating portions.',
+                        title: 'How to Pick the Right Caterer for a Corporate Event',
+                        excerpt: 'From headcount estimates to setup logistics — a practical checklist for stress-free office catering.',
                         readTime: '5 min read', date: 'Aug 28, 2026',
                         img: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Health & Hygiene Standards: What to Look for in Vetted Dining',
-                        excerpt: 'How Bizztopia monitors local food handling certifications, health inspection reports, and licenses.',
+                        title: 'What to Look for in a Restaurant Health Inspection Score',
+                        excerpt: 'Understanding health grades, what each violation means, and how to read a food safety report before you order.',
                         readTime: '4 min read', date: 'Aug 24, 2026',
                         img: 'https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Top 10 Trending Office Lunch Formats for Fall 2026',
-                        excerpt: 'From poke bowls to interactive taco bars, check out the popular business catering formats of the quarter.',
+                        title: 'The Best Delivery-Friendly Office Lunch Formats in 2026',
+                        excerpt: 'Individually boxed meals, family-style spreads, and interactive food bars — what works for different team sizes.',
                         readTime: '3 min read', date: 'Aug 18, 2026',
                         img: 'https://images.unsplash.com/photo-1543007630-9710e4a00a20?auto=format&fit=crop&w=300&q=80'
                     }
@@ -128,48 +129,48 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         if (cat.includes('home') || cat.includes('garden')) {
             return {
-                tagline: `Match with licensed, bonded, and vetted contractors, plumbers, and home repair professionals in your neighborhood.`,
+                tagline: `Find licensed, insured contractors, plumbers, electricians, and home repair pros in your neighborhood — compare quotes before you commit.`,
                 pillars: {
-                    c: { title: 'Connect', desc: '100% verified state licenses, insurance certificates, and active bonding files.' },
-                    i: { title: 'Identify', desc: 'Detailed past project galleries, itemized pricing references, and client ratings.' },
-                    s: { title: 'Serve', desc: 'Get up to 3 competitive contracting estimates in under 24 hours.' }
+                    c: { title: 'Licensed & Insured', desc: 'All listed contractors carry active state licenses, bonding, and minimum liability insurance.' },
+                    i: { title: 'Real Work Photos', desc: 'Browse authentic before-and-after photos, completed job galleries, and verified client ratings.' },
+                    s: { title: 'Get Quotes Fast', desc: 'Receive up to 3 competing estimates for your job — no obligation, no hidden fees.' }
                 },
                 benefits: [
-                    { title: 'Bonded & Insured Pros', desc: 'All matching pros carry minimum $1M general liability coverage.' },
-                    { title: '$1,000 Damage Protection', desc: 'Bizztopia covers up to $1k of work disputes or property damage.' },
-                    { title: 'Transparent Cost Estimates', desc: 'Itemized billing and clear contract specs on all project bids.' },
-                    { title: 'Emergency Dispatch', desc: 'On-site service technicians available within 4 hours for urgent calls.' }
+                    { title: 'Licensed & Insured', desc: 'Many contractors carry liability insurance and bonding — always confirm coverage details before work begins.' },
+                    { title: 'Written Quotes Upfront', desc: 'Get itemized quotes in writing before any work starts so you know exactly what you are paying for.' },
+                    { title: 'Transparent Pricing', desc: 'Compare rates from multiple local businesses before committing — no surprise charges after the job.' },
+                    { title: 'Emergency Services Available', desc: 'Some contractors offer urgent or same-day service for plumbing, electrical, and HVAC — check availability when you inquire.' }
                 ],
                 reviews: [
                     {
                         user: 'Arthur Vance', role: 'Property Manager, Brickstone Co', rating: 5, date: '2 days ago', helpfulCount: 18,
-                        comment: `Matched with a stellar contractor team to handle building repairs. They were professional, fully bonded, and cleaned up the site perfectly. Highly recommend!`
+                        comment: `Needed an urgent repair at one of our rental units. Bizztopia found a licensed contractor who showed up same afternoon, gave a fair quote, and completed the work cleanly. Exactly what property managers need.`
                     },
                     {
-                        user: 'Samantha Miller', role: 'Homeowner / SMB Owner', rating: 5, date: '5 days ago', helpfulCount: 11,
-                        comment: `The plumber we found via Bizztopia arrived on time, diagnosed the leak in 10 minutes, and replaced the pipe work under budget. Absolute lifesaver.`
+                        user: 'Samantha Miller', role: 'Business Owner / Homeowner', rating: 5, date: '5 days ago', helpfulCount: 11,
+                        comment: `The plumber I found was punctual, diagnosed the issue quickly, and came in under the estimate. Refreshingly straightforward.`
                     },
                     {
-                        user: 'Robert Chen', role: 'Office Coordinator', rating: 4, date: '2 weeks ago', helpfulCount: 3,
-                        comment: `Reliable electrician service. Vetted credentials made it easy to get compliance signing for our office rewiring project.`
+                        user: 'Robert Chen', role: 'Office Facilities Coordinator', rating: 4, date: '2 weeks ago', helpfulCount: 3,
+                        comment: `Reliable electrician, fully licensed. Completed our office panel upgrade on schedule with no disruption to business hours.`
                     }
                 ],
                 news: [
                     {
-                        title: 'Preventative Building Maintenance: Checklist for SMBs',
-                        excerpt: 'How to manage roof inspections, electrical loads, and plumbing fixtures to prevent costly repairs.',
+                        title: 'Preventative Maintenance Checklist for Small Business Owners',
+                        excerpt: 'How to schedule routine inspections for HVAC, electrical, plumbing, and roofing before issues become expensive.',
                         readTime: '6 min read', date: 'Aug 29, 2026',
                         img: 'https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Understanding Contracting Licenses and Liability Insurance',
-                        excerpt: 'Why background checking contractor bonds is essential before signing office remodeling agreements.',
+                        title: 'How to Read a Contractor License and Why It Matters',
+                        excerpt: 'Breaking down state license classes, bonding requirements, and how to verify a contractor before signing anything.',
                         readTime: '5 min read', date: 'Aug 22, 2026',
                         img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Vetting Local Handymen: Bizztopia Compliance Audit Process',
-                        excerpt: 'An inside look at our monthly compliance checks for independent service providers.',
+                        title: 'Office Renovation on a Budget: What to Prioritize',
+                        excerpt: 'Smart upgrades that improve comfort, energy efficiency, and employee satisfaction without overspending.',
                         readTime: '3 min read', date: 'Aug 15, 2026',
                         img: 'https://images.unsplash.com/photo-1505797149-43b0069ec26b?auto=format&fit=crop&w=300&q=80'
                     }
@@ -179,48 +180,48 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         if (cat.includes('auto')) {
             return {
-                tagline: `Match with certified auto mechanics, detailers, and fleet maintenance shops. Keep your vehicles safe and functional.`,
+                tagline: `Find ASE-certified mechanics, auto detailers, body shops, and fleet maintenance services near you — compare reviews and book with confidence.`,
                 pillars: {
-                    c: { title: 'Connect', desc: 'ASE certified mechanics, state service licenses, and verified parts warranties.' },
-                    i: { title: 'Identify', desc: 'Standard service price lists, diagnostic equipment auditing, and client reviews.' },
-                    s: { title: 'Serve', desc: 'Get diagnostic quotes and booking schedules confirmed in under 4 hours.' }
+                    c: { title: 'ASE Certified', desc: 'Active ASE certifications, state auto repair licenses, and verified parts warranties.' },
+                    i: { title: 'Transparent Pricing', desc: 'Standard rate sheets, diagnostic summaries, and honest customer feedback before you book.' },
+                    s: { title: 'Book & Confirm', desc: 'Schedule service appointments and receive confirmations directly from the shop.' }
                 },
                 benefits: [
-                    { title: 'ASE Certified Specialists', desc: 'All technicians carry active certifications and expert qualifications.' },
-                    { title: 'Parts & Labor Warranties', desc: 'Minimum 12-month/12,000-mile warranty on all diagnostic repairs.' },
-                    { title: 'Fleet Rates Available', desc: 'Corporate discounts for companies managing multiple transit vehicles.' },
-                    { title: 'Valet Service Support', desc: 'Pick-up and drop-off coordination directly from your office lot.' }
+                    { title: 'Certified Technicians', desc: 'Look for ASE certifications on each shop\'s profile — credentials are listed per business so you can compare before booking.' },
+                    { title: 'Ask About Warranties', desc: 'Many shops offer parts and labor warranties on repair work — confirm terms directly with the business before you commit.' },
+                    { title: 'Fleet Accounts Available', desc: 'Some shops offer volume rates for businesses managing multiple vehicles or delivery fleets — ask when you request a quote.' },
+                    { title: 'Pick-up & Drop-off Service', desc: 'Many shops offer vehicle collection and return — check availability in the business listing or when you inquire.' }
                 ],
                 reviews: [
                     {
-                        user: 'Jerry Kowalski', role: 'Logistics Manager, FleetRunner', rating: 5, date: '3 days ago', helpfulCount: 15,
-                        comment: `Superb auto shop partnership. They repaired three of our delivery vans in under 24 hours. Minimal downtime, honest pricing. Bizztopia validation was key.`
+                        user: 'Jerry Kowalski', role: 'Logistics Manager, FleetRunner Inc', rating: 5, date: '3 days ago', helpfulCount: 15,
+                        comment: `We brought in three delivery vans for brake and suspension work. All repaired within 24 hours, honest pricing, no upsells. Our fleet runs smooth again.`
                     },
                     {
                         user: 'Amanda Sterling', role: 'Regional Sales Manager', rating: 5, date: '1 week ago', helpfulCount: 7,
-                        comment: `Got my company car fully detailed and serviced. The booking was scheduled instantly, and the detailing job made the car look brand new.`
+                        comment: `Booked a full detail and service for my company car. The shop communicated every step, finished early, and the car looked showroom clean. Will use again.`
                     },
                     {
-                        user: 'Tom Hughes', role: 'Business Owner', rating: 4, date: '10 days ago', helpfulCount: 2,
-                        comment: `Reliable brake replacement service. The matching system made it simple to compare diagnostic rates between three vetted local shops.`
+                        user: 'Tom Hughes', role: 'Small Business Owner', rating: 4, date: '10 days ago', helpfulCount: 2,
+                        comment: `Good experience comparing local shops through Bizztopia. Ended up choosing based on reviews and they matched the quote exactly.`
                     }
                 ],
                 news: [
                     {
-                        title: 'Corporate Fleet Maintenance: Strategies to Reduce Downtime',
-                        excerpt: 'How setting up routine oil changes, tire rotations, and safety checkups keeps logistics operating cleanly.',
+                        title: 'How to Set Up a Fleet Maintenance Schedule That Prevents Breakdowns',
+                        excerpt: 'Oil change intervals, tire rotation timing, and brake inspection schedules for commercial vehicles.',
                         readTime: '7 min read', date: 'Aug 27, 2026',
                         img: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Choosing the Right Mechanic: Red Flags to Avoid',
-                        excerpt: 'A checklist for reading service quotes, checking ASE licensing, and checking parts manufacturer warranties.',
+                        title: 'Red Flags When Choosing a Mechanic',
+                        excerpt: 'Verbal-only quotes, vague warranties, and refusing to show parts — what to watch for before handing over your keys.',
                         readTime: '5 min read', date: 'Aug 20, 2026',
                         img: 'https://images.unsplash.com/photo-1517524206127-48bbd363f3d7?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Detailing and Paint Protection for Business Cars',
-                        excerpt: 'Why investing in ceramic coatings and regular wash intervals maintains fleet residual values.',
+                        title: 'Is Ceramic Coating Worth It for Business Vehicles?',
+                        excerpt: 'A practical cost-benefit breakdown for small business owners managing company cars or branded vehicles.',
                         readTime: '3 min read', date: 'Aug 14, 2026',
                         img: 'https://images.unsplash.com/photo-1520340356584-f9917d1ecc6f?auto=format&fit=crop&w=300&q=80'
                     }
@@ -230,48 +231,48 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         if (cat.includes('health') || cat.includes('beauty')) {
             return {
-                tagline: `Match with licensed wellness clinics, spas, therapists, and medical professionals. Prioritize care and compliance.`,
+                tagline: `Find board-certified doctors, dentists, chiropractors, therapists, and wellness clinics near you — book with confidence.`,
                 pillars: {
-                    c: { title: 'Connect', desc: 'Board-certified practitioners, active state medical licenses, and HIPAA compliance.' },
-                    i: { title: 'Identify', desc: 'Specialization details, patient treatment ratings, and clean clinic audits.' },
-                    s: { title: 'Serve', desc: 'Book consultations and schedule wellness checkups in under 12 hours.' }
+                    c: { title: 'Licensed Providers', desc: 'Board-certified practitioners with active state licenses and clean disciplinary records.' },
+                    i: { title: 'Real Patient Reviews', desc: 'Honest ratings, specialization details, and appointment availability before you book.' },
+                    s: { title: 'Book Appointments', desc: 'Confirm consultations and wellness checkups directly through the clinic.' }
                 },
                 benefits: [
-                    { title: 'Licensed Practitioners', desc: 'Every provider is verified through state medical boards and registries.' },
-                    { title: 'HIPAA & Privacy Audited', desc: 'Strict data privacy compliance and patient protection practices.' },
-                    { title: 'Clean & Safe Environments', desc: 'Routine clinic cleanliness audits and infection control checks.' },
-                    { title: 'Insurance Support', desc: 'Direct claim support and pre-auth handling with major carriers.' }
+                    { title: 'State-Licensed Practitioners', desc: 'Every provider listed has an active, verifiable state medical or wellness license.' },
+                    { title: 'Privacy-First Approach', desc: 'Patient information is handled with strict privacy and data protection standards.' },
+                    { title: 'Clean, Inspected Facilities', desc: 'Clinics and wellness studios maintain current health and safety compliance standards.' },
+                    { title: 'Insurance Accepted', desc: 'Many providers accept major PPO and HMO plans — confirm directly with the practice.' }
                 ],
                 reviews: [
                     {
-                        user: 'Dr. Evelyn Harris', role: 'Director, HealthFirst Clinic', rating: 5, date: 'Yesterday', helpfulCount: 22,
-                        comment: `The specialist we booked for chiropractic therapy has been exemplary. Friendly staff, zero waiting times, and modern diagnostic facilities. Highly recommended.`
+                        user: 'Dr. Evelyn Harris', role: 'HR Director, HealthFirst Corp', rating: 5, date: 'Yesterday', helpfulCount: 22,
+                        comment: `Set up a corporate chiropractic wellness program for 35 employees. The clinic was professional, flexible with scheduling, and the team genuinely felt better after just a few sessions.`
                     },
                     {
-                        user: 'James Henderson', role: 'Wellness Lead, CapitalOne', rating: 5, date: '4 days ago', helpfulCount: 14,
-                        comment: `We matched with a mobile corporate massage pro for employee wellness day. The team was fully certified and did a phenomenal job.`
+                        user: 'James Henderson', role: 'Wellness Coordinator, Capital One SF', rating: 5, date: '4 days ago', helpfulCount: 14,
+                        comment: `Brought in a mobile massage team for our employee appreciation day. Fully certified, completely professional, and every single person loved it.`
                     },
                     {
-                        user: 'Sophia Loren', role: 'Clinical Consultant', rating: 4, date: '1 week ago', helpfulCount: 6,
-                        comment: `Smooth appointment booking. The clinic credentials were fully listed, making compliance reporting simple for our HR team.`
+                        user: 'Sophia Loren', role: 'HR Consultant', rating: 4, date: '1 week ago', helpfulCount: 6,
+                        comment: `Easy to compare clinics side by side. Credentials were fully listed which made compliance sign-off straightforward.`
                     }
                 ],
                 news: [
                     {
-                        title: 'Designing Employee Wellness Programs That Work',
-                        excerpt: 'How providing massage therapy, chiropractic access, and health checkups boosts workplace morale.',
+                        title: 'How to Build a Corporate Wellness Program That Actually Works',
+                        excerpt: 'Practical strategies for offering chiropractic care, massage therapy, and dental benefits to retain top talent.',
                         readTime: '5 min read', date: 'Aug 30, 2026',
                         img: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'HIPAA Compliance Checklist for Health Service Providers',
-                        excerpt: 'Understanding key patient privacy guidelines, data storage policies, and medical licensing requirements.',
+                        title: 'What Questions to Ask Before Choosing a Dentist or Doctor',
+                        excerpt: 'Credentials to verify, questions about insurance acceptance, and appointment wait times to compare.',
                         readTime: '6 min read', date: 'Aug 21, 2026',
                         img: 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=300&q=80'
                     },
                     {
-                        title: 'Vetting Standard: How Bizztopia Verifies Medical Credentials',
-                        excerpt: 'Our rigorous process for tracking board certifications, state medical licenses, and histories.',
+                        title: 'How Bizztopia Verifies Health & Wellness Provider Credentials',
+                        excerpt: 'Our process for tracking board certifications, state medical licenses, and disciplinary records.',
                         readTime: '3 min read', date: 'Aug 16, 2026',
                         img: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?auto=format&fit=crop&w=300&q=80'
                     }
@@ -281,26 +282,26 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         if (cat.includes('travel') || cat.includes('activities') || cat.includes('inspire')) {
             return {
-                tagline: `Match with vetted event coordinators, hotels, transportation services, and activity organizers for your next venture.`,
+                tagline: `Find verified event coordinators, hotels, charter transport, and activity organizers for corporate retreats and business travel.`,
                 pillars: {
                     c: { title: 'Connect', desc: 'Fully licensed travel partners, safety certification checks, and insured operators.' },
                     i: { title: 'Identify', desc: 'Detailed itinerary reviews, venue capacities, and peer experiences.' },
                     s: { title: 'Serve', desc: 'Book group rates and reserve transport schedules in under 6 hours.' }
                 },
                 benefits: [
-                    { title: 'Licensed Travel Providers', desc: 'All charter, hotel, and activity partners carry active tour licenses.' },
-                    { title: 'Safety-Checked Transport', desc: 'Vans, buses, and equipment undergo safety compliance reviews.' },
-                    { title: 'Group Rate Optimization', desc: 'Save up to 25% on bulk bookings and corporate retreat planning.' },
-                    { title: '24/7 Booking Mediation', desc: 'Bizztopia team handles booking changes and cancellation support.' }
+                    { title: 'Licensed Operators', desc: 'Look for active licenses and insurance on each charter, hotel, or activity listing — details are shown per business.' },
+                    { title: 'Safety Compliance', desc: 'Check transport and equipment details directly with each provider before booking group travel.' },
+                    { title: 'Group Rates Available', desc: 'Many venues and transport providers offer discounts for bulk or group bookings — ask about rates when you inquire.' },
+                    { title: 'Direct Business Contact', desc: 'Reach out to businesses directly through Bizztopia to manage bookings, changes, or cancellations.' }
                 ],
                 reviews: [
                     {
                         user: 'Lucas Graham', role: 'HR Lead, FinTech Solutions', rating: 5, date: '3 days ago', helpfulCount: 9,
-                        comment: `Outstanding corporate retreat planning! Bizztopia matched us with a vetted travel partner who organized our flights, hotel blocks, and team excursions flawlessly.`
+                        comment: `Outstanding corporate retreat planning! Bizztopia matched us with a verified travel partner who organized our flights, hotel blocks, and team excursions flawlessly.`
                     },
                     {
                         user: 'Nadia Petrova', role: 'Event Coordinator, GlobalTech', rating: 5, date: '1 week ago', helpfulCount: 5,
-                        comment: `Vetted transport vehicles arrived clean, comfortable, and exactly on schedule. The driver was professional and knew the best routes to the conference hall.`
+                        comment: `Verified transport vehicles arrived clean, comfortable, and exactly on schedule. The driver was professional and knew the best routes to the conference hall.`
                     },
                     {
                         user: 'Chris Peterson', role: 'Director of Marketing', rating: 4, date: '2 weeks ago', helpfulCount: 1,
@@ -332,22 +333,22 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
         
         // Default / "More"
         return {
-            tagline: `Match with vetted dry cleaners, laundromats, gyms, moving services, and apartments. Elevate your local business operations.`,
+            tagline: `Find dry cleaners, fitness centers, moving companies, storage facilities, and other local services that keep your business running smoothly.`,
             pillars: {
-                c: { title: 'Connect', desc: '100% verified service licenses, active insurance coverage, and compliance screening.' },
-                i: { title: 'Identify', desc: 'Standard rates, facility hygiene scores, and detailed peer reviews.' },
-                s: { title: 'Serve', desc: 'Get matches and schedule service requests confirmed in under 12 hours.' }
+                c: { title: 'Trusted Businesses', desc: 'Active service licenses, insurance coverage, and customer ratings all in one place.' },
+                i: { title: 'Compare Options', desc: 'Transparent rates, facility details, and verified reviews from real customers.' },
+                s: { title: 'Get Service Booked', desc: 'Send a quote request and confirm your booking directly with the business.' }
             },
             benefits: [
-                { title: 'Licensed & Audited Shops', desc: 'Every local provider undergoes rigorous rating history audits.' },
-                { title: 'Business Account Rates', desc: 'Enjoy corporate accounts and volume discounts for regular services.' },
-                { title: 'Guaranteed Turnaround', desc: 'Vetted SLA guarantees on dry cleaning, moves, or office cleaning.' },
-                { title: 'Safe Facility Standards', desc: 'We inspect physical locations to ensure secure storage and operations.' }
+                { title: 'Locally Operated', desc: 'All listed businesses are independently operated and serve your local area.' },
+                { title: 'Business Account Rates', desc: 'Many providers offer recurring account pricing for regular bookings.' },
+                { title: 'Reliable Turnaround', desc: 'Set clear expectations upfront — most businesses confirm timelines at booking.' },
+                { title: 'Secure Facilities', desc: 'Storage and facility-based services meet current safety and compliance standards.' }
             ],
             reviews: [
                 {
                     user: 'William Thorne', role: 'Facilities Lead, Apex Offices', rating: 5, date: 'Yesterday', helpfulCount: 16,
-                    comment: `Outstanding service. We matched with a vetted junk removal service to clean out our warehouse. They arrived with three trucks and finished the entire job in 4 hours.`
+                    comment: `Outstanding service. We matched with a verified junk removal service to clean out our warehouse. They arrived with three trucks and finished the entire job in 4 hours.`
                 },
                 {
                     user: 'Beatrice Vance', role: 'Operations Assistant', rating: 5, date: '6 days ago', helpfulCount: 10,
@@ -360,20 +361,20 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
             ],
             news: [
                 {
-                    title: 'Sustainable Fabric Care: Best Practices for Businesses',
-                    excerpt: 'Understanding green dry cleaning solvents, garment care labels, and laundering techniques.',
+                    title: 'How to Find a Reliable Dry Cleaner for Business Attire',
+                    excerpt: 'What to look for in fabric care standards, turnaround times, and pricing before you choose a regular cleaner.',
                     readTime: '4 min read', date: 'Aug 29, 2026',
                     img: 'https://images.unsplash.com/photo-1521566624976-7357306c5458?auto=format&fit=crop&w=300&q=80'
                 },
                 {
-                    title: 'Office Relocations: How to Avoid Junk and Stress',
-                    excerpt: 'A comprehensive checklist for hiring moving pros, coordinating junk removal, and managing packing schedules.',
+                    title: 'Planning a Stress-Free Office Relocation',
+                    excerpt: 'How to coordinate movers, manage equipment packing, and keep your team productive during an office move.',
                     readTime: '6 min read', date: 'Aug 23, 2026',
                     img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=300&q=80'
                 },
                 {
-                    title: 'Vetting Fitness and Wellness Partners for Corporate Accounts',
-                    excerpt: 'What to look for in gym facilities, liability insurance, and personal trainer licensing.',
+                    title: 'Corporate Gym Memberships: Are They Worth It?',
+                    excerpt: 'Breaking down the ROI of employee fitness benefits, from reduced sick days to higher morale and retention.',
                     readTime: '3 min read', date: 'Aug 17, 2026',
                     img: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=300&q=80'
                 }
@@ -409,7 +410,7 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
 
     return (
         <AppLayout>
-            <Head title={`Best ${name} Services in San Francisco, CA — Bizztopia`} />
+            <Head title={`Best ${name} Near ${location} — Bizztopia`} />
 
             {/* Sub-Navigation Categories Line */}
             <div className="bg-[#0B4778] border-b border-white/10 px-8 py-2.5 flex items-center justify-center gap-8 text-xs font-bold text-slate-200/90 z-20">
@@ -436,10 +437,10 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                     <div className="lg:col-span-7 space-y-8">
                         <div>
                             <span className="bg-[#287FBA]/40 border border-[#287FBA]/40 text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full inline-block font-bold">
-                                Vetted B2B Directory
+                                Local Business Directory
                             </span>
                             <h1 className="text-4xl sm:text-5xl font-black font-outfit tracking-tight leading-tight mt-4 font-bold">
-                                Top-Rated {name} <br />Services in San Francisco
+                                Top-Rated {name} <br />Services Near {location.split(',')[0]}
                             </h1>
                             <p className="text-[#D5EBF8] text-base font-medium mt-3 max-w-xl">
                                 {content.tagline}
@@ -481,8 +482,8 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                     {/* Right: Lead Capture Form */}
                     <div className="lg:col-span-5">
                         <div className="bg-white text-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-2xl relative">
-                            <h3 className="text-xl font-black font-outfit tracking-tight text-slate-950 mb-1 font-bold">Match with Local Pros</h3>
-                            <p className="text-slate-500 text-xs font-medium mb-6">Describe your service needs to receive bids from pre-screened partners.</p>
+                            <h3 className="text-xl font-black font-outfit tracking-tight text-slate-950 mb-1 font-bold">Request a Free Quote</h3>
+                            <p className="text-slate-500 text-xs font-medium mb-6">Tell us what you need and we'll connect you with the right local {name.toLowerCase()} businesses in your area.</p>
 
                             {leadSubmitted ? (
                                 <div className="text-center py-10 space-y-4 animate-in fade-in duration-300">
@@ -491,7 +492,7 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                                     </div>
                                     <h4 className="text-xl font-black font-outfit text-slate-950 font-bold">Request Submitted!</h4>
                                     <p className="text-slate-600 text-xs font-medium max-w-sm mx-auto">
-                                        We are matching your project with verified {name.toLowerCase()} professionals. Check your inbox for updates shortly.
+                                        We've received your request and are connecting you with top-rated {name.toLowerCase()} businesses nearby. Expect to hear back shortly.
                                     </p>
                                 </div>
                             ) : (
@@ -578,19 +579,29 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                                             />
                                         </div>
                                         <div className="space-y-1">
-                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-bold">Email</label>
+                                            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-bold">Phone Number</label>
                                             <input 
-                                                type="email" 
-                                                placeholder="Email Address" 
+                                                type="tel" 
+                                                placeholder="(555) 000-0000" 
                                                 className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#287FBA] focus:outline-none font-bold text-sm text-slate-900"
-                                                value={email}
-                                                onChange={(e) => setEmail(e.target.value)}
-                                                required
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
                                             />
                                         </div>
                                     </div>
+                                    <div className="space-y-1">
+                                        <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest block font-bold">Email Address</label>
+                                        <input 
+                                            type="email" 
+                                            placeholder="your@email.com" 
+                                            className="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#287FBA] focus:outline-none font-bold text-sm text-slate-900"
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                            required
+                                        />
+                                    </div>
                                     <button type="submit" className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white py-3.5 rounded-xl font-bold transition-all duration-300 cursor-pointer shadow-md flex items-center justify-center gap-2 text-xs font-bold">
-                                        Submit Vetted Match Request <ArrowRight className="w-4 h-4" />
+                                        Get a Free Quote <ArrowRight className="w-4 h-4" />
                                     </button>
                                 </form>
                             )}
@@ -647,8 +658,8 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                     {/* Right side: Benefits Bullet Points */}
                     <div className="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-2xs space-y-6">
                         <div className="border-b border-slate-100 pb-4">
-                            <h3 className="text-lg font-black font-outfit text-slate-950 font-bold">Why Bizztopia Match?</h3>
-                            <p className="text-slate-400 text-xs font-medium mt-0.5">Unmatched standards in pro directories.</p>
+                            <h3 className="text-lg font-black font-outfit text-slate-950 font-bold">Why Use Bizztopia?</h3>
+                            <p className="text-slate-400 text-xs font-medium mt-0.5">Real reviews, real businesses, real confidence.</p>
                         </div>
 
                         <ul className="space-y-4">
@@ -684,13 +695,13 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
                             <div>
                                 <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">
-                                    Verified Media Gallery ({subcatImages.length} HD Photos)
+                                    Local Business Gallery ({subcatImages.length} Photos)
                                 </span>
                                 <h2 className="text-3xl font-black font-outfit text-slate-950 tracking-tight mt-1 font-bold">
-                                    Recent {name} Project & Work Showcase
+                                    Real Work from Local {name} Businesses
                                 </h2>
                                 <p className="text-slate-500 text-xs font-medium mt-1">
-                                    Authentic on-site photography from verified {name.toLowerCase()} businesses and service jobs.
+                                    Photos from real {name.toLowerCase()} businesses and service providers in your area.
                                 </p>
                             </div>
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-600 bg-slate-100 px-3.5 py-2 rounded-xl">
@@ -808,10 +819,10 @@ export default function SubcategoryLanding({ slug, name, categoryName, articles 
                         <Award className="w-6 h-6" />
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-black font-outfit tracking-tight font-bold">
-                        Are You a {name} Provider?
+                        Are You a Local {name} Business?
                     </h2>
                     <p className="text-slate-300 text-sm font-medium max-w-xl mx-auto">
-                        Grow your B2B contract acquisition. Get listed in Bizztopia's vetted pro matching network and meet clients looking for your expertise.
+                        List your {name.toLowerCase()} business on Bizztopia and connect with customers actively searching for your services in your local area.
                     </p>
                     <div className="pt-4">
                         <Link 

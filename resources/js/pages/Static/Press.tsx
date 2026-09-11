@@ -12,7 +12,7 @@ export default function Press() {
         },
         {
             date: 'June 04, 2026',
-            title: 'Over 15,000 Local Service Businesses Now Audited Under Bizztopia Vetted Standards',
+            title: 'Over 15,000 Local Service Businesses Now Audited Under Bizztopia Verified Standards',
             snippet: 'Platform surpasses 2.4 million consumer-to-business matched connections with an industry-leading 98.4% customer satisfaction score.'
         },
         {
@@ -74,7 +74,7 @@ export default function Press() {
                         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-3 text-xs">
                             <h3 className="text-base font-black font-outfit text-slate-950">Media Inquiries</h3>
                             <p className="text-slate-500 font-medium leading-relaxed">
-                                For interviews, executive commentary, or data inquiries regarding local service market trends, contact our media desk:
+                                For press interviews, data reports, or executive commentary on local service market trends, contact our media desk:
                             </p>
                             <div className="p-3 bg-blue-50 text-[#0B4778] rounded-xl font-bold">
                                 press@bizztopia.com
@@ -83,7 +83,7 @@ export default function Press() {
 
                         <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-xs space-y-3 text-xs">
                             <h3 className="text-base font-black font-outfit text-slate-950">Brand Assets</h3>
-                            <p className="text-slate-500 font-medium">Download our vector logos, color codes, and Vetted certification badge guidelines.</p>
+                            <p className="text-slate-500 font-medium">Download our SVG logos, official color palettes, and Verified badge guidelines for editorial use.</p>
                             <a 
                                 href="/images/logo.png" 
                                 download 

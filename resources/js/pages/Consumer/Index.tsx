@@ -28,7 +28,7 @@ export default function ConsumerIndex() {
             name: 'Home & Facilities Repairs',
             slug: 'home-garden',
             icon: Wrench,
-            desc: 'Vetted plumbers, HVAC diagnostics, electricians, and general contractors.',
+            desc: 'Verified plumbers, HVAC diagnostics, electricians, and general contractors.',
             popular: ['Plumbers', 'HVAC Repair', 'Electricians'],
             subSlug: 'plumbers'
         },
@@ -77,22 +77,22 @@ export default function ConsumerIndex() {
     const consumerFaqs = [
         {
             q: 'Is Bizztopia completely free for consumers?',
-            a: 'Yes, 100% free! Consumers and business buyers can search, read verified customer reviews, request free estimates, and connect with Vetted Pros with zero hidden fees or subscription charges.'
+            a: 'Yes, 100% free! Consumers and business buyers can search, read verified customer reviews, request free estimates, and connect with Verified Pros with zero hidden fees or subscription charges.'
         },
         {
-            q: 'What does the blue "Vetted Partner" badge mean?',
-            a: 'When you see the Bizztopia Vetted Badge, it means our compliance desk has manually audited and verified that business’s active state/local trade license, confirmed active general liability insurance coverage, and cross-checked public records for clean consumer standing.'
+            q: 'What does the blue "Verified Partner" badge mean?',
+            a: 'When you see the Bizztopia Verified Badge, it means our compliance desk has manually audited and verified that business’s active state/local trade license, confirmed active general liability insurance coverage, and cross-checked public records for clean consumer standing.'
         },
         {
             q: 'How does the $2,500 Consumer Protection Guarantee work?',
-            a: 'If you contract a Bizztopia Vetted Pro and a verified breach of written agreement occurs, our Consumer Resolution Desk steps in to mediate. If unresolved, eligible jobs are covered up to $2,500 to reimburse direct losses.'
+            a: 'If you contract a Bizztopia Verified Pro and a verified breach of written agreement occurs, our Consumer Resolution Desk steps in to mediate. If unresolved, eligible jobs are covered up to $2,500 to reimburse direct losses.'
         },
         {
             q: 'How are customer reviews verified on Bizztopia?',
             a: 'We use automated IP fraud detection and review-gating audits. Unverified or incentivized bot reviews are automatically blocked so you only read real feedback from genuine customers.'
         },
         {
-            q: 'How quickly do Vetted Pros respond to quote requests?',
+            q: 'How quickly do Verified Pros respond to quote requests?',
             a: 'Over 88% of verified businesses on Bizztopia respond within 2 to 4 business hours. Most urgent repair requests receive callback estimates within 30 minutes.'
         }
     ];
@@ -134,7 +134,7 @@ export default function ConsumerIndex() {
                         <div>
                             <span className="bg-[#287FBA]/40 border border-white/20 text-xs font-black tracking-widest uppercase px-3.5 py-1.5 rounded-full inline-flex items-center gap-2">
                                 <ShieldCheck className="w-4 h-4 text-white" />
-                                <span>The Bizztopia Vetted Standard</span>
+                                <span>The Bizztopia Verified Standard</span>
                             </span>
                             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black font-outfit tracking-tight leading-tight mt-4">
                                 Hire Local Businesses <br />With Total Confidence.
@@ -252,10 +252,10 @@ export default function ConsumerIndex() {
                             Why Hire Through Bizztopia?
                         </span>
                         <h2 className="text-3xl sm:text-4xl font-black font-outfit text-slate-950 tracking-tight mt-2">
-                            The 4 Pillars of Consumer Protection
+                            4 Reasons People Trust Bizztopia
                         </h2>
                         <p className="text-slate-500 text-xs sm:text-sm font-medium mt-2">
-                            We take the guesswork and anxiety out of hiring local services.
+                            We take the guesswork and worry out of hiring a local business.
                         </p>
                     </div>
 
@@ -265,9 +265,9 @@ export default function ConsumerIndex() {
                             <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#287FBA]">
                                 <ShieldCheck className="w-6 h-6" />
                             </div>
-                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">100% License Audited</h3>
-                            <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                We regularly cross-reference state and municipal license boards. Unlicensed or lapsed vendors are barred from receiving the Vetted Badge.
+                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">Every Business is License-Checked</h3>
+                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
+                                We check every business against state and local licensing boards. If a license lapses or expires, that business loses the Verified badge immediately.
                             </p>
                         </div>
 
@@ -276,9 +276,9 @@ export default function ConsumerIndex() {
                             <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#287FBA]">
                                 <Star className="w-6 h-6" />
                             </div>
-                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">Zero-Fraud Reviews</h3>
-                            <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                Our automated audit filters screen out purchased reviews, competitor sabotage, and bot spam, giving you authentic feedback from real local buyers.
+                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">Only Real, Verified Reviews</h3>
+                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
+                                Our smart filters block fake reviews, paid testimonials, and bot-generated ratings — so the stars you see reflect what real customers actually experienced.
                             </p>
                         </div>
 
@@ -287,9 +287,9 @@ export default function ConsumerIndex() {
                             <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center text-[#287FBA]">
                                 <Zap className="w-6 h-6" />
                             </div>
-                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">Instant Multi-Quotes</h3>
-                            <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                Skip the repetitive phone calls. Submit your project requirements once to receive up to 3 competitive estimates from top-rated pros in minutes.
+                            <h3 className="text-base font-extrabold text-slate-950 font-outfit">Get 3 Free Price Estimates</h3>
+                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
+                                Skip the phone tag. Describe what you need once and receive up to 3 free price estimates from top-rated local businesses — usually within the hour.
                             </p>
                         </div>
 
@@ -300,7 +300,7 @@ export default function ConsumerIndex() {
                             </div>
                             <h3 className="text-base font-extrabold text-slate-950 font-outfit">$2,500 Guarantee</h3>
                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                If work contracted with a Vetted Pro deviates from your written agreement, our consumer resolution desk intervenes and covers up to $2,500.
+                                If something goes wrong with a Verified Pro you hired, we step in to help resolve it and will cover your direct losses up to $2,500. No hoops. No lawyers.
                             </p>
                         </div>
                     </div>
@@ -378,13 +378,13 @@ export default function ConsumerIndex() {
                 <div className="max-w-4xl mx-auto relative z-10 space-y-10">
                     <div className="text-center space-y-3">
                         <span className="bg-[#287FBA]/20 border border-[#287FBA]/40 text-[#63B5E8] text-xs font-black uppercase tracking-widest px-3.5 py-1.5 rounded-full inline-block">
-                            Instant Matching Engine
+                            Find a Pro in 30 Seconds
                         </span>
                         <h2 className="text-3xl sm:text-4xl font-black font-outfit tracking-tight">
                             Find Your Verified Pro in 30 Seconds
                         </h2>
                         <p className="text-slate-400 text-xs sm:text-sm font-medium max-w-md mx-auto">
-                            Tell us what you need and our matching engine will instantly pair you with certified local businesses ready to quote.
+                            Tell us what you need, and we'll connect you with verified local businesses in your area who are ready to help.
                         </p>
                     </div>
 
@@ -445,7 +445,7 @@ export default function ConsumerIndex() {
                                 className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white py-4 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
                             >
                                 <Zap className="w-4 h-4 fill-white" />
-                                <span>Get 3 Matched Vetted Quotes (Free)</span>
+                                <span>Find 3 Verified Businesses Near Me — It's Free</span>
                             </button>
                         </form>
                     ) : (
@@ -454,9 +454,9 @@ export default function ConsumerIndex() {
                                 <CheckCircle2 className="w-8 h-8" />
                             </div>
                             <div className="space-y-1">
-                                <h3 className="text-2xl font-black font-outfit text-slate-950">Matching Request Dispatched!</h3>
-                                <p className="text-slate-500 text-xs font-medium max-w-md mx-auto">
-                                    We found 3 Vetted Pros in {matchLocation} matching your timeline. You will receive competitive estimate summaries shortly.
+                                <h3 className="text-2xl font-black font-outfit text-slate-950">You're All Set!</h3>
+                                 <p className="text-slate-500 text-xs font-medium max-w-md mx-auto">
+                                    We found 3 verified businesses in {matchLocation} who match your request. Expect to hear from them shortly — usually within the hour.
                                 </p>
                             </div>
                             <div className="pt-2">
@@ -484,7 +484,7 @@ export default function ConsumerIndex() {
                             The Bizztopia $2,500 Peace of Mind Guarantee
                         </h2>
                         <p className="text-slate-600 text-xs sm:text-sm font-medium leading-relaxed max-w-2xl">
-                            We stand behind every business sporting the verified Vetted badge. If a Vetted Pro fails to perform agreed-upon work according to your written quote, Bizztopia’s Resolution Desk will step in to mediate or reimburse direct losses up to $2,500.
+                            We stand behind every business displaying the Verified badge. If a Verified Pro fails to do the work they agreed to, Bizztopia will step in to help resolve it — and cover your losses up to $2,500.
                         </p>
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
@@ -497,7 +497,7 @@ export default function ConsumerIndex() {
                             </div>
                             <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
                                 <Check className="w-4 h-4 text-emerald-500 shrink-0" />
-                                <span>Direct Escrow Mediation</span>
+                                <span>Paid Directly to You</span>
                             </div>
                         </div>
                     </div>
@@ -509,7 +509,7 @@ export default function ConsumerIndex() {
                             </div>
                             <div className="text-2xl font-black text-slate-950 font-outfit">$2,500</div>
                             <div className="text-[11px] font-black uppercase text-[#287FBA] tracking-wider">Per-Job Protection</div>
-                            <p className="text-[10px] text-slate-400 font-medium">Valid on all verified contracts booked with Bizztopia Vetted Partners.</p>
+                            <p className="text-[10px] text-slate-400 font-medium">Valid on all verified contracts booked with Bizztopia Verified Partners.</p>
                         </div>
                     </div>
                 </div>
@@ -523,10 +523,10 @@ export default function ConsumerIndex() {
                             Real Stories
                         </span>
                         <h2 className="text-3xl font-black font-outfit text-slate-950 tracking-tight mt-1">
-                            Trusted by Everyday Consumers
+                            Trusted by Homeowners &amp; Business Managers Across North America
                         </h2>
                         <p className="text-slate-500 text-xs font-medium mt-1">
-                            Hear from homeowners and business managers who hired verified pros.
+                            Real stories from people who chose safety over risk — and got results.
                         </p>
                     </div>
 
@@ -654,10 +654,10 @@ export default function ConsumerIndex() {
                         <Star className="w-6 h-6 fill-[#287FBA]" />
                     </div>
                     <h2 className="text-3xl sm:text-4xl font-black font-outfit tracking-tight">
-                        Had a Great (or Terrible) Experience?
+                        Share Your Experience. Help the Community.
                     </h2>
                     <p className="text-slate-300 text-xs sm:text-sm font-medium max-w-xl mx-auto leading-relaxed">
-                        Your honest reviews protect our entire community. Share your feedback in under two minutes and help keep local business accountable.
+                        Your honest reviews are the backbone of Bizztopia’s trust system. Share your feedback in under two minutes and help keep local businesses accountable.
                     </p>
                     <div className="pt-2 flex flex-wrap justify-center gap-4">
                         <Link 

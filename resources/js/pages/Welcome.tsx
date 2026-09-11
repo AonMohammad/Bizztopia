@@ -7,7 +7,6 @@ import { RoiCalculatorWidget, RoiData } from '@/components/ui/RoiCalculatorWidge
 import { QuestionCard } from '@/components/ui/QuestionCard';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { MovingChainRow } from '@/components/ui/MovingChainRow';
 import { 
     BookOpen, 
     Sparkles, 
@@ -156,13 +155,13 @@ export default function Welcome({
             top: ['Manhattan Marketing Group', 'Wall Street Financial Consultants', 'Corporate Legal NYC', 'Enterprise Software Dev', 'B2B PR Agencies', 'SEO Optimization Brooklyn', 'SaaS Growth Consultants', 'Executive Headhunters NYC'],
             trending: ['Generative AI Advisory NYC', 'Fractional CMO Services', 'SOC2 Compliance Vetting', 'Account-Based Marketing', 'Cross-Border M&A Counsel', 'Product Design Workshops', 'B2B Podcast Production', 'Sales Pipeline Audit'],
             seasonal: ['Q4 Budget Allocation', 'Summer Intern Placement', 'Annual Audit Readiness', 'Tech Infrastructure Review'],
-            recent: ['Regentology Real Estate Advisory', 'Apex Growth Labs', 'Rate My Doc Health Network', 'Summit Financial Group']
+            recent: ['Apex Commercial Services', 'Apex Growth Labs', 'Rate My Doc Health Network', 'Summit Financial Group']
         },
         'Houston': {
             top: ['Houston SEO Agencies', 'Oil & Gas Tech Consultants', 'Corporate Lawyers Houston', 'SaaS Platform Developers', 'Creative Design Teams', 'Growth Marketing Firms', 'Business Valuation Advisors', 'Operations Advisory'],
             trending: ['AI Integration Houston', 'Cloud Migration Teams', 'LLC Setup Lawyers', 'B2B Cold Outreach', 'Cyber Security Auditing', 'Fractional CFO Services', 'Sales CRM Setup', 'Web Application Dev'],
             seasonal: ['Tax Season Planning', 'Disaster Recovery Auditing', 'Q1 Budget Reviews', 'Annual Growth Strategy'],
-            recent: ['CloudScale Systems', 'Summit Financial Group', 'Vanguard Legal & Co', 'Regentology Real Estate Advisory']
+            recent: ['CloudScale Systems', 'Summit Financial Group', 'Vanguard Legal & Co', 'Apex Commercial Services']
         },
         'San Jose': {
             top: ['Silicon Valley Dev Studios', 'San Jose SaaS Engineers', 'Tech Marketing Agencies', 'Patent & IP Lawyers', 'Growth Advisory Teams', 'AI Development Hubs', 'SEO & Link Building', 'UX/UI Design Studios'],
@@ -180,13 +179,13 @@ export default function Welcome({
             top: ['Dallas Marketing Agencies', 'Logistics Tech Consultants', 'Corporate Counsel Dallas', 'SaaS Software Firms', 'Creative Branding Agencies', 'Growth Marketing Consultants', 'Fintech Advisors Dallas', 'Sales Outreach Specialists'],
             trending: ['AI Business Solutions', 'Cloud Migration Services Dallas', 'LLC Formation Experts', 'B2B Lead Generation', 'Cyber Security Vetting', 'Fractional CFO Consultants', 'CRM System Auditing', 'Custom Web Applications'],
             seasonal: ['State Tax Prep Dallas', 'Operations Audits', 'Q2 Planning Seminars', 'Annual Business Reviews'],
-            recent: ['Summit Financial Group', 'CloudScale Systems', 'Vanguard Legal & Co', 'Regentology Real Estate Advisory']
+            recent: ['Summit Financial Group', 'CloudScale Systems', 'Vanguard Legal & Co', 'Apex Commercial Services']
         },
         'Denver': {
             top: ['Denver SEO & Marketing', 'SaaS Platform Architects', 'Business Attorneys Denver', 'Growth Strategy Groups', 'Creative Design Agencies', 'B2B Lead Acquisition', 'Financial Planners Denver', 'IT Managed Services'],
             trending: ['AI Consulting Denver', 'Cloud Security Vetting', 'LLC Setup Advisors', 'B2B LinkedIn Outreach', 'Cyber Security Consulting', 'Fractional CFO Advisors', 'Sales CRM Integration', 'React Native App Dev'],
             seasonal: ['Winter Operations Audits', 'Tax Season Prep Denver', 'Q3 Growth Reviews', 'Annual Budget Alignment'],
-            recent: ['Regentology Real Estate Advisory', 'Apex Growth Labs', 'Rate My Doc Health Network', 'Summit Financial Group']
+            recent: ['Apex Commercial Services', 'Apex Growth Labs', 'Rate My Doc Health Network', 'Summit Financial Group']
         },
         'Toronto': {
             top: ['Toronto Digital Marketing', 'Bay Street Financial Consulting', 'Corporate Law Toronto', 'SaaS Developers Canada', 'Creative Brand Studios', 'Growth Advisory Teams', 'SEO Agencies Toronto', 'Tech Recruiters GTA'],
@@ -326,7 +325,7 @@ export default function Welcome({
     // Real Case Studies
     const caseStudies = [
         { title: 'How TechCorp Scaled ARR from $1M to $10M in 18 Months', category: 'Growth Strategy', img: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=350&q=60' },
-        { title: 'Reducing Customer Acquisition Cost by 42% via Vetted Partners', category: 'Marketing', img: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=350&q=60' },
+        { title: 'Reducing Customer Acquisition Cost by 42% via Verified Partners', category: 'Marketing', img: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=350&q=60' },
         { title: 'Modernizing SMB Infrastructure with CloudScale Stack', category: 'SaaS Integration', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=350&q=60' },
         { title: 'Navigating Cross-Border Legal & Regulatory Frameworks', category: 'Compliance', img: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=350&q=60' }
     ];
@@ -337,7 +336,7 @@ export default function Welcome({
         { name: 'New York', count: '620+ Partners', img: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?auto=format&fit=crop&w=220&q=60' },
         { name: 'Austin', count: '310+ Partners', img: 'https://images.unsplash.com/photo-1531218150217-54595bc2b934?auto=format&fit=crop&w=220&q=60' },
         { name: 'London', count: '280+ Partners', img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=220&q=60' },
-        { name: 'Chicago', count: '477959858617-67f30ac4ce78?auto=format&fit=crop&w=220&q=60' },
+        { name: 'Chicago', count: '380+ Partners', img: 'https://images.unsplash.com/photo-1477959858617-67f30ac4ce78?auto=format&fit=crop&w=220&q=60' },
         { name: 'Toronto', count: '190+ Partners', img: 'https://images.unsplash.com/photo-1517090504586-fde19ea6066f?auto=format&fit=crop&w=220&q=60' },
     ];
 
@@ -605,7 +604,7 @@ export default function Welcome({
 
     return (
         <AppLayout>
-            <Head title="Bizztopia — Vetted B2B Partners & Growth Directory" />
+            <Head title="Bizztopia — Find & Compare Local Businesses Near You" />
 
             {/* SECTION 1: Bizztopia-Style Hero with VISIBLE Background Image */}
             <section className="text-white relative overflow-hidden min-h-[540px] flex flex-col justify-center py-20">
@@ -623,19 +622,22 @@ export default function Welcome({
                 {/* Hero Body Context */}
                 <div className="max-w-4xl mx-auto px-6 text-center z-10 space-y-8">
                     <h1 className="text-4xl sm:text-6xl font-black font-outfit tracking-tight leading-tight text-white drop-shadow-md">
-                        Growth teams for <br className="sm:hidden" /> every business
+                        Find Verified Local <br className="sm:hidden" /> Businesses You Can Trust
                     </h1>
+                    <p className="text-slate-200 text-base font-medium max-w-xl mx-auto">
+                        Verified reviews. Real licenses. Backed by a $2,500 consumer guarantee. Bizztopia is the only local business directory that checks what others ignore.
+                    </p>
                     <button 
                         onClick={() => document.getElementById('lead-funnel-section')?.scrollIntoView({ behavior: 'smooth' })} 
                         className="mx-auto bg-[#287FBA] hover:bg-[#0B4778] hover:scale-105 active:scale-95 transition-all duration-300 text-white font-extrabold text-base px-9 py-4 rounded-full shadow-xl shadow-[#287FBA]/25 cursor-pointer flex items-center justify-center gap-2"
                     >
-                        <Sparkles className="w-5 h-5 fill-[#EAF5FC]" /> Start Vetted Match
+                        <Sparkles className="w-5 h-5 fill-[#EAF5FC]" /> Find Trusted Local Pros
                     </button>
                 </div>
 
                 {/* Featured Business Badge (Bottom Left) */}
                 <div className="absolute bottom-6 left-8 bg-black/40 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 text-white text-xs max-w-xs hidden sm:block z-10">
-                    <Link href="/ideas" className="hover:underline font-black text-sm block mb-0.5">Regentology Real Estate Advisory</Link>
+                    <Link href="/subcategory/restaurants" className="hover:underline font-black text-sm block mb-0.5">Brenda's French Soul Food — Featured Dining</Link>
                     <div className="flex items-center gap-1">
                         <div className="flex text-[#287FBA]">
                             <Star className="w-3.5 h-3.5 fill-[#287FBA]" />
@@ -644,62 +646,84 @@ export default function Welcome({
                             <Star className="w-3.5 h-3.5 fill-[#287FBA]" />
                             <Star className="w-3.5 h-3.5 fill-[#287FBA]" />
                         </div>
-                        <span className="text-slate-300 font-bold ml-1">(45 reviews)</span>
+                        <span className="text-slate-300 font-bold ml-1">(127 reviews)</span>
                     </div>
                 </div>
             </section>
-            {/* SECTION 2: Scrolling Brand Logos */}
-            <section className="bg-white py-12 border-b border-slate-100">
-                <div className="max-w-7xl mx-auto px-6 text-center">
-                    <p className="text-[11px] uppercase tracking-widest font-black text-slate-400 mb-6">
-                        connecting you with trusted partners
-                    </p>
-                    <MovingChainRow speedSeconds={180} direction="left">
-                        {/* Asana */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <svg className="h-9 w-auto text-slate-400 hover:text-slate-900 transition-colors duration-300" viewBox="0 0 134 32" fill="currentColor">
-                                <path d="M16.924 23.323c2.72 0 4.925-2.204 4.925-4.925S19.645 13.47 16.924 13.47c-2.72 0-4.925 2.205-4.925 4.927 0 2.72 2.205 4.925 4.925 4.925M27.975 14.62c2.72 0 4.925-2.204 4.925-4.925S30.696 4.77 27.975 4.77c-2.72 0-4.925 2.205-4.925 4.926s2.205 4.925 4.925 4.925M6.208 14.62c2.72 0 4.925-2.204 4.925-4.925S8.93 4.77 6.208 4.77C3.488 4.77 1.28 6.975 1.28 9.696c0 2.72 2.206 4.925 4.927 4.925" />
-                                <text x="44" y="24" className="font-extrabold text-[23px] tracking-tight font-outfit" fill="currentColor">asana</text>
+            
+            {/* UNLOCK OUR FREE SERVICES SECTION */}
+            <section className="py-20 bg-white border-b border-slate-200">
+                <div className="max-w-7xl mx-auto px-6 text-center space-y-12">
+                    <div className="space-y-3 max-w-3xl mx-auto">
+                        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black font-outfit text-slate-900 tracking-tight">
+                            We Verify What Others Don't
+                        </h2>
+                        <p className="text-[#287FBA] sm:text-lg font-bold">
+                            Every business on Bizztopia is license-verified, insurance-confirmed, and review-audited before you ever see them.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                        {/* Connect Card */}
+                        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 space-y-4 hover:-translate-y-1 group">
+                            <div className="w-16 h-16 rounded-full bg-[#0B4778] flex items-center justify-center text-white shadow-md shadow-[#0B4778]/30 group-hover:scale-110 transition-transform">
+                                <Users className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-black text-slate-900">Get Matched</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                                Save hours of searching. Tell us your project details, and we’ll filter out the noise to connect you with highly-rated local businesses that actually serve your area.
+                            </p>
+                        </div>
+
+                        {/* Identify Card */}
+                        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 space-y-4 hover:-translate-y-1 group">
+                            <div className="w-16 h-16 rounded-full bg-[#0B4778] flex items-center justify-center text-white shadow-md shadow-[#0B4778]/30 group-hover:scale-110 transition-transform">
+                                <ShieldCheck className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-black text-slate-900">Compare</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                                Read authentic reviews from real customers, check verified ratings, compare pricing side-by-side, and browse work photos — all in one place.
+                            </p>
+                        </div>
+
+                        {/* Serve Card */}
+                        <div className="bg-white rounded-3xl p-8 border border-slate-200 shadow-lg hover:shadow-2xl transition-all duration-300 space-y-4 hover:-translate-y-1 group">
+                            <div className="w-16 h-16 rounded-full bg-[#0B4778] flex items-center justify-center text-white shadow-md shadow-[#0B4778]/30 group-hover:scale-110 transition-transform">
+                                <Award className="w-8 h-8" />
+                            </div>
+                            <h3 className="text-2xl font-black text-slate-900">Request Quotes</h3>
+                            <p className="text-slate-600 text-sm leading-relaxed font-medium">
+                                Fill out one simple form and receive up to 3 competitive quotes from top-rated, verified local businesses. No cold calls, no middlemen, no guesswork.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Bottom CTA with Curved Pointer Arrows */}
+                    <div className="relative pt-6 max-w-2xl mx-auto flex flex-col items-center">
+                        <div className="flex items-center justify-between w-full max-w-md mb-2 opacity-80 text-[#287FBA]">
+                            <svg className="w-24 h-12 transform -rotate-12" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                                <path d="M 10 10 Q 50 40 90 20" />
+                                <path d="M 80 15 L 90 20 L 85 30" />
+                            </svg>
+                            <svg className="w-24 h-12 transform rotate-12 scale-x-[-1]" viewBox="0 0 100 50" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round">
+                                <path d="M 10 10 Q 50 40 90 20" />
+                                <path d="M 80 15 L 90 20 L 85 30" />
                             </svg>
                         </div>
-                        {/* Stripe */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <svg className="h-9 w-auto text-slate-400 hover:text-[#635BFF] transition-colors duration-300" viewBox="0 0 80 32" fill="currentColor">
-                                <path d="M80 18.2c0-5.6-3-8.8-8.5-8.8-5.3 0-8.8 3.5-8.8 9 0 6.6 4 9 9.3 9 2.8 0 5-1 6.5-2.2l-1.6-2.8c-1.3.8-2.8 1.4-4.6 1.4-3 0-5-1.3-5-4.2H80v-1.4zm-12.7-2c0-2 .8-3.4 2.8-3.4s2.6 1.3 2.6 3.4h-5.4zM53.8 27.2c3.2 0 5.4-1.6 6.3-2.6v2.2h4.5V9.8h-4.5v2.7c-1-1-3.2-2.7-6.3-2.7-4.6 0-8.2 3.6-8.2 8.7 0 5 3.6 8.7 8.2 8.7zm1.6-13.6c2.7 0 4.3 2 4.3 4.9s-1.6 4.9-4.3 4.9c-2.7 0-4.3-2-4.3-4.9.1-2.9 1.7-4.9 4.3-4.9zm-26.6-4.5h-4.5v17.4h4.5V9.1zm-2.2-6c1.5 0 2.7-1.2 2.7-2.7S28 0 26.5 0s-2.7 1.2-2.7 2.7S25 3.1 26.5 3.1zm-8.8 11.5c0-1.8-1.5-2.2-3-2.5L11.5 11c-2-.4-3-1.2-3-2.5 0-1.5 1.6-2.4 3.7-2.4 2.2 0 4 .7 5 1.4l1.6-3.2c-1.5-1-3.6-1.7-6.2-1.7C7.2 2.6 4 5 4 8.7c0 4.3 3.5 5 6 5.6l2.3.5c2.2.5 3.2 1 3.2 2.6 0 1.8-2 2.7-4.3 2.7-2.7 0-5-1-6.2-2l-1.8 3.2c1.8 1.4 4.5 2.2 7.7 2.2 5.8.1 9.7-2.5 9.7-6.5zM38.8 5.6V9.8h3v-3.7h4.5v3.7h2.8V6.1H38.8z" />
-                            </svg>
-                        </div>
-                        {/* Zendesk */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-emerald-700 transition-colors duration-300 font-outfit tracking-tight">zendesk</span>
-                        </div>
-                        {/* HubSpot */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-[#287FBA] transition-colors duration-300 font-outfit tracking-tight">HubSpot</span>
-                        </div>
-                        {/* Salesforce */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-sky-500 transition-colors duration-300 font-outfit tracking-tight">salesforce</span>
-                        </div>
-                        {/* Slack */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-violet-600 transition-colors duration-300 font-outfit tracking-tight">#slack</span>
-                        </div>
-                        {/* Figma */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-red-500 transition-colors duration-300 font-outfit tracking-tight">figma</span>
-                        </div>
-                        {/* Notion */}
-                        <div className="w-48 h-16 flex items-center justify-center shrink-0">
-                            <span className="text-xl font-black text-slate-400 hover:text-slate-900 transition-colors duration-300 font-outfit tracking-tight">Notion</span>
-                        </div>
-                    </MovingChainRow>
+                        <button
+                            onClick={() => document.getElementById('lead-funnel-section')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="bg-[#287FBA] hover:bg-[#0B4778] text-white font-extrabold text-sm px-9 py-4 rounded-full shadow-xl shadow-[#287FBA]/30 hover:scale-105 transition-all duration-300 inline-flex items-center gap-2 cursor-pointer"
+                        >
+                            <Sparkles className="w-4 h-4 fill-[#EAF5FC]" /> Start Free Partner Match
+                        </button>
+                    </div>
                 </div>
             </section>
 
-            {/* SECTION 3: Bizztopia-Style Categories Grid */}
+{/* SECTION 3: Bizztopia-Style Categories Grid */}
             <section className="py-16 bg-slate-50/50 border-b border-slate-100">
                 <div className="max-w-7xl mx-auto px-6 text-center">
-                    <h2 className="text-3xl font-black font-outfit text-slate-900 mb-10 tracking-tight font-bold">Categories</h2>
+                    <h2 className="text-3xl font-black font-outfit text-slate-900 mb-10 tracking-tight font-bold">Browse by Category</h2>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                         {[
                             { name: 'Restaurants', slug: 'restaurants', icon: Utensils, color: 'text-[#287FBA] bg-rose-50 border-rose-100' },
@@ -763,7 +787,7 @@ export default function Welcome({
                                     Explore Remaining Categories & Verified Pros
                                 </h3>
                                 <p className="text-slate-500 text-xs font-medium mt-1">
-                                    Select any subcategory below to view pre-screened local businesses, authentic work photos, and vetted bids.
+                                    Select any subcategory below to view pre-screened local businesses, authentic work photos, and verified bids.
                                 </p>
                             </div>
 
@@ -1157,13 +1181,13 @@ export default function Welcome({
                 </div>
             </section>
 
-            {/* SECTION 5: Interactive Lead Funnel (Vetted Matching Form) */}
+            {/* SECTION 5: Interactive Lead Funnel (Verified Matching Form) */}
             <section id="lead-funnel-section" className="py-20 bg-slate-50 border-b border-slate-100">
                 <div className="max-w-4xl mx-auto px-6">
                     <div className="bg-white rounded-3xl p-8 md:p-12 border border-slate-200 shadow-md animate-in fade-in duration-300">
                         <div className="text-center max-w-xl mx-auto mb-10">
-                            <h2 className="text-3xl font-black font-outfit text-slate-900 tracking-tight mb-2 font-bold">Get Matched with Top Partners</h2>
-                            <p className="text-slate-500 text-sm font-medium">Tell us your requirements and receive free custom proposals from verified local B2B providers in under 2 minutes.</p>
+                            <h2 className="text-3xl font-black font-outfit text-slate-900 tracking-tight mb-2 font-bold">Find the Right Local Business</h2>
+                            <p className="text-slate-500 text-sm font-medium">Tell us what you need and we'll match you with top-rated local service providers in your area — free, fast, and no obligations.</p>
                         </div>
 
                         {leadSubmitted ? (
@@ -1172,7 +1196,7 @@ export default function Welcome({
                                     <CheckCircle2 className="w-8 h-8" />
                                 </div>
                                 <h3 className="text-2xl font-black font-outfit text-slate-950 font-bold">Thank You!</h3>
-                                <p className="text-slate-600 text-sm max-w-sm mx-auto font-medium">Your request has been received. Vetted partners matching your criteria will reach out to you shortly via email.</p>
+                                <p className="text-slate-600 text-sm max-w-sm mx-auto font-medium">Your request has been received. Verified partners matching your criteria will reach out to you shortly via email.</p>
                             </div>
                         ) : (
                             <form onSubmit={handleLeadSubmit} className="space-y-6">
@@ -1212,7 +1236,7 @@ export default function Welcome({
                                 {/* Step 2: Timeline */}
                                 {leadStep === 2 && (
                                     <div className="space-y-4 animate-in fade-in slide-in-from-right-4 duration-300">
-                                        <label className="text-sm font-black text-slate-900 block font-bold">What is your project timeline?</label>
+                                        <label className="text-sm font-black text-slate-900 block font-bold">When do you need this service?</label>
                                         <div className="grid grid-cols-1 gap-3">
                                             {['Immediately (Next 1-2 weeks)', 'Flexible (Next 30 days)', 'Planning / Budgeting Phase'].map((time) => (
                                                 <button
@@ -1278,7 +1302,7 @@ export default function Welcome({
                 ];
 
                 const defaultTrending = [
-                    { id: 't1', title: 'How Top Founders Lowered CAC by 42% Using Vetted Ecosystems', category: { name: 'Strategy' }, image_url: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=300&q=80', slug: 'lower-cac-ecosystem' },
+                    { id: 't1', title: 'How Top Founders Lowered CAC by 42% Using Verified Ecosystems', category: { name: 'Strategy' }, image_url: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=300&q=80', slug: 'lower-cac-ecosystem' },
                     { id: 't2', title: '2026 Playbook: Building High-Converting B2B Proposal Funnels', category: { name: 'Acquisition' }, image_url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=300&q=80', slug: 'b2b-proposal-playbook' },
                     { id: 't3', title: 'The Shift Toward Outcome-Based Agency Pricing Models', category: { name: 'Agency Growth' }, image_url: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=300&q=80', slug: 'outcome-based-pricing' },
                     { id: 't4', title: 'Cross-Border B2B Trade Frameworks Updated for 2026', category: { name: 'Compliance' }, image_url: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=300&q=80', slug: 'b2b-trade-frameworks' },
@@ -1301,15 +1325,15 @@ export default function Welcome({
                                     <span className="text-[10px] text-[#287FBA] font-bold">Live B2B Feed</span>
                                 </div>
                             </div>
-                            <div className="flex-1 overflow-hidden">
-                                <MovingChainRow speedSeconds={200} direction="left" itemClassName="w-[360px] sm:w-[440px] shrink-0">
+                            <div className="flex-1 overflow-x-auto scrollbar-none">
+                                <div className="flex items-center gap-4 py-1">
                                     {activeBreakingList.map((article: any) => {
                                         const imgUrl = article.hero_image || article.image_url || 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80';
                                         return (
                                             <Link 
                                                 key={article.id} 
                                                 href={article.slug ? `/ideas/${article.slug}` : `/ideas`} 
-                                                className="flex items-center gap-4 bg-white border border-slate-200/90 p-4 rounded-3xl hover:border-[#287FBA] hover:shadow-xl transition-all duration-300 font-outfit h-28 sm:h-32 group"
+                                                className="w-[340px] shrink-0 flex items-center gap-4 bg-white border border-slate-200/90 p-4 rounded-3xl hover:border-[#287FBA] hover:shadow-xl transition-all duration-300 font-outfit h-28 sm:h-32 group"
                                             >
                                                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
                                                     <img 
@@ -1340,7 +1364,7 @@ export default function Welcome({
                                             </Link>
                                         );
                                     })}
-                                </MovingChainRow>
+                                </div>
                             </div>
                         </div>
 
@@ -1355,15 +1379,15 @@ export default function Welcome({
                                     <span className="text-[10px] text-amber-600 font-bold">Viral Insights</span>
                                 </div>
                             </div>
-                            <div className="flex-1 overflow-hidden">
-                                <MovingChainRow speedSeconds={240} direction="right" itemClassName="w-[360px] sm:w-[440px] shrink-0">
+                            <div className="flex-1 overflow-x-auto scrollbar-none">
+                                <div className="flex items-center gap-4 py-1">
                                     {activeTrendingList.map((article: any) => {
                                         const imgUrl = article.hero_image || article.image_url || 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=300&q=80';
                                         return (
                                             <Link 
                                                 key={article.id} 
                                                 href={article.slug ? `/ideas/${article.slug}` : `/ideas`} 
-                                                className="flex items-center gap-4 bg-white border border-slate-200/90 p-4 rounded-3xl hover:border-amber-400 hover:shadow-xl transition-all duration-300 font-outfit h-28 sm:h-32 group"
+                                                className="w-[340px] shrink-0 flex items-center gap-4 bg-white border border-slate-200/90 p-4 rounded-3xl hover:border-amber-400 hover:shadow-xl transition-all duration-300 font-outfit h-28 sm:h-32 group"
                                             >
                                                 <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl overflow-hidden bg-slate-100 shrink-0 border border-slate-100">
                                                     <img 
@@ -1394,7 +1418,7 @@ export default function Welcome({
                                             </Link>
                                         );
                                     })}
-                                </MovingChainRow>
+                                </div>
                             </div>
                         </div>
                     </section>

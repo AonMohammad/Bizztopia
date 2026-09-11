@@ -164,7 +164,7 @@ export default function Contact() {
                                         className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
                                     >
                                         <option value="General Support">General Support & Feedback</option>
-                                        <option value="Business Claim Verification">Claim Business Listing / Vetted Pro Audit</option>
+                                        <option value="Business Claim Verification">Claim Business Listing / Verified Pro Audit</option>
                                         <option value="Consumer Guarantee Claim">$2,500 Consumer Protection Guarantee Claim</option>
                                         <option value="Review Dispute">Review Moderation / Fake Review Report</option>
                                         <option value="Press / Media">Press & Media Relations</option>

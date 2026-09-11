@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title inertia>Bizztopia — Verified Business Directory & Marketplace</title>
-    <meta name="description" content="Bizztopia connects business owners with 300,000+ vetted vendors, verified service contractors, and B2B growth partners across North America.">
+    <meta name="description" content="Bizztopia connects business owners with 300,000+ verified vendors, verified service contractors, and B2B growth partners across North America.">
     <meta name="keywords" content="b2b marketplace, business directory, verified vendors, service contractors, b2b growth, small business tools, commercial services, Bizztopia">
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
     <meta name="author" content="Bizztopia Network">
@@ -15,14 +15,14 @@
     <meta property="og:site_name" content="Bizztopia">
     <meta property="og:url" content="https://bizztopia.net">
     <meta property="og:title" content="Bizztopia — Verified Business Directory & Marketplace">
-    <meta property="og:description" content="Bizztopia connects business owners with 300,000+ vetted vendors, verified service contractors, and B2B growth partners across North America.">
+    <meta property="og:description" content="Bizztopia connects business owners with 300,000+ verified vendors, verified service contractors, and B2B growth partners across North America.">
     <meta property="og:image" content="https://bizztopia.net/Bizztopia_logo.jpg">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@bizztopia">
     <meta name="twitter:title" content="Bizztopia — Verified Business Directory & Marketplace">
-    <meta name="twitter:description" content="Bizztopia connects business owners with 300,000+ vetted vendors, verified service contractors, and B2B growth partners.">
+    <meta name="twitter:description" content="Bizztopia connects business owners with 300,000+ verified vendors, verified service contractors, and B2B growth partners.">
     <meta name="twitter:image" content="https://bizztopia.net/Bizztopia_logo.jpg">
 
     <!-- Resource Preconnects for Image CDNs -->

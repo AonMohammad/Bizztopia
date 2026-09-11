@@ -4,7 +4,7 @@ import { AppLayout } from '@/layouts/AppLayout';
 import { 
     Check, ArrowRight, ShieldCheck, Star, Award, Zap, Lock,
     Building2, HelpCircle, ChevronDown, ChevronUp, CheckCircle2, 
-    FileText, MessageSquare, PhoneCall, ShieldCheck as VettedIcon,
+    FileText, MessageSquare, PhoneCall, ShieldCheck as VerifiedIcon,
     Search, MapPin, Sparkles, UserCheck, ShieldAlert, Calculator,
     TrendingUp, DollarSign, X, CheckSquare, Wrench, Utensils, Car, Smile
 } from 'lucide-react';
@@ -28,6 +28,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
     const [ownerName, setOwnerName] = useState('');
     const [ownerEmail, setOwnerEmail] = useState('');
     const [ownerPhone, setOwnerPhone] = useState('');
+    const [bizWebsite, setBizWebsite] = useState('');
     const [claimSuccess, setClaimSuccess] = useState(false);
 
     // Interactive ROI Calculator State
@@ -81,12 +82,12 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
 
     const faqs = [
         {
-            q: 'How does the Bizztopia Vetted audit work?',
-            a: 'Once you apply for a Vetted Pro membership, our compliance desk checks your business records. We verify your active business licensing, check public records for negative legal actions, and require proof of liability insurance coverage. Vetting certifications take 48-72 hours.'
+            q: 'How does the Bizztopia Verified audit work?',
+            a: 'When you apply to become a Verified Pro, our team checks your business license with your state or local government, looks through public records for any serious legal issues, and asks for proof of liability insurance. The whole process takes 48–72 hours.'
         },
         {
-            q: 'How are lead matching requests distributed?',
-            a: 'When a customer fills out a vetted matching form on a subcategory page, Bizztopia immediately forwards the requirements to matched Vetted Pro members in that local region. You receive instant email/SMS notifications and can choose to submit a quote.'
+            q: 'How does new customers find my business on Bizztopia?',
+            a: 'When a customer fills in a search form on Bizztopia looking for your type of service, we instantly send their job details to nearby Verified Pro businesses in that category. You get a text and email alert right away, and can respond to win the job.'
         },
         {
             q: 'Are there long-term contracts or lock-ins?',
@@ -94,13 +95,13 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
         },
         {
             q: 'Can I add multiple physical locations to my account?',
-            a: 'Yes. You can manage multiple business profiles under a single master administrator account. Vetted certification and billing is managed on a per-location basis.'
+            a: 'Yes. You can manage multiple business profiles under a single master administrator account. Verified certification and billing is managed on a per-location basis.'
         }
     ];
 
     return (
         <AppLayout>
-            <Head title="Bizztopia for Business — Claim Listing & Vetted Memberships" />
+            <Head title="Bizztopia for Business — Claim Listing & Verified Memberships" />
 
             {/* 1. HERO SECTION with VISIBLE BACKGROUND IMAGE */}
             <section className="text-white py-20 px-6 relative overflow-hidden">
@@ -123,10 +124,10 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 Bizztopia Partner Network
                             </span>
                             <h1 className="text-4xl sm:text-5xl font-black font-outfit tracking-tight leading-tight mt-4 font-bold">
-                                Grow and Showcase <br />Your Business with Bizztopia
+                                Get Verified. Get Seen. <br />Get Customers.
                             </h1>
                             <p className="text-[#D5EBF8] text-base font-medium mt-3 max-w-xl">
-                                Claim your directory profile, pass our trust audit, and get matched with high-value local business customers looking for your expertise.
+                                Claim your listing, earn the Bizztopia Verified badge, and start attracting real local customers who are actively looking to hire — no cold calls, no ads, no guesswork.
                             </p>
                         </div>
 
@@ -134,11 +135,11 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                         <div className="grid grid-cols-3 gap-6 border-t border-white/10 pt-8 max-w-md">
                             <div>
                                 <div className="text-2xl font-black text-white font-bold">15,000+</div>
-                                <div className="text-[10px] text-slate-300 font-extrabold uppercase mt-0.5 font-semibold">Vetted SMBs</div>
+                                <div className="text-[10px] text-slate-300 font-extrabold uppercase mt-0.5 font-semibold">Verified SMBs</div>
                             </div>
                             <div>
                                 <div className="text-2xl font-black text-white font-bold">2.4M+</div>
-                                <div className="text-[10px] text-slate-300 font-extrabold uppercase mt-0.5 font-semibold">Leads Matched</div>
+                                <div className="text-[10px] text-slate-300 font-extrabold uppercase mt-0.5 font-semibold">Customers Connected</div>
                             </div>
                             <div>
                                 <div className="text-2xl font-black text-white font-bold">4.8 / 5</div>
@@ -172,7 +173,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             </div>
                             <div>
                                 <div className="flex items-center gap-2">
-                                    <span className="font-extrabold text-sm text-slate-900 font-bold">Bizztopia Certified Vetted Partner</span>
+                                    <span className="font-extrabold text-sm text-slate-900 font-bold">Bizztopia Certified Verified Partner</span>
                                     <ShieldCheck className="w-4.5 h-4.5 text-[#287FBA] fill-blue-50" />
                                 </div>
                                 <p className="text-slate-500 text-[11px] font-medium mt-0.5">Trust certification boosts customer inquiries by 45%.</p>
@@ -199,7 +200,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                     </div>
                     <div className="flex items-center gap-2">
                         <PhoneCall className="w-4.5 h-4.5 text-[#287FBA]" />
-                        <span>Dedicated North American Support Desk</span>
+                        <span>Live Support via Phone, Email &amp; Chat</span>
                     </div>
                 </div>
             </section>
@@ -232,8 +233,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                     <div className="lg:col-span-7 space-y-6">
                         <div>
                             <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Solutions Overview</span>
-                            <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">Grow Your Business with Bizztopia</h2>
-                            <p className="text-slate-500 text-xs font-medium mt-1">Unlock trust verification filters and reach matching accounts in your city.</p>
+                            <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">Four Ways Bizztopia Works for You</h2>
+                            <p className="text-slate-500 text-xs font-medium mt-1">Reach verified, high-intent customers looking for your services right now.</p>
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -251,15 +252,15 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             </div>
                             <div className="space-y-1">
                                 <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2 font-bold">
-                                    <span className="w-2 h-2 rounded-full bg-[#287FBA]" /> Response Rate Badge
+                                    <span className="w-2 h-2 rounded-full bg-[#287FBA]" /> Fast Response Badge
                                 </h4>
-                                <p className="text-slate-500 text-[11px] font-medium leading-relaxed pl-4">Showcase a high response rate badge to capture direct booking clicks.</p>
+                                <p className="text-slate-500 text-[11px] font-medium leading-relaxed pl-4">Show off how quickly you respond to customers — a top trust signal that drives more bookings.</p>
                             </div>
                             <div className="space-y-1">
                                 <h4 className="text-sm font-extrabold text-slate-900 flex items-center gap-2 font-bold">
-                                    <span className="w-2 h-2 rounded-full bg-[#287FBA]" /> Get Quote Requests
+                                    <span className="w-2 h-2 rounded-full bg-[#287FBA]" /> Get Job Requests
                                 </h4>
-                                <p className="text-slate-500 text-[11px] font-medium leading-relaxed pl-4">Receive targeted match requests directly from our local consumer channels.</p>
+                                <p className="text-slate-500 text-[11px] font-medium leading-relaxed pl-4">Receive job requests directly from local customers who are looking for your type of service right now.</p>
                             </div>
                         </div>
                     </div>
@@ -271,7 +272,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                 <div className="max-w-7xl mx-auto space-y-20">
                     <div className="text-center max-w-xl mx-auto">
                         <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Step-by-Step Walkthrough</span>
-                        <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">How Vetted Onboarding Works</h2>
+                        <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">How Verified Onboarding Works</h2>
                     </div>
 
                     {/* Step 1: Claim Page */}
@@ -306,7 +307,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             </div>
                             <div className="grid grid-cols-2 gap-4 text-[11px] font-bold text-slate-500">
                                 <div><strong>Open Hours:</strong> 8:00 AM - 6:00 PM</div>
-                                <div><strong>SLA Delivery:</strong> Vetted 100%</div>
+                                <div><strong>SLA Delivery:</strong> Verified 100%</div>
                             </div>
                         </div>
                     </div>
@@ -337,7 +338,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <span className="bg-[#287FBA]/10 text-[#287FBA] text-[10px] font-black uppercase px-3 py-1 rounded-full font-bold">Step 02</span>
                             <h3 className="text-2xl font-black font-outfit text-slate-950 font-bold">Pass Vetting Audits</h3>
                             <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                                Upload credentials, business license details, and active insurance files. Our compliance team verifies your listings within 48 hours to grant your verified Bizztopia "Vetted Pro" trust badge.
+                                Upload your business license details and active insurance certificate. Our compliance team reviews your application within 48 hours and awards your Bizztopia Verified Pro trust badge.
                             </p>
                         </div>
                     </div>
@@ -348,7 +349,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <span className="bg-[#287FBA]/10 text-[#287FBA] text-[10px] font-black uppercase px-3 py-1 rounded-full font-bold">Step 03</span>
                             <h3 className="text-2xl font-black font-outfit text-slate-950 font-bold">Receive Matching Leads</h3>
                             <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                                Bypass cold calling. Receive targeted vetted match requests directly in your operator inbox from corporate buyers looking for your specific category work.
+                                Say goodbye to cold outreach. Receive pre-qualified quote requests directly from consumers who are actively searching for your services in your city — straight to your business dashboard.
                             </p>
                         </div>
                         {/* Mockup Card */}
@@ -378,9 +379,9 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
             <section className="py-20 bg-white px-6">
                 <div className="max-w-7xl mx-auto space-y-12">
                     <div className="text-center max-w-xl mx-auto">
-                        <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Partner Case Studies</span>
-                        <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">How Local SMBs Scale on Bizztopia</h2>
-                        <p className="text-slate-500 text-xs font-medium mt-1">Real metrics from business owners using the Vetted Pro tier.</p>
+                        <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Real Success Stories</span>
+                        <h2 className="text-3xl font-black font-outfit text-slate-950 mt-1 font-bold">Business Owners Who Made It Work</h2>
+                        <p className="text-slate-500 text-xs font-medium mt-1">Real results from businesses that joined Bizztopia's Verified Pro network.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -391,13 +392,13 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     <span className="bg-blue-100 text-[#0B4778] text-[10px] font-black uppercase px-2.5 py-1 rounded-full">
                                         HVAC & Contracting
                                     </span>
-                                    <span className="text-emerald-600 text-xs font-black">+310% Leads</span>
+                                    <span className="text-emerald-600 text-xs font-black">+310% More Customers</span>
                                 </div>
                                 <h4 className="text-base font-extrabold text-slate-950">
                                     Apex Commercial Contracting
                                 </h4>
                                 <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                                    "Within our first 90 days with the Vetted Pro badge, we closed $48,000 in commercial preventative maintenance contracts across the Bay Area."
+                                    "Within our first 90 days with the Verified Pro badge, we closed $48,000 in commercial preventative maintenance contracts across the Bay Area."
                                 </p>
                             </div>
                             <div className="pt-4 border-t border-slate-200 text-xs flex items-center justify-between">
@@ -441,11 +442,11 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     Elite Fleet Detailing & Repair
                                 </h4>
                                 <p className="text-slate-500 text-xs leading-relaxed font-medium">
-                                    "The direct lead notification feature allows us to respond within 5 minutes. We won 8 recurring delivery van maintenance contracts in our first month."
+                                    "Whenever a customer reaches out through Bizztopia, we get an instant alert and can reply within 5 minutes. We picked up 8 recurring van maintenance contracts in our very first month."
                                 </p>
                             </div>
                             <div className="pt-4 border-t border-slate-200 text-xs flex items-center justify-between">
-                                <span className="font-bold text-slate-800">David Chen, Operator</span>
+                                <span className="font-bold text-slate-800">David Chen, Owner</span>
                                 <span className="text-slate-400 text-[10px]">Chicago, IL</span>
                             </div>
                         </div>
@@ -466,7 +467,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             Calculate Your Revenue Potential
                         </h2>
                         <p className="text-slate-400 text-xs sm:text-sm font-medium max-w-md mx-auto">
-                            See how much additional monthly revenue Vetted Pro certification can generate for your business.
+                            See how much additional monthly revenue Verified Pro certification can generate for your business.
                         </p>
                     </div>
 
@@ -493,9 +494,9 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center text-xs">
                                     <span className="font-black text-slate-700 uppercase tracking-wider">
-                                        2. Estimated Monthly Lead Requests
+                                        2. How Many New Customers Per Month?
                                     </span>
-                                    <span className="font-black text-[#287FBA] text-sm">{monthlyLeads} leads/mo</span>
+                                    <span className="font-black text-[#287FBA] text-sm">{monthlyLeads} customers/mo</span>
                                 </div>
                                 <input 
                                     type="range" 
@@ -510,9 +511,9 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <div className="space-y-2">
                                 <div className="flex justify-between items-center text-xs">
                                     <span className="font-black text-slate-700 uppercase tracking-wider">
-                                        3. Your Quote Close Rate
+                                        3. How Many Do You Win?
                                     </span>
-                                    <span className="font-black text-[#287FBA] text-sm">{closeRate}% closed</span>
+                                    <span className="font-black text-[#287FBA] text-sm">{closeRate}% won</span>
                                 </div>
                                 <input 
                                     type="range" 
@@ -556,7 +557,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 onClick={() => openClaimModal('pro')}
                                 className="w-full bg-white text-[#0B4778] hover:bg-slate-50 transition-all font-black text-xs uppercase py-3 rounded-xl shadow-md cursor-pointer"
                             >
-                                Unlock Your Leads Now
+                                Grow My Customer Base Now
                             </button>
                         </div>
                     </div>
@@ -568,7 +569,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                 <div className="max-w-7xl mx-auto space-y-12">
                     <div className="text-center max-w-xl mx-auto space-y-4">
                         <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Transparent Pricing</span>
-                        <h2 className="text-3xl font-black font-outfit text-slate-950 tracking-tight font-bold">Find the Perfect Plan for Your Business</h2>
+                        <h2 className="text-3xl font-black font-outfit text-slate-950 tracking-tight font-bold">Simple, Transparent Plans</h2>
                         
                         {/* Toggle billing period */}
                         <div className="inline-flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200 mt-2">
@@ -589,7 +590,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
 
                     {/* Stat Testimonial card inline */}
                     <div className="max-w-2xl mx-auto bg-blue-50 border border-blue-100 rounded-3xl p-5 text-center flex items-center justify-center gap-3 text-[#0B4778] text-xs font-bold shadow-2xs">
-                        <VettedIcon className="w-5 h-5 text-[#287FBA]" />
+                        <VerifiedIcon className="w-5 h-5 text-[#287FBA]" />
                         <span>90% of buyers make a purchase decision based on verified Bizztopia trust badges.</span>
                     </div>
 
@@ -619,21 +620,21 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             </button>
                         </div>
 
-                        {/* Vetted Pro Plan */}
+                        {/* Verified Pro Plan */}
                         <div className="bg-white border-2 border-[#287FBA] rounded-3xl p-8 flex flex-col justify-between space-y-8 shadow-xl relative overflow-hidden">
                             <div className="absolute top-0 right-0 bg-[#287FBA] text-white text-[10px] font-black uppercase tracking-widest py-1.5 px-6 rounded-bl-2xl font-bold">
                                 Most Popular
                             </div>
                             <div className="space-y-6">
                                 <div>
-                                    <h4 className="text-lg font-black font-outfit text-slate-950 font-bold">Vetted Pro Member</h4>
+                                    <h4 className="text-lg font-black font-outfit text-slate-950 font-bold">Verified Pro Member</h4>
                                     <p className="text-slate-500 text-xs font-medium mt-1">Stand out, display trust certifications, and capture leads.</p>
                                 </div>
                                 <div className="text-4xl font-black text-slate-950 font-bold">
                                     ${pricing.pro}<span className="text-xs font-medium text-slate-400"> / month</span>
                                 </div>
                                 <ul className="space-y-3.5 text-slate-600 text-xs font-medium border-t border-slate-200/60 pt-6">
-                                    <li className="flex items-center gap-2 font-bold"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Bizztopia Vetted Pro Certification Badge</li>
+                                    <li className="flex items-center gap-2 font-bold"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Bizztopia Verified Pro Certification Badge</li>
                                     <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Premium local search placement boosts</li>
                                     <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Ad-Free business page (blocks competitor ads)</li>
                                     <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Unlimited match lead quote requests</li>
@@ -645,7 +646,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 onClick={() => openClaimModal('pro')}
                                 className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white font-extrabold text-sm py-3.5 rounded-xl transition-all cursor-pointer shadow-md font-bold"
                             >
-                                Upgrade to Vetted Pro
+                                Upgrade to Verified Pro
                             </button>
                         </div>
                     </div>
@@ -662,7 +663,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 <tr className="bg-slate-50 border-b border-slate-200">
                                     <th className="p-4 sm:p-5 font-black text-slate-900 font-bold">Feature Details</th>
                                     <th className="p-4 text-center font-black text-slate-900 font-bold">Free</th>
-                                    <th className="p-4 text-center font-black text-[#287FBA] font-bold">Vetted Pro</th>
+                                    <th className="p-4 text-center font-black text-[#287FBA] font-bold">Verified Pro</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -672,7 +673,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     <td className="p-4 text-center"><Check className="w-4 h-4 text-[#287FBA] mx-auto" /></td>
                                 </tr>
                                 <tr className="border-b border-slate-100 last:border-0 hover:bg-slate-50/50">
-                                    <td className="p-4 sm:p-5 font-bold text-slate-900">Vetted Pro Certification Badge</td>
+                                    <td className="p-4 sm:p-5 font-bold text-slate-900">Verified Pro Certification Badge</td>
                                     <td className="p-4 text-center text-slate-300">-</td>
                                     <td className="p-4 text-center"><Check className="w-4 h-4 text-[#287FBA] mx-auto" /></td>
                                 </tr>
@@ -702,12 +703,12 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                 </div>
             </section>
 
-            {/* 8. VETTED PLACEMENTS RANK TABLE MOCKUP */}
+            {/* 8. VERIFIED PLACEMENTS RANK TABLE MOCKUP */}
             <section className="py-20 bg-white px-6 border-t border-slate-200/60">
                 <div className="max-w-4xl mx-auto space-y-8">
                     <div className="text-center max-w-xl mx-auto">
                         <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Search Placements</span>
-                        <h3 className="text-2xl font-black font-outfit text-slate-950 font-bold">Vetted Members Rank Top</h3>
+                        <h3 className="text-2xl font-black font-outfit text-slate-950 font-bold">Verified Members Rank Top</h3>
                         <p className="text-slate-500 text-xs font-medium mt-1">See how verified trust badge holders sit prioritized above free directory listings.</p>
                     </div>
 
@@ -725,7 +726,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </div>
                                 </div>
                                 <span className="bg-blue-50 text-[#287FBA] border border-blue-100 px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 font-bold">
-                                    <VettedIcon className="w-3.5 h-3.5" /> Vetted Partner
+                                    <VerifiedIcon className="w-3.5 h-3.5" /> Verified Partner
                                 </span>
                             </div>
 
@@ -739,7 +740,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </div>
                                 </div>
                                 <span className="bg-blue-50 text-[#287FBA] border border-blue-100 px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 font-bold">
-                                    <VettedIcon className="w-3.5 h-3.5" /> Vetted Partner
+                                    <VerifiedIcon className="w-3.5 h-3.5" /> Verified Partner
                                 </span>
                             </div>
 
@@ -753,7 +754,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </div>
                                 </div>
                                 <span className="bg-blue-50 text-[#287FBA] border border-blue-100 px-3 py-1 rounded-full text-[10px] font-bold flex items-center gap-1 font-bold">
-                                    <VettedIcon className="w-3.5 h-3.5" /> Vetted Partner
+                                    <VerifiedIcon className="w-3.5 h-3.5" /> Verified Partner
                                 </span>
                             </div>
 
@@ -841,7 +842,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 <div className="space-y-1">
                                     <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#287FBA] text-[10px] font-black uppercase">
                                         <Building2 className="w-3.5 h-3.5" />
-                                        <span>Step {claimStep} of 2 • {claimPlan === 'pro' ? 'Vetted Pro Application' : 'Free Profile Claim'}</span>
+                                        <span>Step {claimStep} of 2 • {claimPlan === 'pro' ? 'Verified Pro Application' : 'Free Profile Claim'}</span>
                                     </div>
                                     <h3 className="text-2xl font-black font-outfit text-slate-950">
                                         Claim Your Business Listing
@@ -967,7 +968,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                                 </div>
                                                 <span className="bg-[#287FBA] text-white text-[10px] font-black uppercase px-2.5 py-1 rounded-full flex items-center gap-1">
                                                     <ShieldCheck className="w-3.5 h-3.5" />
-                                                    {claimPlan === 'pro' ? 'Vetted Pro' : 'Claimed'}
+                                                    {claimPlan === 'pro' ? 'Verified Pro' : 'Claimed'}
                                                 </span>
                                             </div>
                                         </div>

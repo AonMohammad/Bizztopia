@@ -6,7 +6,7 @@ import { ShieldCheck, Award, CheckCircle2, ShieldAlert, FileText, Star, Lock, He
 export default function TrustSafety() {
     return (
         <AppLayout>
-            <Head title="Trust & Safety Standards — The Bizztopia Vetted Guarantee" />
+            <Head title="Trust & Safety Standards — The Bizztopia Verified Guarantee" />
 
             {/* HERO SECTION with VISIBLE BACKGROUND IMAGE */}
             <section className="relative min-h-[440px] flex items-center justify-center py-20 px-6 overflow-hidden text-white">
@@ -26,10 +26,10 @@ export default function TrustSafety() {
                         <span>The Gold Standard of Local Trust</span>
                     </span>
                     <h1 className="text-4xl sm:text-5xl font-black font-outfit tracking-tight leading-tight text-white drop-shadow-md">
-                        Trust & Safety at Bizztopia
+                        How Bizztopia Protects You
                     </h1>
                     <p className="text-[#D5EBF8] text-base font-medium max-w-xl mx-auto">
-                        How we protect 2.4 million consumers and 15,000 verified businesses from unlicensed operators, review manipulation, and contract disputes.
+                        Our three-layer trust system shields 2.4 million consumers and 15,000 verified businesses from unlicensed operators, fake reviews, and unresolved contract disputes.
                     </p>
                 </div>
             </section>
@@ -64,7 +64,7 @@ export default function TrustSafety() {
                             </div>
                             <h3 className="text-lg font-black font-outfit text-slate-950">3. $2,500 Resolution</h3>
                             <p className="text-slate-500 text-xs font-medium leading-relaxed">
-                                If a contracted Vetted Pro breaches a written agreement, our direct mediation desk steps in with up to $2,500 in dispute reimbursement.
+                                If a contracted Verified Pro breaches a written agreement, our direct mediation desk steps in with up to $2,500 in dispute reimbursement.
                             </p>
                         </div>
                     </div>
