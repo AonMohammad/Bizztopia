@@ -15,14 +15,36 @@ cd "$PROJECT_DIR"
 
 # 2. Environment Verification
 if [ ! -f .env ]; then
-    echo "⚠️ .env file missing! Creating from .env.example..."
-    cp .env.example .env
-    php artisan key:generate --force
+    echo "⚠️ Creating production .env..."
+    if [ -f .env.example ]; then
+        cp .env.example .env
+    else
+        cat > .env << 'EOF'
+APP_NAME=Bizztopia
+APP_ENV=production
+APP_KEY=base64:7K5O9H+U9u0QyQz5E9U/0B8Q0k=
+APP_DEBUG=false
+APP_URL=https://bizztopia.net
+
+LOG_CHANNEL=stack
+LOG_LEVEL=error
+
+DB_CONNECTION=sqlite
+DB_DATABASE=/var/www/bizztopia/database/database.sqlite
+
+SESSION_DRIVER=database
+QUEUE_CONNECTION=sync
+CACHE_STORE=file
+EOF
+    fi
+    php artisan key:generate --force 2>/dev/null || true
 fi
 
 # Set production flags in .env
-sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
-sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env
+sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env 2>/dev/null || true
+sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env 2>/dev/null || true
+sed -i 's|^APP_URL=.*|APP_URL=https://bizztopia.net|' .env 2>/dev/null || true
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/bizztopia/database/database.sqlite|' .env 2>/dev/null || true
 
 
 
