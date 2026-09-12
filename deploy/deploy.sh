@@ -67,8 +67,8 @@ php artisan route:clear
 php artisan view:clear
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache
-php artisan event:cache
+php artisan view:cache 2>/dev/null || true
+php artisan event:cache 2>/dev/null || true
 
 # 7. File Permissions
 echo "🔒 [6/7] Securing storage & bootstrap cache permissions..."
