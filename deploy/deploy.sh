@@ -13,6 +13,13 @@ echo "🚀 [1/7] Starting Bizztopia Production Deployment..."
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
 
+# Ensure Node.js is >= 20 for Vite 8 / Rolldown
+if ! node -e 'process.exit(parseInt(process.versions.node.split(".")[0]) >= 20 ? 0 : 1)' 2>/dev/null; then
+    echo "⚡ Upgrading Node.js to Node 22 for Vite 8 support..."
+    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
+    apt-get install -y nodejs
+fi
+
 # 2. Environment Verification
 if [ ! -f .env ]; then
     echo "⚠️ Creating production .env..."
