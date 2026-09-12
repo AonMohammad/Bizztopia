@@ -13,13 +13,6 @@ echo "🚀 [1/7] Starting Bizztopia Production Deployment..."
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
 
-# Ensure Node.js is >= 20 for Vite 8 / Rolldown
-if ! node -e 'process.exit(parseInt(process.versions.node.split(".")[0]) >= 20 ? 0 : 1)' 2>/dev/null; then
-    echo "⚡ Upgrading Node.js to Node 22 for Vite 8 support..."
-    curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
-    apt-get install -y nodejs
-fi
-
 # 2. Environment Verification
 if [ ! -f .env ]; then
     echo "⚠️ Creating production .env..."
@@ -53,24 +46,18 @@ sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env 2>/dev/null || true
 sed -i 's|^APP_URL=.*|APP_URL=https://bizztopia.net|' .env 2>/dev/null || true
 sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/bizztopia/database/database.sqlite|' .env 2>/dev/null || true
 
-
-
 # 3. Install PHP Dependencies (No Dev)
-echo "📦 [2/7] Installing Composer production dependencies..."
+echo "📦 [2/6] Installing Composer production dependencies..."
 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs
 
 # 4. Storage & Database Setup
-echo "🗄️ [3/7] Setting up database and running migrations..."
+echo "🗄️ [3/6] Setting up database..."
 mkdir -p database storage/logs storage/framework/{cache,sessions,views}
 touch database/database.sqlite
 php artisan migrate --force 2>/dev/null || true
 
-# 5. Build Frontend Assets & Clean Dev Flags
-echo "🎨 [4/7] Compiling production frontend bundle..."
-if command -v npm &> /dev/null; then
-    npm install --legacy-peer-deps
-    npm run build
-fi
+# 5. Verify Pre-Compiled Frontend Assets
+echo "🎨 [4/6] Verifying production frontend bundle..."
 rm -f public/hot
 
 # 6. Optimize Laravel Caches
