@@ -26,7 +26,7 @@ sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env
 
 # 3. Install PHP Dependencies (No Dev)
 echo "📦 [2/7] Installing Composer production dependencies..."
-composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs
 
 # 4. Storage & Database Setup
 echo "🗄️ [3/7] Setting up database and running migrations..."

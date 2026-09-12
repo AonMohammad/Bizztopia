@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Head, Link, router } from '@inertiajs/react';
 import { AppLayout } from '@/layouts/AppLayout';
-import { 
+import {
     Check, ArrowRight, ShieldCheck, Star, Award, Zap, Lock,
-    Building2, HelpCircle, ChevronDown, ChevronUp, CheckCircle2, 
+    Building2, HelpCircle, ChevronDown, ChevronUp, CheckCircle2,
     FileText, MessageSquare, PhoneCall, ShieldCheck as VerifiedIcon,
     Search, MapPin, Sparkles, UserCheck, ShieldAlert, Calculator,
     TrendingUp, DollarSign, X, CheckSquare, Wrench, Utensils, Car, Smile
@@ -121,7 +121,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                 <div className="absolute inset-0 bg-gradient-to-r from-[#031729]/85 via-[#0B4778]/75 to-[#287FBA]/65 z-0" />
                 <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] z-0" />
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-                    
+
                     {/* Left: Heading Copy */}
                     <div className="lg:col-span-7 space-y-8">
                         <div>
@@ -153,15 +153,15 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                         </div>
 
                         <div className="flex flex-wrap gap-4 pt-2">
-                            <button 
+                            <button
                                 onClick={() => openClaimModal('free')}
                                 className="bg-white text-[#0B4778] hover:bg-slate-50 transition-all font-extrabold text-sm px-8 py-3.5 rounded-full shadow-lg flex items-center gap-2 cursor-pointer font-bold"
                             >
                                 <span>Claim Your Free Profile</span>
                                 <ArrowRight className="w-4.5 h-4.5" />
                             </button>
-                            <a 
-                                href="#calculator" 
+                            <a
+                                href="#calculator"
                                 className="border border-white/40 text-white hover:bg-white/10 transition-all font-bold text-sm px-6 py-3.5 rounded-full cursor-pointer flex items-center gap-2"
                             >
                                 <Calculator className="w-4 h-4" />
@@ -218,9 +218,9 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                         <div className="relative">
                             <div className="absolute inset-0 bg-[#EAF5FC] rounded-full scale-95 blur-2xl opacity-70" />
                             <div className="relative w-80 h-80 rounded-full border-4 border-[#287FBA] overflow-hidden shadow-2xl flex items-center justify-center bg-slate-100">
-                                <img 
-                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" 
-                                    alt="Bizztopia Professional" 
+                                <img
+                                    src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80"
+                                    alt="Bizztopia Professional"
                                     className="w-full h-full object-cover scale-110"
                                 />
                             </div>
@@ -288,7 +288,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <p className="text-slate-500 text-xs leading-relaxed font-medium">
                                 Take control of your business page. Enter opening hours, detailed services checklists, custom service entry tags, and license credentials so clients search and find you.
                             </p>
-                            <button 
+                            <button
                                 onClick={() => openClaimModal('free')}
                                 className="inline-flex items-center gap-2 text-xs font-black text-[#287FBA] hover:text-[#0B4778] transition-colors uppercase tracking-wider"
                             >
@@ -368,7 +368,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     <h5 className="font-extrabold text-slate-900 text-xs font-bold">Office Catering - Nexa Corp</h5>
                                     <p className="text-[11px] text-slate-600 font-medium">Need lunch boxes and coffee setups for 45 corporate attendees next Thursday.</p>
                                 </div>
-                                <button 
+                                <button
                                     onClick={() => openClaimModal('pro')}
                                     className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white py-2 rounded-xl text-xs font-bold cursor-pointer transition-colors"
                                 >
@@ -483,7 +483,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 <label className="text-xs font-black text-slate-700 uppercase tracking-wider block">
                                     1. Your Business Industry
                                 </label>
-                                <select 
+                                <select
                                     value={roiIndustry}
                                     onChange={(e) => setRoiIndustry(e.target.value)}
                                     className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#287FBA]"
@@ -503,10 +503,10 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </span>
                                     <span className="font-black text-[#287FBA] text-sm">{monthlyLeads} customers/mo</span>
                                 </div>
-                                <input 
-                                    type="range" 
-                                    min="4" 
-                                    max="50" 
+                                <input
+                                    type="range"
+                                    min="4"
+                                    max="50"
                                     value={monthlyLeads}
                                     onChange={(e) => setMonthlyLeads(parseInt(e.target.value))}
                                     className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#287FBA]"
@@ -520,10 +520,10 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </span>
                                     <span className="font-black text-[#287FBA] text-sm">{closeRate}% won</span>
                                 </div>
-                                <input 
-                                    type="range" 
-                                    min="10" 
-                                    max="50" 
+                                <input
+                                    type="range"
+                                    min="10"
+                                    max="50"
                                     step="5"
                                     value={closeRate}
                                     onChange={(e) => setCloseRate(parseInt(e.target.value))}
@@ -537,7 +537,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                             <span className="text-[10px] font-black uppercase tracking-widest text-blue-200 block">
                                 Estimated Additional Value
                             </span>
-                            
+
                             <div>
                                 <div className="text-4xl sm:text-5xl font-black font-outfit tracking-tight">
                                     +${estimatedMonthlyRevenue.toLocaleString()}
@@ -558,7 +558,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                 </div>
                             </div>
 
-                            <button 
+                            <button
                                 onClick={() => openClaimModal('pro')}
                                 className="w-full bg-white text-[#0B4778] hover:bg-slate-50 transition-all font-black text-xs uppercase py-3 rounded-xl shadow-md cursor-pointer"
                             >
@@ -575,16 +575,16 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                     <div className="text-center max-w-xl mx-auto space-y-4">
                         <span className="text-[#287FBA] text-xs font-black uppercase tracking-widest block font-bold">Transparent Pricing</span>
                         <h2 className="text-3xl font-black font-outfit text-slate-950 tracking-tight font-bold">Simple, Transparent Plans</h2>
-                        
+
                         {/* Toggle billing period */}
                         <div className="inline-flex items-center gap-1.5 p-1 bg-slate-100 rounded-full border border-slate-200 mt-2">
-                            <button 
+                            <button
                                 onClick={() => setBillingPeriod('monthly')}
                                 className={`px-4 py-1.5 text-xs font-black rounded-full transition-all cursor-pointer ${billingPeriod === 'monthly' ? 'bg-[#287FBA] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900 font-bold'}`}
                             >
                                 Monthly
                             </button>
-                            <button 
+                            <button
                                 onClick={() => setBillingPeriod('annual')}
                                 className={`px-4 py-1.5 text-xs font-black rounded-full transition-all cursor-pointer flex items-center gap-1.5 ${billingPeriod === 'annual' ? 'bg-[#287FBA] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900 font-bold'}`}
                             >
@@ -617,7 +617,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Custom services checklists</li>
                                 </ul>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => openClaimModal('free')}
                                 className="w-full border border-[#287FBA] hover:bg-blue-50 text-[#287FBA] font-extrabold text-sm py-3.5 rounded-xl transition-all cursor-pointer font-bold"
                             >
@@ -647,7 +647,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     <li className="flex items-center gap-2"><Check className="w-4 h-4 text-[#287FBA] shrink-0" /> Dedicated priority telephone support</li>
                                 </ul>
                             </div>
-                            <button 
+                            <button
                                 onClick={() => openClaimModal('pro')}
                                 className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white font-extrabold text-sm py-3.5 rounded-xl transition-all cursor-pointer shadow-md font-bold"
                             >
@@ -719,7 +719,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
 
                     <div className="bg-slate-50 rounded-3xl p-6 border border-slate-200 shadow-2xs space-y-4">
                         <div className="text-xs font-bold text-slate-400 uppercase tracking-wider">Mock Search Results: "HVAC Services near San Francisco, CA"</div>
-                        
+
                         <div className="space-y-3">
                             {/* Rank 1 */}
                             <div className="bg-white border border-slate-200 rounded-2xl p-4 flex items-center justify-between gap-4 shadow-3xs">
@@ -786,7 +786,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                     <div className="space-y-4">
                         {faqs.map((faq, idx) => (
                             <div key={idx} className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-2xs">
-                                <button 
+                                <button
                                     onClick={() => toggleFaq(idx)}
                                     className="w-full p-5 flex items-center justify-between text-left font-bold text-xs text-slate-900 hover:text-[#287FBA] transition-colors cursor-pointer"
                                 >
@@ -818,7 +818,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                         Get matched with high-value local business contracts and build trust in your community. Join Bizztopia for Business today.
                     </p>
                     <div className="pt-4 flex flex-wrap justify-center gap-4">
-                        <button 
+                        <button
                             onClick={() => openClaimModal('free')}
                             className="bg-[#287FBA] hover:bg-[#0B4778] text-white px-8 py-3.5 rounded-full font-extrabold text-sm transition-all shadow-lg hover:scale-105 inline-flex items-center gap-2 cursor-pointer font-bold"
                         >
@@ -835,7 +835,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
             {isClaimModalOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-xs animate-in fade-in duration-200">
                     <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 space-y-6 relative max-h-[90vh] overflow-y-auto">
-                        <button 
+                        <button
                             onClick={() => setIsClaimModalOpen(false)}
                             className="absolute top-5 right-5 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 transition-colors cursor-pointer"
                         >
@@ -863,8 +863,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                             <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                 Business Legal / Trade Name
                                             </label>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
                                                 required
                                                 placeholder="e.g. Apex Commercial Contracting LLC"
                                                 value={bizName}
@@ -877,7 +877,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                             <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                 Primary Trade Category
                                             </label>
-                                            <select 
+                                            <select
                                                 value={bizCategory}
                                                 onChange={(e) => setBizCategory(e.target.value)}
                                                 className="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 text-xs font-bold text-slate-800 focus:outline-none focus:border-[#287FBA]"
@@ -895,8 +895,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                             <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                 Primary City & State
                                             </label>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
                                                 required
                                                 placeholder="e.g. San Francisco, CA"
                                                 value={bizCity}
@@ -905,8 +905,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                             />
                                         </div>
 
-                                        <button 
-                                            type="button" 
+                                        <button
+                                            type="button"
                                             disabled={!bizName.trim()}
                                             onClick={() => setClaimStep(2)}
                                             className="w-full bg-[#287FBA] hover:bg-[#0B4778] disabled:bg-slate-200 disabled:cursor-not-allowed text-white font-black text-xs uppercase py-3.5 rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
@@ -921,8 +921,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                             <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                 Owner / Operator Full Name
                                             </label>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
                                                 required
                                                 placeholder="e.g. Marcus Jenkins"
                                                 value={ownerName}
@@ -936,8 +936,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                                 <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                     Business Email
                                                 </label>
-                                                <input 
-                                                    type="email" 
+                                                <input
+                                                    type="email"
                                                     required
                                                     placeholder="owner@company.com"
                                                     value={ownerEmail}
@@ -950,8 +950,8 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                                 <label className="text-xs font-black uppercase tracking-wider text-slate-600 block">
                                                     Business Phone
                                                 </label>
-                                                <input 
-                                                    type="tel" 
+                                                <input
+                                                    type="tel"
                                                     required
                                                     placeholder="(555) 019-2834"
                                                     value={ownerPhone}
@@ -979,15 +979,15 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                         </div>
 
                                         <div className="flex items-center gap-3 pt-2">
-                                            <button 
-                                                type="button" 
+                                            <button
+                                                type="button"
                                                 onClick={() => setClaimStep(1)}
                                                 className="border border-slate-200 hover:bg-slate-50 text-slate-600 font-bold text-xs uppercase px-5 py-3.5 rounded-xl cursor-pointer"
                                             >
                                                 Back
                                             </button>
-                                            <button 
-                                                type="submit" 
+                                            <button
+                                                type="submit"
                                                 className="flex-1 bg-[#287FBA] hover:bg-[#0B4778] text-white font-black text-xs uppercase py-3.5 rounded-xl transition-all shadow-md cursor-pointer flex items-center justify-center gap-1.5"
                                             >
                                                 <span>Confirm & Submit Verification</span>
@@ -1009,7 +1009,7 @@ export default function Index({ initialRoi, initialStartupCost }: ValueIndexProp
                                     </p>
                                 </div>
                                 <div className="pt-3">
-                                    <button 
+                                    <button
                                         onClick={() => setIsClaimModalOpen(false)}
                                         className="bg-[#287FBA] text-white px-8 py-3 rounded-xl text-xs font-bold uppercase transition-all cursor-pointer"
                                     >
