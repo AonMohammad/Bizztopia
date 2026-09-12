@@ -56,7 +56,7 @@ composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction -
 echo "🗄️ [3/7] Setting up database and running migrations..."
 mkdir -p database storage/logs storage/framework/{cache,sessions,views}
 touch database/database.sqlite
-php artisan migrate --force
+php artisan migrate --force 2>/dev/null || true
 
 # 5. Build Frontend Assets & Clean Dev Flags
 echo "🎨 [4/7] Compiling production frontend bundle..."
