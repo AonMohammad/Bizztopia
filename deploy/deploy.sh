@@ -24,20 +24,7 @@ fi
 sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env
 sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env
 
-# Ensure PHP 8.4 is active for Laravel 13
-if ! php -r 'exit(version_compare(PHP_VERSION, "8.4.0", ">=") ? 0 : 1);'; then
-    echo "⚡ Upgrading server to PHP 8.4..."
-    export DEBIAN_FRONTEND=noninteractive
-    add-apt-repository -y ppa:ondrej/php || true
-    apt-get update -y
-    apt-get install -y php8.4 php8.4-fpm php8.4-cli php8.4-common php8.4-sqlite3 php8.4-curl \
-        php8.4-mbstring php8.4-xml php8.4-zip php8.4-bcmath php8.4-intl php8.4-gd
-    update-alternatives --set php /usr/bin/php8.4 || true
-    sed -i 's/php8\.[0-3]-fpm\.sock/php8.4-fpm.sock/g' /etc/nginx/sites-available/* 2>/dev/null || true
-    sed -i 's/php8\.[0-3]-fpm\.sock/php8.4-fpm.sock/g' /etc/nginx/sites-enabled/* 2>/dev/null || true
-    systemctl restart php8.4-fpm 2>/dev/null || true
-    systemctl reload nginx 2>/dev/null || true
-fi
+
 
 # 3. Install PHP Dependencies (No Dev)
 echo "📦 [2/7] Installing Composer production dependencies..."
