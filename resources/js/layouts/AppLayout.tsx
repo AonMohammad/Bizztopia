@@ -120,27 +120,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const [pageLoading, setPageLoading] = useState(true);
-    const [fadePreloader, setFadePreloader] = useState(false);
-    useEffect(() => {
-        const fadeTimer = setTimeout(() => setFadePreloader(true), 1400);
-        const removeTimer = setTimeout(() => setPageLoading(false), 1900);
-        return () => {
-            clearTimeout(fadeTimer);
-            clearTimeout(removeTimer);
-        };
-    }, []);
-
-    // Track Inertia Page Navigation Events for Loading Bar + Page Transition
+    // Track Inertia Page Navigation Events for Top Loading Bar
     useEffect(() => {
         const removeStartListener = router.on('start', () => {
             setIsLoading(true);
-            setPageVisible(false);
         });
         const removeFinishListener = router.on('finish', () => {
             setIsLoading(false);
-            // Small delay so the new page content renders before fade-in
-            setTimeout(() => setPageVisible(true), 60);
         });
 
         return () => {
@@ -148,9 +134,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             removeFinishListener();
         };
     }, []);
-
-    // Trigger entrance on first load
-    useEffect(() => { setPageVisible(true); }, []);
 
     const isHome = url === '/' || url.startsWith('/?') || url === '';
     const isIdeas = url.startsWith('/ideas');
@@ -199,33 +182,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 </div>
             )}
 
-            {/* Full-Screen Premium Rocket Preloader Overlay */}
-            {pageLoading && (
-                <div className={`fixed inset-0 bg-[#031729] flex flex-col items-center justify-center z-[9999] transition-opacity duration-500 ease-out ${fadePreloader ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-                    <div className="relative w-40 h-40 flex items-center justify-center">
-                        {/* Center 'B' favicon icon wrapper */}
-                        <div className="absolute w-24 h-24 rounded-full bg-slate-900 border border-slate-800 flex items-center justify-center shadow-2xl z-10">
-                            <span 
-                                className="text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#4A9AD4] to-[#287FBA]"
-                                style={{ fontFamily: "'Galey Rounded', sans-serif !important" }}
-                            >
-                                B
-                            </span>
-                        </div>
-
-                        {/* Orbiting Rocket track */}
-                        <div className="absolute w-36 h-36 border border-[#287FBA]/20 rounded-full" />
-
-                        {/* Orbiting Rocket container */}
-                        <div className="absolute w-36 h-36 animate-spin" style={{ animationDuration: '3s', animationTimingFunction: 'linear' }}>
-                            <div className="absolute -top-3.5 left-[calc(50%-14px)] transform rotate-45">
-                                <Rocket className="w-7 h-7 text-[#4A9AD4] fill-[#4A9AD4] drop-shadow-[0_0_8px_#4A9AD4]" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             <div className="min-h-screen bg-[#F7FAFC] text-[#102A3D] flex flex-col font-sans relative">
             {/* Animated Loading Top Progress Bar */}
             {isLoading && (
@@ -239,7 +195,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4">
                     {/* Left: Logo */}
                     <div className="flex items-center gap-6 shrink-0">
-                        <Link href="/">
+                        <Link href="/" prefetch>
                             <img src="/images/logo.webp" alt="Bizztopia" width="180" height="63" className="h-9 w-auto" />
                         </Link>
                     </div>
@@ -273,11 +229,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
 
                     {/* Right: Actions */}
                     <div className="flex items-center gap-4 text-sm font-bold text-white shrink-0">
-                        <Link href="/write-a-review" className="hover:text-[#287FBA] transition-colors hidden lg:inline">Write a Review</Link>
-                        <Link href="/for-consumers" className="hover:text-[#287FBA] transition-colors hidden lg:inline mr-2">Bizztopia for Consumers</Link>
-                        <Link href="/for-business" className="hover:text-[#287FBA] transition-colors hidden lg:inline">Bizztopia for Business</Link>
-                        <Link href="/login" className="px-3 py-1.5 rounded-lg border border-white hover:bg-white/10 transition-colors">Log In</Link>
-                        <Link href="/register" className="px-3 py-1.5 rounded-lg bg-[#287FBA] hover:bg-[#0B4778] text-white transition-colors">Sign Up</Link>
+                        <Link href="/write-a-review" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline">Write a Review</Link>
+                        <Link href="/for-consumers" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline mr-2">Bizztopia for Consumers</Link>
+                        <Link href="/for-business" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline">Bizztopia for Business</Link>
+                        <Link href="/login" prefetch className="px-3 py-1.5 rounded-lg border border-white hover:bg-white/10 transition-colors">Log In</Link>
+                        <Link href="/register" prefetch className="px-3 py-1.5 rounded-lg bg-[#287FBA] hover:bg-[#0B4778] text-white transition-colors">Sign Up</Link>
                         
                         {/* Mobile Menu Button */}
                         <button 
@@ -318,6 +274,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                                                 <Link
                                                     key={sub.slug}
                                                     href={`/subcategory/${sub.slug}`}
+                                                    prefetch
                                                     onClick={() => setActiveSubnav(null)}
                                                     className="flex items-center gap-3 py-1 text-sm font-bold text-slate-700 hover:text-[#287FBA] transition-colors group cursor-pointer"
                                                 >
@@ -366,11 +323,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         </form>
                         
                         <div className="flex flex-col gap-2.5">
-                            <Link href="/write-a-review" className="block text-sm font-bold text-slate-200 hover:text-white">Write a Review</Link>
-                            <Link href="/for-consumers" className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Consumers</Link>
-                            <Link href="/for-business" className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Business</Link>
-                            <Link href="/login" className="block text-sm font-bold text-slate-200 hover:text-white">Log In</Link>
-                            <Link href="/register" className="block text-sm font-bold text-slate-200 hover:text-white">Sign Up</Link>
+                            <Link href="/write-a-review" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Write a Review</Link>
+                            <Link href="/for-consumers" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Consumers</Link>
+                            <Link href="/for-business" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Business</Link>
+                            <Link href="/login" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Log In</Link>
+                            <Link href="/register" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Sign Up</Link>
                         </div>
                     </div>
                 )}
