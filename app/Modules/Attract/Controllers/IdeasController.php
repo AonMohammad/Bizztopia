@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
+use Illuminate\Support\Facades\Cache;
+
 class IdeasController extends Controller
 {
     /**
@@ -28,7 +30,12 @@ class IdeasController extends Controller
         $selectedType = $request->query('type');
         $searchQuery = $request->query('search');
 
-        $query = Article::with(['category', 'author', 'tags'])
+        $query = Article::select([
+                'id', 'category_id', 'author_id', 'title', 'slug', 'subtitle', 
+                'hero_image', 'content_type', 'reading_time', 'view_count', 
+                'published_at', 'status', 'region'
+            ])
+            ->with(['category:id,name,slug,color', 'author:id,name,role_title,avatar_url', 'tags:id,name,slug'])
             ->where('status', 'published')
             ->where('region', 'North America');
 
@@ -43,15 +50,23 @@ class IdeasController extends Controller
         if ($searchQuery) {
             $query->where(function ($q) use ($searchQuery) {
                 $q->where('title', 'like', "%{$searchQuery}%")
-                    ->orWhere('subtitle', 'like', "%{$searchQuery}%")
-                    ->orWhere('content', 'like', "%{$searchQuery}%");
+                    ->orWhere('subtitle', 'like', "%{$searchQuery}%");
             });
         }
 
-        $articles = $query->orderByDesc('id')->paginate(300)->withQueryString();
-        $categories = Category::withCount('articles')->get();
-        $tags = Tag::withCount('articles')->orderByDesc('articles_count')->take(20)->get();
-        $editorialBoards = EditorialBoard::where('is_active', true)->orderBy('sort_order')->get();
+        $articles = $query->orderByDesc('published_at')->orderByDesc('id')->paginate(36)->withQueryString();
+        
+        $categories = Cache::remember('bizztopia_ideas_categories_v2', 3600, function () {
+            return Category::withCount('articles')->get(['id', 'name', 'slug', 'color', 'image_url']);
+        });
+
+        $tags = Cache::remember('bizztopia_ideas_tags_v2', 3600, function () {
+            return Tag::withCount('articles')->orderByDesc('articles_count')->take(20)->get(['id', 'name', 'slug']);
+        });
+
+        $editorialBoards = Cache::remember('bizztopia_editorial_boards_v2', 3600, function () {
+            return EditorialBoard::where('is_active', true)->orderBy('sort_order')->get();
+        });
 
         return Inertia::render('Ideas/Index', [
             'articles' => $articles,
@@ -72,21 +87,25 @@ class IdeasController extends Controller
      */
     public function show(Request $request, string $slug): Response
     {
-        $article = Article::with(['category', 'author', 'tags', 'comments'])
-            ->where('slug', $slug)
-            ->first();
-
-        if (!$article) {
-            $article = Article::with(['category', 'author', 'tags', 'comments'])
-                ->where('id', $slug)
+        $article = Cache::remember("bizztopia_article_show_{$slug}_v2", 1800, function () use ($slug) {
+            $art = Article::with(['category', 'author', 'tags', 'comments'])
+                ->where('slug', $slug)
                 ->first();
-        }
 
-        if (!$article) {
-            $article = Article::with(['category', 'author', 'tags', 'comments'])
-                ->where('title', 'like', "%{$slug}%")
-                ->first();
-        }
+            if (!$art) {
+                $art = Article::with(['category', 'author', 'tags', 'comments'])
+                    ->where('id', $slug)
+                    ->first();
+            }
+
+            if (!$art) {
+                $art = Article::with(['category', 'author', 'tags', 'comments'])
+                    ->where('title', 'like', "%{$slug}%")
+                    ->first();
+            }
+
+            return $art;
+        });
 
         if (!$article) {
             $article = Article::with(['category', 'author', 'tags', 'comments'])
@@ -94,16 +113,19 @@ class IdeasController extends Controller
                 ->firstOrFail();
         }
 
-        // Increment view count
-        $article->increment('view_count');
+        // Increment view count quietly in background
+        Article::where('id', $article->id)->increment('view_count');
 
         // Related articles from same category (exclude self)
-        $relatedArticles = Article::with(['category', 'author', 'tags'])
-            ->where('category_id', $article->category_id)
-            ->where('id', '!=', $article->id)
-            ->latest('published_at')
-            ->take(3)
-            ->get();
+        $relatedArticles = Cache::remember("bizztopia_related_{$article->category_id}_{$article->id}_v2", 3600, function () use ($article) {
+            return Article::select(['id', 'category_id', 'author_id', 'title', 'slug', 'subtitle', 'hero_image', 'reading_time', 'published_at'])
+                ->with(['category:id,name,slug,color', 'author:id,name,role_title'])
+                ->where('category_id', $article->category_id)
+                ->where('id', '!=', $article->id)
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        });
 
         // Check if visitor has bookmarked this article
         $sessionId = $request->session()->getId();
@@ -127,8 +149,8 @@ class IdeasController extends Controller
                 'name' => 'Bizztopia',
                 'logo' => ['@type' => 'ImageObject', 'url' => '/logo.svg'],
             ],
-            'datePublished' => $article->published_at?->toIso8601String(),
-            'dateModified' => $article->updated_at?->toIso8601String(),
+            'datePublished' => $article->published_at ? date('c', strtotime((string)$article->published_at)) : null,
+            'dateModified' => $article->updated_at ? date('c', strtotime((string)$article->updated_at)) : null,
         ];
 
         return Inertia::render('Ideas/Show', [

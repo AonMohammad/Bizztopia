@@ -104,7 +104,7 @@
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-mh9fxZK-.js",
+    "file": "assets/app-Ce7Llmr2.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -508,7 +508,7 @@
     ]
   },
   "resources/js/pages/SubcategoryLanding.tsx": {
-    "file": "assets/SubcategoryLanding-BaM9AmnA.js",
+    "file": "assets/SubcategoryLanding-BmmF1WqN.js",
     "name": "SubcategoryLanding",
     "src": "resources/js/pages/SubcategoryLanding.tsx",
     "isDynamicEntry": true,

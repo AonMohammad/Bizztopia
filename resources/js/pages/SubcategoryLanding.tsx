@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { AppLayout } from '@/layouts/AppLayout';
 import { Head, Link, router } from '@inertiajs/react';
-import subcategoryImagesData from '@/data/subcategory_images.json';
 import { 
     Star, MapPin, ShieldCheck, CheckCircle2, ChevronRight, 
     BookOpen, Sparkles, UserCheck, ShieldAlert, Award, FileText,
@@ -13,10 +12,11 @@ interface SubcategoryLandingProps {
     name: string;
     categoryName: string;
     articles?: any[];
+    images?: any[];
 }
 
-export default function SubcategoryLanding({ slug, name, categoryName, articles }: SubcategoryLandingProps) {
-    const subcatImages: any[] = (subcategoryImagesData as any)[slug] || [];
+export default function SubcategoryLanding({ slug, name, categoryName, articles, images }: SubcategoryLandingProps) {
+    const subcatImages: any[] = images || [];
 
     const [leadSubmitted, setLeadSubmitted] = useState(false);
     const [serviceNeed, setServiceNeed] = useState('');

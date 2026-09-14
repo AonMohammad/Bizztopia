@@ -15,90 +15,95 @@ use App\Modules\Social\Models\Question;
 use App\Modules\Social\Models\Review;
 use App\Modules\Value\Controllers\ValueController;
 use App\Modules\Value\Services\CalculationEngine;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-// Ecosystem Master Homepage Route
+// Ecosystem Master Homepage Route (Super-fast In-Memory Caching)
 Route::get('/', function (CalculationEngine $calcEngine) {
-    $featuredArticle = Article::with(['category', 'author'])->latest()->first();
-    if (!$featuredArticle) {
-        $featuredArticle = (object)[
-            'id' => 1,
-            'title' => 'How to Scale Your B2B SaaS Startup in 2026: The Ultimate Playbook',
-            'slug' => 'how-to-scale-b2b-saas-startup-2026',
-            'subtitle' => 'Unlocking key metrics, growth methodologies, and product marketing models to double customer acquisition velocity.',
-            'category' => (object)['name' => 'SaaS Platforms', 'slug' => 'saas'],
-            'author' => (object)['name' => 'Sarah Jenkins', 'role_title' => 'Growth Architect'],
-            'reading_time' => 8
+    $payload = Cache::remember('bizztopia_homepage_payload_v3', 1800, function () use ($calcEngine) {
+        $featuredArticle = Article::with(['category', 'author'])->latest()->first();
+        if (!$featuredArticle) {
+            $featuredArticle = (object)[
+                'id' => 1,
+                'title' => 'How to Scale Your B2B SaaS Startup in 2026: The Ultimate Playbook',
+                'slug' => 'how-to-scale-b2b-saas-startup-2026',
+                'subtitle' => 'Unlocking key metrics, growth methodologies, and product marketing models to double customer acquisition velocity.',
+                'category' => (object)['name' => 'SaaS Platforms', 'slug' => 'saas'],
+                'author' => (object)['name' => 'Sarah Jenkins', 'role_title' => 'Growth Architect'],
+                'reading_time' => 8
+            ];
+        }
+
+        $activePoll = Poll::with('options')->where('status', 'active')->latest()->first();
+        if (!$activePoll) {
+            $activePoll = (object)[
+                'id' => 1,
+                'title' => 'Which B2B marketing channels drive the highest quality leads in your pipeline?',
+                'description' => 'Help us identify current ecosystem trends by voting on your top performing organic or paid growth channels.',
+                'category' => 'Marketing',
+                'total_votes' => 384,
+                'has_voted' => false,
+                'options' => [
+                    (object)['id' => 1, 'option_text' => 'LinkedIn Organic & Cold Outreach', 'votes_count' => 142],
+                    (object)['id' => 2, 'option_text' => 'Google Search Ads & SEO Content', 'votes_count' => 118],
+                    (object)['id' => 3, 'option_text' => 'Niche Newsletter Sponsorships', 'votes_count' => 84],
+                    (object)['id' => 4, 'option_text' => 'Interactive Webinars & Virtual Events', 'votes_count' => 40],
+                ]
+            ];
+        }
+
+        $activeQuiz = Quiz::with(['questions.options', 'results'])->where('status', 'active')->latest()->first();
+        $latestQuestion = Question::withCount('answers')->where('status', 'published')->latest()->first();
+        if (!$latestQuestion) {
+            $latestQuestion = (object)[
+                'id' => 1,
+                'title' => 'How should we structure equity compensation for our first B2B growth marketing hire?',
+                'slug' => 'structure-equity-compensation-b2b-marketing-hire',
+                'body' => 'We are preparing to bring on our first head of growth. We have a seed valuation of $5M. Looking for industry standard ranges.',
+                'category' => 'Consulting',
+                'author_name' => 'David Miller',
+                'author_role' => 'Founder, ScaleFlow',
+                'upvotes_count' => 18,
+                'answers_count' => 4,
+                'is_solved' => true
+            ];
+        }
+
+        $reviews = Review::where('status', 'approved')->latest()->take(9)->get();
+        $featuredGallery = Gallery::where('status', 'published')->latest()->first();
+        
+        $allLatest = Article::with(['category', 'author'])->latest()->take(20)->get();
+
+        $breakingArticles = $allLatest->slice(0, 10)->map(function ($art) {
+            $art->image_url = $art->hero_image ?: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80';
+            return $art;
+        })->values();
+
+        $trendingArticles = $allLatest->slice(10, 10)->map(function ($art) {
+            $art->image_url = $art->hero_image ?: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=300&q=80';
+            return $art;
+        })->values();
+
+        $defaultRoi = $calcEngine->calculateRoi(2500, 45, 8, 1200);
+
+        $topCategories = Category::whereNotNull('image_url')->get(['id', 'name', 'slug', 'color', 'image_url']);
+
+        return [
+            'featuredArticle' => $featuredArticle,
+            'activePoll' => $activePoll,
+            'activeQuiz' => $activeQuiz,
+            'latestQuestion' => $latestQuestion,
+            'reviews' => $reviews,
+            'featuredGallery' => $featuredGallery,
+            'initialRoi' => $defaultRoi,
+            'breakingArticles' => $breakingArticles,
+            'trendingArticles' => $trendingArticles,
+            'topCategories' => $topCategories,
         ];
-    }
+    });
 
-    $activePoll = Poll::with('options')->where('status', 'active')->latest()->first();
-    if (!$activePoll) {
-        $activePoll = (object)[
-            'id' => 1,
-            'title' => 'Which B2B marketing channels drive the highest quality leads in your pipeline?',
-            'description' => 'Help us identify current ecosystem trends by voting on your top performing organic or paid growth channels.',
-            'category' => 'Marketing',
-            'total_votes' => 384,
-            'has_voted' => false,
-            'options' => [
-                (object)['id' => 1, 'option_text' => 'LinkedIn Organic & Cold Outreach', 'votes_count' => 142],
-                (object)['id' => 2, 'option_text' => 'Google Search Ads & SEO Content', 'votes_count' => 118],
-                (object)['id' => 3, 'option_text' => 'Niche Newsletter Sponsorships', 'votes_count' => 84],
-                (object)['id' => 4, 'option_text' => 'Interactive Webinars & Virtual Events', 'votes_count' => 40],
-            ]
-        ];
-    }
-
-    $activeQuiz = Quiz::with(['questions.options', 'results'])->where('status', 'active')->latest()->first();
-    $latestQuestion = Question::withCount('answers')->where('status', 'published')->latest()->first();
-    if (!$latestQuestion) {
-        $latestQuestion = (object)[
-            'id' => 1,
-            'title' => 'How should we structure equity compensation for our first B2B growth marketing hire?',
-            'slug' => 'structure-equity-compensation-b2b-marketing-hire',
-            'body' => 'We are preparing to bring on our first head of growth. We have a seed valuation of $5M. Looking for industry standard ranges.',
-            'category' => 'Consulting',
-            'author_name' => 'David Miller',
-            'author_role' => 'Founder, ScaleFlow',
-            'upvotes_count' => 18,
-            'answers_count' => 4,
-            'is_solved' => true
-        ];
-    }
-
-    $reviews = Review::where('status', 'approved')->latest()->take(9)->get();
-    $featuredGallery = Gallery::where('status', 'published')->latest()->first();
-    
-    $allLatest = Article::with(['category', 'author'])->latest()->take(20)->get();
-
-    $breakingArticles = $allLatest->slice(0, 10)->map(function ($art) {
-        $art->image_url = $art->hero_image ?: 'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=300&q=80';
-        return $art;
-    })->values();
-
-    $trendingArticles = $allLatest->slice(10, 10)->map(function ($art) {
-        $art->image_url = $art->hero_image ?: 'https://images.unsplash.com/photo-1551836022-b06985bceb24?auto=format&fit=crop&w=300&q=80';
-        return $art;
-    })->values();
-
-    $defaultRoi = $calcEngine->calculateRoi(2500, 45, 8, 1200);
-
-    $topCategories = Category::whereNotNull('image_url')->get(['id', 'name', 'slug', 'color', 'image_url']);
-
-    return Inertia::render('Welcome', [
-        'featuredArticle' => $featuredArticle,
-        'activePoll' => $activePoll,
-        'activeQuiz' => $activeQuiz,
-        'latestQuestion' => $latestQuestion,
-        'reviews' => $reviews,
-        'featuredGallery' => $featuredGallery,
-        'initialRoi' => $defaultRoi,
-        'breakingArticles' => $breakingArticles,
-        'trendingArticles' => $trendingArticles,
-        'topCategories' => $topCategories,
-    ]);
+    return Inertia::render('Welcome', $payload);
 });
 
 // Master CAP Admin Authentication & Lockdown Routes
@@ -296,33 +301,46 @@ Route::get('/subcategory/{slug}', function ($slug) {
 
     $info = $mapping[$slug] ?? ['name' => ucfirst(str_replace('-', ' ', $slug)), 'category' => 'Directory'];
 
-    // Query 3 relevant news articles for this subcategory
-    $parentCategoryName = $info['category'];
-    $category = \App\Modules\Attract\Models\Category::where('name', $parentCategoryName)->first();
-    
-    $subName = str_replace('-', ' ', $slug);
-    $articles = \App\Modules\Attract\Models\Article::where('source_rss_name', 'LIKE', '%' . $subName . '%')
-        ->orWhere('title', 'LIKE', '%' . $subName . '%')
-        ->latest('published_at')
-        ->limit(3)
-        ->get();
-
-    if ($articles->count() < 3 && $category) {
-        $existingIds = $articles->pluck('id')->toArray();
-        $fallbackArticles = \App\Modules\Attract\Models\Article::where('category_id', $category->id)
-            ->whereNotIn('id', $existingIds)
+    $data = Cache::remember("bizztopia_subcat_{$slug}_v2", 3600, function () use ($slug, $info) {
+        // Query 3 relevant news articles for this subcategory
+        $parentCategoryName = $info['category'];
+        $category = \App\Modules\Attract\Models\Category::where('name', $parentCategoryName)->first();
+        
+        $subName = str_replace('-', ' ', $slug);
+        $articles = \App\Modules\Attract\Models\Article::where('source_rss_name', 'LIKE', '%' . $subName . '%')
+            ->orWhere('title', 'LIKE', '%' . $subName . '%')
             ->latest('published_at')
-            ->limit(3 - $articles->count())
+            ->limit(3)
             ->get();
-        $articles = $articles->concat($fallbackArticles);
-    }
 
-    return Inertia::render('SubcategoryLanding', [
-        'slug' => $slug,
-        'name' => $info['name'],
-        'categoryName' => $info['category'],
-        'articles' => $articles
-    ]);
+        if ($articles->count() < 3 && $category) {
+            $existingIds = $articles->pluck('id')->toArray();
+            $fallbackArticles = \App\Modules\Attract\Models\Article::where('category_id', $category->id)
+                ->whereNotIn('id', $existingIds)
+                ->latest('published_at')
+                ->limit(3 - $articles->count())
+                ->get();
+            $articles = $articles->concat($fallbackArticles);
+        }
+
+        // Load only needed images for this specific subcategory from JSON (server-side)
+        $imagesFile = resource_path('js/data/subcategory_images.json');
+        $images = [];
+        if (file_exists($imagesFile)) {
+            $rawJson = json_decode(file_get_contents($imagesFile), true) ?: [];
+            $images = $rawJson[$slug] ?? [];
+        }
+
+        return [
+            'slug' => $slug,
+            'name' => $info['name'],
+            'categoryName' => $info['category'],
+            'articles' => $articles,
+            'images' => $images,
+        ];
+    });
+
+    return Inertia::render('SubcategoryLanding', $data);
 })->name('subcategory.show');
 
 // Write a Review Page Route
