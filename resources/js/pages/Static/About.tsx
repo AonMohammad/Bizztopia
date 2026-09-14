@@ -8,20 +8,16 @@ export default function About() {
         <AppLayout>
             <Head title="About Bizztopia — The Verified Local Business Directory" />
 
-            {/* HERO SECTION with VISIBLE BACKGROUND IMAGE */}
+            {/* HERO SECTION with High-Performance Background Image */}
             <section className="relative min-h-[480px] flex items-center justify-center py-20 px-6 overflow-hidden text-white">
-                {/* Fast-Loading Background Video Layer with Poster Fallback */}
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    poster="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1920&q=80"
+                {/* High-Performance Hero Background Image */}
+                <img
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=1600&q=75"
+                    alt="About Bizztopia"
+                    fetchPriority="high"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
-                >
-                    <source src="https://videos.pexels.com/video-files/3195394/3195394-hd_1280_720_25fps.mp4" type="video/mp4" />
-                </video>
+                />
                 {/* Gradient Tint Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#031729]/85 via-[#0B4778]/75 to-[#287FBA]/65 z-0" />
 
@@ -93,6 +89,8 @@ export default function About() {
                             <img 
                                 src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=800&q=80" 
                                 alt="Bizztopia Team Working" 
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-80 object-cover"
                             />
                         </div>
@@ -107,6 +105,8 @@ export default function About() {
                         <img 
                             src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=800&q=80" 
                             alt="Bizztopia Origin Story" 
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-80 object-cover"
                         />
                     </div>

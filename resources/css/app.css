@@ -6,19 +6,11 @@
   --font-sans: 'Galey Rounded', system-ui, sans-serif;
 }
 
-/* ── Galey Rounded Font Definitions (All Weights 100-900) ── */
-@font-face {
-  font-family: 'Galey Rounded';
-  src: url('/fonts/GaleyRounded-ExtraLight.ttf') format('truetype');
-  font-weight: 100 300;
-  font-style: normal;
-  font-display: swap;
-}
-
+/* ── Galey Rounded Font Definition (All Weights 100-900) ── */
 @font-face {
   font-family: 'Galey Rounded';
   src: url('/fonts/GaleyRounded-SemiBold.ttf') format('truetype');
-  font-weight: 400 900;
+  font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }

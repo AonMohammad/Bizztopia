@@ -29,8 +29,11 @@
     <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
     <link rel="dns-prefetch" href="https://images.unsplash.com">
 
+    <!-- Preload Brand Font for Instant Text Rendering (Prevents FOIT/CLS) -->
+    <link rel="preload" href="/fonts/GaleyRounded-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
+
     <!-- Preload LCP Hero Background Image -->
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=500&q=50" fetchpriority="high">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=75" fetchpriority="high">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://bizztopia.net">

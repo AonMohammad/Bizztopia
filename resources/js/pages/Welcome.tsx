@@ -606,21 +606,17 @@ export default function Welcome({
         <AppLayout>
             <Head title="Bizztopia — Find & Compare Local Businesses Near You" />
 
-            {/* SECTION 1: Bizztopia-Style Hero with VISIBLE Background Image */}
+            {/* SECTION 1: Bizztopia-Style Hero with High-Performance Background Image */}
             <section className="text-white relative overflow-hidden min-h-[540px] flex flex-col justify-center py-20">
-                {/* Fast-Loading Background Video Layer with Poster Fallback */}
-                <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    poster="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=70"
+                {/* High-Performance Hero Background Image (Instant Paint, Zero Video Stutter) */}
+                <img
+                    src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=75"
+                    alt="Bizztopia Verified Business Network"
+                    fetchPriority="high"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover z-0 scale-105"
-                >
-                    <source src="https://videos.pexels.com/video-files/3129671/3129671-hd_1280_720_30fps.mp4" type="video/mp4" />
-                </video>
-                {/* Ambient Brand Overlay that lets the background video shine through cleanly */}
+                />
+                {/* Ambient Brand Overlay that lets the background image shine through cleanly */}
                 <div className="absolute inset-0 bg-gradient-to-r from-[#031729]/85 via-[#0B4778]/75 to-[#287FBA]/65 z-0" />
                 <div className="absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px] opacity-10 z-0" />
 
@@ -1011,6 +1007,8 @@ export default function Welcome({
                                             <img 
                                                 src={rev.avatar} 
                                                 alt={rev.reviewer_name} 
+                                                loading="lazy"
+                                                decoding="async"
                                                 className="w-9 h-9 rounded-full object-cover shrink-0 border border-slate-100"
                                             />
                                             <div className="min-w-0 flex-1">
@@ -1030,6 +1028,8 @@ export default function Welcome({
                                                     <img 
                                                         src={rev.photos[0]} 
                                                         alt={rev.business_name} 
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" 
                                                     />
                                                 </div>
@@ -1107,6 +1107,8 @@ export default function Welcome({
                                                             alt="Photo 1" 
                                                             width="400" 
                                                             height="300" 
+                                                            loading="lazy"
+                                                            decoding="async"
                                                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" 
                                                         />
                                                     </div>
@@ -1116,6 +1118,8 @@ export default function Welcome({
                                                             alt="Photo 2" 
                                                             width="400" 
                                                             height="300" 
+                                                            loading="lazy"
+                                                            decoding="async"
                                                             className="w-full h-full object-cover hover:scale-105 transition-transform duration-500 cursor-pointer" 
                                                         />
                                                     </div>
@@ -1344,6 +1348,8 @@ export default function Welcome({
                                                     <img 
                                                         src={imgUrl} 
                                                         alt={article.title || 'Market News'} 
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                         onError={(e) => {
                                                             const target = e.target as HTMLImageElement;
@@ -1398,6 +1404,8 @@ export default function Welcome({
                                                     <img 
                                                         src={imgUrl} 
                                                         alt={article.title || 'Trending Story'} 
+                                                        loading="lazy"
+                                                        decoding="async"
                                                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                                                         onError={(e) => {
                                                             const target = e.target as HTMLImageElement;

@@ -95,7 +95,7 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app-DF7wE7Jm.css",
+    "file": "assets/app-DP4MR7Tj.css",
     "name": "app",
     "names": [
       "app.css"
@@ -104,7 +104,7 @@
     "isEntry": true
   },
   "resources/js/app.jsx": {
-    "file": "assets/app-Bb1dIT4K.js",
+    "file": "assets/app-mh9fxZK-.js",
     "name": "app",
     "src": "resources/js/app.jsx",
     "isEntry": true,
@@ -145,7 +145,7 @@
       "resources/js/pages/Welcome.tsx"
     ],
     "css": [
-      "assets/app-DF7wE7Jm.css"
+      "assets/app-DP4MR7Tj.css"
     ]
   },
   "resources/js/pages/Admin/Articles.tsx": {
@@ -264,7 +264,7 @@
     ]
   },
   "resources/js/pages/Consumer/Index.tsx": {
-    "file": "assets/Index-C6GmzM8d.js",
+    "file": "assets/Index-Cyn5DDSF.js",
     "name": "Index",
     "src": "resources/js/pages/Consumer/Index.tsx",
     "isDynamicEntry": true,
@@ -412,7 +412,7 @@
     ]
   },
   "resources/js/pages/Static/About.tsx": {
-    "file": "assets/About-CWZBdovz.js",
+    "file": "assets/About-DEfQKnIf.js",
     "name": "About",
     "src": "resources/js/pages/Static/About.tsx",
     "isDynamicEntry": true,
@@ -520,7 +520,7 @@
     ]
   },
   "resources/js/pages/Value/Index.tsx": {
-    "file": "assets/Index-C9par8Gb.js",
+    "file": "assets/Index-DJEBCeuv.js",
     "name": "Index",
     "src": "resources/js/pages/Value/Index.tsx",
     "isDynamicEntry": true,
@@ -532,7 +532,7 @@
     ]
   },
   "resources/js/pages/Welcome.tsx": {
-    "file": "assets/Welcome-vYbKBx4R.js",
+    "file": "assets/Welcome-C4sYibZ2.js",
     "name": "Welcome",
     "src": "resources/js/pages/Welcome.tsx",
     "isDynamicEntry": true,
