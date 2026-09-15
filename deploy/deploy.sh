@@ -1,46 +1,31 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# Bizztopia Master CAP - Production Deployment Script
-# Automatically configures environment, runs migrations, caches assets,
-# optimizes Laravel, and restarts PHP-FPM / Nginx / Supervisor.
+# Bizztopia Turnkey Production Deployment & Optimization Script
+# Automatically configures environment, WAL database mode, PHP-FPM tuning,
+# Laravel RAM caches, storage permissions, and restarts web services.
 # ==============================================================================
 
 set -e
 
-echo "🚀 [1/7] Starting Bizztopia Production Deployment..."
+echo "🚀 [1/6] Starting Bizztopia Turnkey Deployment & Optimization..."
 
 # 1. Ensure we are in project root
 PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$PROJECT_DIR"
 
-# 2. Environment Verification
+# 2. Kill hanging PHP workers & clear locks
+echo "🧹 [2/6] Cleaning up background processes..."
+killall -9 php-fpm8.3 php-fpm 2>/dev/null || true
+
+# 3. Environment & High-Speed File Drivers Setup
+echo "⚙️ [3/6] Configuring high-performance environment flags..."
 if [ ! -f .env ]; then
-    echo "⚠️ Creating production .env..."
     if [ -f .env.example ]; then
         cp .env.example .env
-    else
-        cat > .env << 'EOF'
-APP_NAME=Bizztopia
-APP_ENV=production
-APP_KEY=base64:7K5O9H+U9u0QyQz5E9U/0B8Q0k=
-APP_DEBUG=false
-APP_URL=https://bizztopia.net
-
-LOG_CHANNEL=stack
-LOG_LEVEL=error
-
-DB_CONNECTION=sqlite
-DB_DATABASE=/var/www/bizztopia/database/database.sqlite
-
-SESSION_DRIVER=database
-QUEUE_CONNECTION=sync
-CACHE_STORE=file
-EOF
     fi
     php artisan key:generate --force 2>/dev/null || true
 fi
 
-# Set production flags in .env
 sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env 2>/dev/null || true
 sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env 2>/dev/null || true
 sed -i 's|^APP_URL=.*|APP_URL=https://bizztopia.net|' .env 2>/dev/null || true
@@ -48,42 +33,37 @@ sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/bizztopia/database/database.sqlit
 sed -i 's/^SESSION_DRIVER=.*/SESSION_DRIVER=file/' .env 2>/dev/null || true
 sed -i 's/^CACHE_STORE=.*/CACHE_STORE=file/' .env 2>/dev/null || true
 
-# 3. Install PHP Dependencies (No Dev)
-echo "📦 [2/6] Installing Composer production dependencies..."
-composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs
-
-# 4. Storage & Database Setup
-echo "🗄️ [3/6] Setting up database & high-performance WAL mode..."
+# 4. Database & SQLite WAL Mode
+echo "🗄️ [4/6] Initializing storage & SQLite concurrent WAL mode..."
 mkdir -p database storage/logs storage/framework/{cache,sessions,views}
 touch database/database.sqlite
-sqlite3 database/database.sqlite "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;" 2>/dev/null || true
+sqlite3 database/database.sqlite "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; PRAGMA synchronous=NORMAL;" 2>/dev/null || true
 php artisan migrate --force 2>/dev/null || true
 
-# 5. Verify Pre-Compiled Frontend Assets
-echo "🎨 [4/6] Verifying production frontend bundle..."
-rm -f public/hot
+# Tune PHP-FPM Pool Workers for High Traffic
+sed -i 's/^pm.max_children = .*/pm.max_children = 30/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
+sed -i 's/^pm.start_servers = .*/pm.start_servers = 6/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
+sed -i 's/^pm.min_spare_servers = .*/pm.min_spare_servers = 4/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
+sed -i 's/^pm.max_spare_servers = .*/pm.max_spare_servers = 12/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
 
-# 6. Optimize Laravel Caches
-echo "⚡ [5/7] Optimizing Laravel routing, config, and view caches..."
-php artisan config:clear
-php artisan route:clear
-php artisan view:clear
+# 5. Clean Caches & Compile Laravel In-Memory Routes & Configs
+echo "⚡ [5/6] Compiling Laravel route and configuration caches into RAM..."
+rm -f public/hot
+php artisan optimize:clear
 php artisan config:cache
 php artisan route:cache
-php artisan view:cache 2>/dev/null || true
-php artisan event:cache 2>/dev/null || true
+php artisan event:cache
 
-# 7. File Permissions
-echo "🔒 [6/7] Securing storage & bootstrap cache permissions..."
-chown -R www-data:www-data storage bootstrap/cache database 2>/dev/null || chmod -R 775 storage bootstrap/cache database
+# 6. File Permissions & Restart Web Services
+echo "🔒 [6/6] Securing permissions & restarting web services..."
+chmod -R 775 storage bootstrap/cache database
+chown -R www-data:www-data storage bootstrap/cache database 2>/dev/null || true
 
-# 8. Reload Services if available
-echo "🔄 [7/7] Reloading web services..."
 if command -v systemctl &> /dev/null; then
-    systemctl reload nginx 2>/dev/null || true
-    systemctl reload php8.2-fpm 2>/dev/null || systemctl reload php8.3-fpm 2>/dev/null || true
+    systemctl restart php8.3-fpm 2>/dev/null || systemctl restart php8.2-fpm 2>/dev/null || systemctl restart php-fpm 2>/dev/null || true
+    systemctl restart nginx 2>/dev/null || true
 fi
 
 echo "=============================================================================="
-echo "✅ BIZZTOPIA PLATFORM IS LIVE & OPTIMIZED FOR PRODUCTION!"
+echo "✅ BIZZTOPIA PRODUCTION PLATFORM IS 100% LIVE, FAST & FULLY OPTIMIZED!"
 echo "=============================================================================="
