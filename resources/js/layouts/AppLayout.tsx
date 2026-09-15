@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, usePage, router, useForm } from '@inertiajs/react';
 import { subcategoriesData } from '@/data/subcategories';
+import { AuthModal } from '@/components/ui/AuthModal';
 import { 
     BookOpen, 
     Sparkles, 
@@ -40,7 +41,8 @@ import {
     ArrowRight,
     CheckCircle2,
     Rocket,
-    ChevronDown
+    ChevronDown,
+    LogOut
 } from 'lucide-react';
 
 interface AppLayoutProps {
@@ -50,7 +52,7 @@ interface AppLayoutProps {
 
 export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     const { url, props } = usePage();
-    const { flash } = props as any;
+    const { flash, auth } = props as any;
 
     const { data, setData, post, processing, errors, reset, wasSuccessful } = useForm({
         email: '',
@@ -64,6 +66,23 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
     const [selectedLanguage, setSelectedLanguage] = useState('English');
     const [isLangOpen, setIsLangOpen] = useState(false);
     const [isCityOpen, setIsCityOpen] = useState(false);
+
+    // Auth Modal States
+    const [authModalOpen, setAuthModalOpen] = useState(false);
+    const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
+    const [authNotice, setAuthNotice] = useState<string | undefined>(undefined);
+    const [userMenuOpen, setUserMenuOpen] = useState(false);
+
+    // Global listener so any button or form can trigger the Auth Modal popup
+    useEffect(() => {
+        const handleOpenAuth = (e: any) => {
+            if (e.detail?.mode) setAuthModalMode(e.detail.mode);
+            if (e.detail?.notice) setAuthNotice(e.detail.notice);
+            setAuthModalOpen(true);
+        };
+        window.addEventListener('open-auth-modal', handleOpenAuth);
+        return () => window.removeEventListener('open-auth-modal', handleOpenAuth);
+    }, []);
 
     const handleSearch = (e: React.FormEvent) => {
         e.preventDefault();
@@ -232,8 +251,84 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                         <Link href="/write-a-review" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline">Write a Review</Link>
                         <Link href="/for-consumers" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline mr-2">Bizztopia for Consumers</Link>
                         <Link href="/for-business" prefetch className="hover:text-[#287FBA] transition-colors hidden lg:inline">Bizztopia for Business</Link>
-                        <Link href="/login" prefetch className="px-3 py-1.5 rounded-lg border border-white hover:bg-white/10 transition-colors">Log In</Link>
-                        <Link href="/register" prefetch className="px-3 py-1.5 rounded-lg bg-[#287FBA] hover:bg-[#0B4778] text-white transition-colors">Sign Up</Link>
+                        
+                        {auth?.user ? (
+                            <div className="relative">
+                                <button
+                                    type="button"
+                                    onClick={() => setUserMenuOpen(!userMenuOpen)}
+                                    className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 transition-all cursor-pointer text-xs font-bold text-white"
+                                >
+                                    <div className="w-6 h-6 rounded-full bg-[#287FBA] flex items-center justify-center font-bold text-white text-[11px] uppercase shadow-xs">
+                                        {auth.user.name?.charAt(0) || 'U'}
+                                    </div>
+                                    <span className="max-w-[100px] truncate">{auth.user.name}</span>
+                                    <ChevronDown className="w-3.5 h-3.5 text-slate-300" />
+                                </button>
+                                
+                                {userMenuOpen && (
+                                    <div 
+                                        className="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-slate-200 py-2 z-50 text-xs font-semibold text-slate-700 animate-in fade-in slide-in-from-top-1"
+                                        onMouseLeave={() => setUserMenuOpen(false)}
+                                    >
+                                        <div className="px-3.5 py-2 border-b border-slate-100">
+                                            <p className="font-extrabold text-slate-900 text-xs truncate">{auth.user.name}</p>
+                                            <p className="text-[10px] text-slate-400 font-medium truncate">{auth.user.email}</p>
+                                        </div>
+                                        <Link 
+                                            href="/for-business" 
+                                            onClick={() => setUserMenuOpen(false)} 
+                                            className="block px-3.5 py-2 hover:bg-slate-50 hover:text-[#287FBA]"
+                                        >
+                                            Business Hub
+                                        </Link>
+                                        <Link 
+                                            href="/write-a-review" 
+                                            onClick={() => setUserMenuOpen(false)} 
+                                            className="block px-3.5 py-2 hover:bg-slate-50 hover:text-[#287FBA]"
+                                        >
+                                            Write a Review
+                                        </Link>
+                                        <button
+                                            type="button"
+                                            onClick={() => {
+                                                setUserMenuOpen(false);
+                                                router.post('/logout');
+                                            }}
+                                            className="w-full text-left px-3.5 py-2 hover:bg-red-50 hover:text-red-600 text-red-500 font-bold border-t border-slate-100 mt-1 cursor-pointer flex items-center gap-1.5"
+                                        >
+                                            <LogOut className="w-3.5 h-3.5" />
+                                            <span>Log Out</span>
+                                        </button>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <>
+                                <button 
+                                    type="button"
+                                    onClick={() => {
+                                        setAuthModalMode('login');
+                                        setAuthNotice(undefined);
+                                        setAuthModalOpen(true);
+                                    }}
+                                    className="px-3 py-1.5 rounded-lg border border-white hover:bg-white/10 transition-colors cursor-pointer"
+                                >
+                                    Log In
+                                </button>
+                                <button 
+                                    type="button"
+                                    onClick={() => {
+                                        setAuthModalMode('register');
+                                        setAuthNotice(undefined);
+                                        setAuthModalOpen(true);
+                                    }}
+                                    className="px-3 py-1.5 rounded-lg bg-[#287FBA] hover:bg-[#0B4778] text-white transition-colors cursor-pointer"
+                                >
+                                    Sign Up
+                                </button>
+                            </>
+                        )}
                         
                         {/* Mobile Menu Button */}
                         <button 
@@ -326,8 +421,49 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                             <Link href="/write-a-review" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Write a Review</Link>
                             <Link href="/for-consumers" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Consumers</Link>
                             <Link href="/for-business" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Bizztopia for Business</Link>
-                            <Link href="/login" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Log In</Link>
-                            <Link href="/register" prefetch className="block text-sm font-bold text-slate-200 hover:text-white">Sign Up</Link>
+                            
+                            {auth?.user ? (
+                                <div className="pt-2 border-t border-white/10 space-y-2">
+                                    <div className="text-xs text-blue-200 font-bold">
+                                        Signed in as {auth.user.name}
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => router.post('/logout')}
+                                        className="w-full text-left text-sm font-bold text-red-300 hover:text-red-200 flex items-center gap-1.5 cursor-pointer py-1"
+                                    >
+                                        <LogOut className="w-4 h-4" />
+                                        <span>Log Out</span>
+                                    </button>
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
+                                    <button 
+                                        type="button"
+                                        onClick={() => {
+                                            setMobileMenuOpen(false);
+                                            setAuthModalMode('login');
+                                            setAuthNotice(undefined);
+                                            setAuthModalOpen(true);
+                                        }}
+                                        className="w-full py-2 text-center rounded-xl border border-white/30 text-white font-bold text-xs"
+                                    >
+                                        Log In
+                                    </button>
+                                    <button 
+                                        type="button"
+                                        onClick={() => {
+                                            setMobileMenuOpen(false);
+                                            setAuthModalMode('register');
+                                            setAuthNotice(undefined);
+                                            setAuthModalOpen(true);
+                                        }}
+                                        className="w-full py-2 text-center rounded-xl bg-[#287FBA] text-white font-bold text-xs"
+                                    >
+                                        Sign Up
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 )}
@@ -738,6 +874,17 @@ export const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
                     </div>
                 </div>
             )}
+
+            {/* Global Auth Modal for Log In & Sign Up */}
+            <AuthModal
+                isOpen={authModalOpen}
+                onClose={() => {
+                    setAuthModalOpen(false);
+                    setAuthNotice(undefined);
+                }}
+                initialMode={authModalMode}
+                noticeMessage={authNotice}
+            />
         </div>
         </>
     );

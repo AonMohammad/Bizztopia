@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Head, Link, router } from '@inertiajs/react';
+import { Head, Link, router, usePage } from '@inertiajs/react';
 import { AppLayout } from '@/layouts/AppLayout';
-import { Star, Search, MapPin, CheckCircle2, ChevronRight, PenTool, ShieldAlert } from 'lucide-react';
+import { Star, Search, MapPin, CheckCircle2, ChevronRight, PenTool, ShieldAlert, UserCheck, LogIn } from 'lucide-react';
 
 export default function WriteReview() {
+    const { props } = usePage();
+    const { auth } = props as any;
+
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedBiz, setSelectedBiz] = useState<any | null>(null);
     const [rating, setRating] = useState(0);
@@ -11,6 +14,7 @@ export default function WriteReview() {
     const [reviewText, setReviewText] = useState('');
     const [authorName, setAuthorName] = useState('');
     const [reviewSubmitted, setReviewSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     const mockBusinesses = [
         { id: 1, name: 'Sarah Jenkins Catering', category: 'Restaurants & Catering', location: 'San Francisco, CA', img: 'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=150&q=80' },
@@ -26,15 +30,37 @@ export default function WriteReview() {
         b.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const openAuthModal = (mode: 'login' | 'register' = 'login') => {
+        window.dispatchEvent(new CustomEvent('open-auth-modal', {
+            detail: {
+                mode,
+                notice: selectedBiz ? `Log in or sign up to verify and post your review for ${selectedBiz.name}` : 'Log in to write a verified customer review'
+            }
+        }));
+    };
+
     const handleReviewSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        
+        // If user is not logged in and didn't provide a name, prompt auth modal
+        if (!auth?.user && !authorName.trim()) {
+            openAuthModal('login');
+            return;
+        }
+
+        setIsSubmitting(true);
         router.post('/reviews/submit', {
             business_name: selectedBiz?.name || 'Verified Partner',
-            author_name: authorName || 'Verified Reviewer',
+            author_name: auth?.user?.name || authorName.trim() || 'Verified Reviewer',
+            reviewer_name: auth?.user?.name || authorName.trim() || 'Verified Reviewer',
+            service_category: selectedBiz?.category || 'General Services',
+            title: `Customer Review for ${selectedBiz?.name || 'Verified Partner'}`,
             rating: rating || 5,
             review_body: reviewText
         }, {
+            preserveScroll: true,
             onSuccess: () => {
+                setIsSubmitting(false);
                 setReviewSubmitted(true);
                 setTimeout(() => {
                     setReviewSubmitted(false);
@@ -43,6 +69,9 @@ export default function WriteReview() {
                     setReviewText('');
                     setAuthorName('');
                 }, 3000);
+            },
+            onError: () => {
+                setIsSubmitting(false);
             }
         });
     };
@@ -189,14 +218,72 @@ export default function WriteReview() {
                                             />
                                         </div>
 
+                                        {/* Reviewer Identity Section */}
+                                        {auth?.user ? (
+                                            <div className="bg-blue-50/70 border border-blue-200/80 rounded-2xl p-4 flex items-center justify-between gap-3">
+                                                <div className="flex items-center gap-3">
+                                                    <div className="w-10 h-10 rounded-full bg-[#287FBA] text-white flex items-center justify-center font-bold text-sm uppercase shadow-xs">
+                                                        {auth.user.name?.charAt(0) || 'U'}
+                                                    </div>
+                                                    <div>
+                                                        <div className="flex items-center gap-1.5">
+                                                            <span className="text-xs font-black text-slate-900">{auth.user.name}</span>
+                                                            <span className="bg-emerald-100 text-emerald-800 text-[10px] font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1">
+                                                                <UserCheck className="w-3 h-3" /> Verified Reviewer
+                                                            </span>
+                                                        </div>
+                                                        <span className="text-[11px] text-slate-500 font-medium">{auth.user.email}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-3">
+                                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 pb-3">
+                                                    <div className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                                                        <LogIn className="w-4 h-4 text-[#287FBA]" />
+                                                        <span>Want your review verified instantly?</span>
+                                                    </div>
+                                                    <div className="flex items-center gap-2">
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => openAuthModal('login')}
+                                                            className="text-xs font-extrabold text-[#287FBA] hover:underline cursor-pointer"
+                                                        >
+                                                            Log In
+                                                        </button>
+                                                        <span className="text-slate-300">|</span>
+                                                        <button 
+                                                            type="button" 
+                                                            onClick={() => openAuthModal('register')}
+                                                            className="text-xs font-extrabold text-[#287FBA] hover:underline cursor-pointer"
+                                                        >
+                                                            Sign Up
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div className="space-y-1">
+                                                    <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest block font-bold">
+                                                        Your Full Name / Display Name
+                                                    </label>
+                                                    <input 
+                                                        type="text" 
+                                                        placeholder="e.g. Alex Henderson" 
+                                                        value={authorName}
+                                                        onChange={(e) => setAuthorName(e.target.value)}
+                                                        className="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                                    />
+                                                </div>
+                                            </div>
+                                        )}
+
                                         {/* Buttons */}
                                         <div className="flex items-center gap-4 pt-2">
                                             <button 
                                                 type="submit" 
-                                                disabled={rating === 0}
-                                                className="bg-[#287FBA] hover:bg-[#0B4778] disabled:bg-slate-200 disabled:cursor-not-allowed text-white font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-md transition-colors cursor-pointer font-bold"
+                                                disabled={rating === 0 || isSubmitting}
+                                                className="bg-[#287FBA] hover:bg-[#0B4778] disabled:bg-slate-200 disabled:cursor-not-allowed text-white font-extrabold text-xs px-6 py-3.5 rounded-xl shadow-md transition-colors cursor-pointer font-bold flex items-center gap-2"
                                             >
-                                                Post Review
+                                                {isSubmitting ? 'Submitting...' : 'Post Review'}
                                             </button>
                                             <button 
                                                 type="button" 

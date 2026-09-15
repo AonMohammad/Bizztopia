@@ -1,20 +1,22 @@
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { AppLayout } from '@/layouts/AppLayout';
-import { ShieldCheck, Lock, Mail, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [remember, setRemember] = useState(false);
-    const [submitted, setSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const { data, setData, post, processing, errors } = useForm({
+        email: '',
+        password: '',
+        remember: true,
+    });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => {
-            window.location.href = '/ideas';
-        }, 1200);
+        post('/login', {
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -48,77 +50,87 @@ export default function Login() {
                             </p>
                         </div>
 
-                        {!submitted ? (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
-                                        Email Address
-                                    </label>
-                                    <div className="relative">
-                                        <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                        <input 
-                                            type="email" 
-                                            required
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="you@company.com"
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-1.5">
-                                    <div className="flex justify-between items-center text-xs">
-                                        <label className="font-black uppercase tracking-wider text-slate-700">
-                                            Password
-                                        </label>
-                                        <a href="#forgot" className="text-[#287FBA] hover:underline font-bold text-[11px]">
-                                            Forgot password?
-                                        </a>
-                                    </div>
-                                    <div className="relative">
-                                        <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                        <input 
-                                            type="password" 
-                                            required
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder="••••••••"
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="flex items-center gap-2 pt-1">
-                                    <input 
-                                        type="checkbox" 
-                                        id="remember"
-                                        checked={remember}
-                                        onChange={(e) => setRemember(e.target.checked)}
-                                        className="w-4 h-4 rounded text-[#287FBA] focus:ring-[#287FBA]"
-                                    />
-                                    <label htmlFor="remember" className="text-xs font-bold text-slate-600 cursor-pointer">
-                                        Keep me signed in on this device
-                                    </label>
-                                </div>
-
-                                <button 
-                                    type="submit" 
-                                    className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                                >
-                                    <span>Log In</span>
-                                    <ArrowRight className="w-4 h-4" />
-                                </button>
-                            </form>
-                        ) : (
-                            <div className="text-center py-6 space-y-3">
-                                <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
-                                    <CheckCircle2 className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-lg font-black text-slate-950">Logging You In...</h3>
-                                <p className="text-slate-500 text-xs font-medium">Redirecting to your dashboard.</p>
+                        {errors.email && (
+                            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-600">
+                                {errors.email}
                             </div>
                         )}
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                                    Email Address
+                                </label>
+                                <div className="relative">
+                                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type="email" 
+                                        required
+                                        value={data.email}
+                                        onChange={(e) => setData('email', e.target.value)}
+                                        placeholder="you@company.com"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <div className="flex justify-between items-center text-xs">
+                                    <label className="font-black uppercase tracking-wider text-slate-700">
+                                        Password
+                                    </label>
+                                </div>
+                                <div className="relative">
+                                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type={showPassword ? 'text' : 'password'} 
+                                        required
+                                        value={data.password}
+                                        onChange={(e) => setData('password', e.target.value)}
+                                        placeholder="••••••••"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-10 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                    />
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                    >
+                                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="flex items-center gap-2 pt-1">
+                                <input 
+                                    type="checkbox" 
+                                    id="remember"
+                                    checked={data.remember}
+                                    onChange={(e) => setData('remember', e.target.checked)}
+                                    className="w-4 h-4 rounded text-[#287FBA] focus:ring-[#287FBA]"
+                                />
+                                <label htmlFor="remember" className="text-xs font-bold text-slate-600 cursor-pointer">
+                                    Keep me signed in on this device
+                                </label>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                disabled={processing}
+                                className="w-full bg-[#287FBA] hover:bg-[#0B4778] disabled:opacity-75 text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                            >
+                                {processing ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        <span>Logging in...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>Log In</span>
+                                        <ArrowRight className="w-4 h-4" />
+                                    </>
+                                )}
+                            </button>
+                        </form>
 
                         <div className="pt-2 border-t border-slate-100 text-center text-xs font-medium text-slate-500">
                             Don't have an account yet?{' '}

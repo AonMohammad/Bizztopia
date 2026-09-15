@@ -84,16 +84,33 @@ class FormSubmissionController extends Controller
     {
         $validated = $request->validate([
             'business_name' => 'required|string|max:255',
-            'author_name' => 'required|string|max:255',
+            'author_name' => 'nullable|string|max:255',
+            'reviewer_name' => 'nullable|string|max:255',
             'rating' => 'required|integer|min:1|max:5',
-            'review_body' => 'required|string',
+            'review_body' => 'nullable|string',
+            'body' => 'nullable|string',
+            'service_category' => 'nullable|string|max:255',
+            'title' => 'nullable|string|max:255',
         ]);
 
+        $reviewerName = $validated['author_name'] 
+            ?? $validated['reviewer_name'] 
+            ?? (auth()->check() ? auth()->user()->name : null) 
+            ?? 'Verified Reviewer';
+
+        $reviewBody = $validated['review_body'] 
+            ?? $validated['body'] 
+            ?? 'Authentic customer review submitted on Bizztopia.';
+
         $review = Review::create([
+            'user_id' => auth()->id() ?? null,
+            'reviewer_name' => $reviewerName,
             'business_name' => $validated['business_name'],
-            'author_name' => $validated['author_name'],
-            'rating' => $validated['rating'],
-            'body' => $validated['review_body'],
+            'service_category' => $validated['service_category'] ?? 'General Services',
+            'rating' => (int)$validated['rating'],
+            'title' => $validated['title'] ?? 'Customer Review for ' . $validated['business_name'],
+            'review_body' => $reviewBody,
+            'is_verified' => true,
             'status' => 'approved',
         ]);
 

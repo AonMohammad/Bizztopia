@@ -1,22 +1,26 @@
 import React, { useState } from 'react';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, useForm } from '@inertiajs/react';
 import { AppLayout } from '@/layouts/AppLayout';
-import { ShieldCheck, Lock, Mail, User, Building2, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, User, Building2, ArrowRight, Loader2, Eye, EyeOff } from 'lucide-react';
 
 export default function Register() {
     const [accountType, setAccountType] = useState<'consumer' | 'business'>('business');
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [bizName, setBizName] = useState('');
-    const [submitted, setSubmitted] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+
+    const { data, setData, post, processing, errors } = useForm({
+        name: '',
+        email: '',
+        password: '',
+        role: 'business_owner',
+        business_name: '',
+    });
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => {
-            window.location.href = accountType === 'business' ? '/value' : '/for-consumers';
-        }, 1200);
+        data.role = accountType === 'business' ? 'business_owner' : 'consumer';
+        post('/register', {
+            preserveScroll: true,
+        });
     };
 
     return (
@@ -54,7 +58,10 @@ export default function Register() {
                         <div className="grid grid-cols-2 gap-2 p-1 bg-slate-100 rounded-2xl border border-slate-200">
                             <button 
                                 type="button"
-                                onClick={() => setAccountType('business')}
+                                onClick={() => {
+                                    setAccountType('business');
+                                    setData('role', 'business_owner');
+                                }}
                                 className={`py-2 px-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                                     accountType === 'business' ? 'bg-[#287FBA] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                                 }`}
@@ -64,7 +71,10 @@ export default function Register() {
                             </button>
                             <button 
                                 type="button"
-                                onClick={() => setAccountType('consumer')}
+                                onClick={() => {
+                                    setAccountType('consumer');
+                                    setData('role', 'consumer');
+                                }}
                                 className={`py-2 px-3 rounded-xl text-xs font-black transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
                                     accountType === 'consumer' ? 'bg-[#287FBA] text-white shadow-xs' : 'text-slate-600 hover:text-slate-900'
                                 }`}
@@ -74,95 +84,107 @@ export default function Register() {
                             </button>
                         </div>
 
-                        {!submitted ? (
-                            <form onSubmit={handleSubmit} className="space-y-4">
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
-                                        Your Full Name
-                                    </label>
-                                    <div className="relative">
-                                        <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                        <input 
-                                            type="text" 
-                                            required
-                                            value={name}
-                                            onChange={(e) => setName(e.target.value)}
-                                            placeholder="Marcus Vance"
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                        />
-                                    </div>
-                                </div>
-
-                                {accountType === 'business' && (
-                                    <div className="space-y-1.5">
-                                        <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
-                                            Business or Trade Name
-                                        </label>
-                                        <div className="relative">
-                                            <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                            <input 
-                                                type="text" 
-                                                required
-                                                value={bizName}
-                                                onChange={(e) => setBizName(e.target.value)}
-                                                placeholder="Apex Commercial Services LLC"
-                                                className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                            />
-                                        </div>
-                                    </div>
-                                )}
-
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
-                                        Email Address
-                                    </label>
-                                    <div className="relative">
-                                        <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                        <input 
-                                            type="email" 
-                                            required
-                                            value={email}
-                                            onChange={(e) => setEmail(e.target.value)}
-                                            placeholder="you@domain.com"
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-1.5">
-                                    <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
-                                        Create Password
-                                    </label>
-                                    <div className="relative">
-                                        <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                                        <input 
-                                            type="password" 
-                                            required
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
-                                            placeholder="At least 8 characters"
-                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
-                                        />
-                                    </div>
-                                </div>
-
-                                <button 
-                                    type="submit" 
-                                    className="w-full bg-[#287FBA] hover:bg-[#0B4778] text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
-                                >
-                                    <span>Create Free Account</span>
-                                    <ArrowRight className="w-4 h-4" />
-                                </button>
-                            </form>
-                        ) : (
-                            <div className="text-center py-6 space-y-3">
-                                <div className="w-12 h-12 rounded-full bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto">
-                                    <CheckCircle2 className="w-6 h-6" />
-                                </div>
-                                <h3 className="text-lg font-black text-slate-950">Account Created!</h3>
-                                <p className="text-slate-500 text-xs font-medium">Setting up your profile workspace...</p>
+                        {errors.email && (
+                            <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-bold text-red-600">
+                                {errors.email}
                             </div>
                         )}
+
+                        <form onSubmit={handleSubmit} className="space-y-4">
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                                    Your Full Name
+                                </label>
+                                <div className="relative">
+                                    <User className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type="text" 
+                                        required
+                                        value={data.name}
+                                        onChange={(e) => setData('name', e.target.value)}
+                                        placeholder="Marcus Vance"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                    />
+                                </div>
+                            </div>
+
+                            {accountType === 'business' && (
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                                        Business or Trade Name
+                                    </label>
+                                    <div className="relative">
+                                        <Building2 className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                        <input 
+                                            type="text" 
+                                            value={data.business_name}
+                                            onChange={(e) => setData('business_name', e.target.value)}
+                                            placeholder="Apex Commercial Services LLC"
+                                            className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                        />
+                                    </div>
+                                </div>
+                            )}
+
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                                    Email Address
+                                </label>
+                                <div className="relative">
+                                    <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type="email" 
+                                        required
+                                        value={data.email}
+                                        onChange={(e) => setData('email', e.target.value)}
+                                        placeholder="you@domain.com"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                                <label className="text-xs font-black uppercase tracking-wider text-slate-700 block">
+                                    Create Password
+                                </label>
+                                <div className="relative">
+                                    <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                                    <input 
+                                        type={showPassword ? 'text' : 'password'} 
+                                        required
+                                        value={data.password}
+                                        onChange={(e) => setData('password', e.target.value)}
+                                        placeholder="At least 6 characters"
+                                        className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-10 pr-10 py-3 text-xs font-bold text-slate-900 focus:outline-none focus:border-[#287FBA]"
+                                    />
+                                    <button 
+                                        type="button" 
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+                                    >
+                                        {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                                    </button>
+                                </div>
+                            </div>
+
+                            <button 
+                                type="submit" 
+                                disabled={processing}
+                                className="w-full bg-[#287FBA] hover:bg-[#0B4778] disabled:opacity-75 text-white py-3.5 rounded-xl font-black text-xs uppercase tracking-wider transition-all shadow-md cursor-pointer flex items-center justify-center gap-2"
+                            >
+                                {processing ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 animate-spin" />
+                                        <span>Creating Account...</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        <span>Create Free Account</span>
+                                        <ArrowRight className="w-4 h-4" />
+                                    </>
+                                )}
+                            </button>
+                        </form>
 
                         <div className="pt-2 border-t border-slate-100 text-center text-xs font-medium text-slate-500">
                             Already have an account?{' '}
