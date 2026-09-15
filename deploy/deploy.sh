@@ -40,12 +40,6 @@ touch database/database.sqlite
 sqlite3 database/database.sqlite "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000; PRAGMA synchronous=NORMAL;" 2>/dev/null || true
 php artisan migrate --force 2>/dev/null || true
 
-# Tune PHP-FPM Pool Workers for High Traffic
-sed -i 's/^pm.max_children = .*/pm.max_children = 30/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
-sed -i 's/^pm.start_servers = .*/pm.start_servers = 6/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
-sed -i 's/^pm.min_spare_servers = .*/pm.min_spare_servers = 4/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
-sed -i 's/^pm.max_spare_servers = .*/pm.max_spare_servers = 12/' /etc/php/8.3/fpm/pool.d/www.conf 2>/dev/null || true
-
 # 5. Clean Caches & Compile Laravel In-Memory Routes & Configs
 echo "⚡ [5/6] Compiling Laravel route and configuration caches into RAM..."
 rm -f public/hot
