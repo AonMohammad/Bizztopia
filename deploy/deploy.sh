@@ -45,15 +45,18 @@ sed -i 's/^APP_ENV=.*/APP_ENV=production/' .env 2>/dev/null || true
 sed -i 's/^APP_DEBUG=.*/APP_DEBUG=false/' .env 2>/dev/null || true
 sed -i 's|^APP_URL=.*|APP_URL=https://bizztopia.net|' .env 2>/dev/null || true
 sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/bizztopia/database/database.sqlite|' .env 2>/dev/null || true
+sed -i 's/^SESSION_DRIVER=.*/SESSION_DRIVER=file/' .env 2>/dev/null || true
+sed -i 's/^CACHE_STORE=.*/CACHE_STORE=file/' .env 2>/dev/null || true
 
 # 3. Install PHP Dependencies (No Dev)
 echo "📦 [2/6] Installing Composer production dependencies..."
 composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --ignore-platform-reqs
 
 # 4. Storage & Database Setup
-echo "🗄️ [3/6] Setting up database..."
+echo "🗄️ [3/6] Setting up database & high-performance WAL mode..."
 mkdir -p database storage/logs storage/framework/{cache,sessions,views}
 touch database/database.sqlite
+sqlite3 database/database.sqlite "PRAGMA journal_mode=WAL; PRAGMA busy_timeout=5000;" 2>/dev/null || true
 php artisan migrate --force 2>/dev/null || true
 
 # 5. Verify Pre-Compiled Frontend Assets
